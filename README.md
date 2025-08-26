@@ -1,33 +1,22 @@
-# Fire Emblem: Radiant Dawn Plus Spoiler-Free (ehhhh) Checklist
+# Fire Emblem: Radiant Dawn+ Checklist
 
-A specialized checklist tool designed for Fire Emblem: Radiant Dawn+, featuring comprehensive game content with built-in spoiler protection. Track items, characters, missables, and progress.
-
-## Features
-
-- **🎯 Complete Fire Emblem: Radiant Dawn Coverage** - The first two acts with detailed item, character, and missable tracking
-- **🔒 Built-in Spoiler Protection** - Click-to-reveal spoilers for character names, classes, items, and locations
-- **📊 Progress Tracking** - Visual completion statistics and filtering options
-- **🎮 Game-Specific Content** - Automatically loads comprehensive FE:Radiant Dawn checklist
-- **📱 Mobile-Friendly** - Responsive design that works on all devices
-- **👥 Multiple Profiles** - Manage different playthroughs or checklist versions
-- **💾 Import/Export** - Backup and share your checklists
-- **🔗 Rich Content** - Support for links, different item types, and nested categories
-- **⚡ Fast Loading** - Optimized for quick access to game information
+A community-created checklist tool for Fire Emblem: Radiant Dawn+ from Gallade and Kalen with edits thanks to Windward. Track items, characters, and missables without spoiilers.
 
 ## How to Use
 
-### Getting Started with Fire Emblem: Radiant Dawn
+### Getting Started with Fire Emblem: Radiant Dawn+
 
 1. **Automatic Setup**
 
-   - The tool automatically loads the complete Fire Emblem: Radiant Dawn checklist when you first visit
-   - Character names, classes, and key items are hidden behind spoiler protection
+   - The tool automatically loads the complete Fire Emblem: Radiant Dawn+ Community Edit checklist when you first visit
+   - Character names, classes, and key items are hidden behind community-enhanced spoiler protection
    - Click on `???` boxes to reveal hidden content
 
 2. **Navigate the Checklist**
 
-   - Browse through all three acts: Silver Haired Maiden, Of Countries and Kings, and Intersecting Vows
+   - Browse through all available acts: Silver Haired Maiden (Act I), Of Countries and Kings (Act II), Intersecting Vows (Act III), and Crossroads (Act IV)
    - Use the table of contents to jump to specific chapters
+   - Each chapter includes complete item tracking, character recruitment guides, and missable locations
    - Filter items by type: tasks, missables, special items, story elements
 
 3. **Track Your Progress**
@@ -40,7 +29,7 @@ A specialized checklist tool designed for Fire Emblem: Radiant Dawn+, featuring 
 
    - Character names, classes, and important items are hidden by default
    - Click on any `???` box to reveal the hidden content
-   - Perfect for avoiding spoilers during your playthrough
+   - Use this feature to avoid spoilers during your playthrough
 
 5. **Multiple Playthroughs**
 
@@ -86,7 +75,7 @@ Hide sensitive content with double pipes:
 You can add links to your checklist items using markdown format:
 
 ```
-- ::task:: Check the [project documentation](https://example.com/docs)
+- ::task:: Check the [character recruitment guide](https://example.com/characters)
 ```
 
 This will render as a clickable link that opens in a new tab.
@@ -115,18 +104,17 @@ This will render as a clickable link that opens in a new tab.
   - ::missable:: 1 ||Beastfoe|| (1 left, 1 down from top left healing jar)
 ```
 
-### Generic Example
+### Custom Checklist Example
 
 ```
-# Shopping List
-- ::task:: Buy groceries
-  - ::task:: Milk
-  - ::task:: Eggs
-  - ::missable:: Fresh bread (expires soon!)
-# Work Tasks
-- ::task:: Complete project report
-- ::missable:: Submit timesheet by Friday
-- ::task:: Review [company guidelines](https://example.com/guidelines)
+# Chapter 1 - Village Defense
+- ::task:: Complete main objectives
+  - ::task:: Defeat all enemies
+  - ::task:: Protect villagers
+- ::item_uncommon:: ||Iron Sword|| (from defeated soldier)
+- ::missable:: Rescue villagers before they are defeated
+- ::item_story:: ||New Character|| joins after chapter
+- ::task:: Visit [strategy guide](https://example.com/strategy) for more tips
 ```
 
 ## Schema for AI-Generated Checklists
@@ -147,16 +135,16 @@ Create a checklist using this format:
 6. Links can be added using markdown format: [Link text](https://example.com)
 
 Example:
-# Shopping List
-- ::task:: Buy groceries
-  - ::task:: Milk
-  - ::task:: Eggs
-  - ::missable:: Fresh bread (expires soon!)
-# Work Tasks
-- ::task:: Complete project report
-- ::missable:: Submit timesheet by Friday
-- ::task:: Check [company policy](https://example.com/policy)
-- ::task:: Meet the new ||secret employee|| in the ||hidden office||
+# Chapter Objectives
+- ::task:: Complete main story objectives
+  - ::task:: Defeat all enemies
+  - ::task:: Protect key characters
+  - ::missable:: Collect items before chapter ends
+# Extra Objectives
+- ::task:: Complete side quests
+- ::missable:: Find hidden treasure before chapter ends
+- ::task:: Check [character guide](https://example.com/characters) for recruitment tips
+- ::task:: Meet the new ||secret character|| in the ||hidden location||
 
 Convert the following list into a properly formatted checklist:
 [YOUR LIST HERE]
@@ -164,37 +152,29 @@ Convert the following list into a properly formatted checklist:
 
 ## Fire Emblem: Radiant Dawn Content Coverage
 
-This checklist includes comprehensive coverage of:
+This checklist includes coverage of:
 
-### **📖 Complete Game Coverage**
+### Complete Game Coverage
 
-- **Act I: Silver Haired Maiden** - All 9 chapters + prologue and endgame
-- **Act II: Of Countries and Kings** - All 3 chapters + prologue and endgame
-- **Act III: Intersecting Vows** - Prologue (more content coming)
+- Act I: Silver Haired Maiden - All chapters
+- Act II: Of Countries and Kings - All chapters
+- Act III: Intersecting Vows - Coverage to come
+- Act IV: Crossroads - Coverage to come
 
-### **🎯 What's Tracked**
+### Spoiler Protection
 
-- ✅ **Items**: Weapons, tomes, scrolls, consumables, and rare treasures
-- ✅ **Characters**: All recruitable units with classes and levels
-- ✅ **Missables**: Hidden items, conversations, and bonus objectives
-- ✅ **Bosses**: Enemy information and strategies
-- ✅ **Locations**: Chapter objectives and key areas
-- ✅ **Progression**: Level-ups, skill acquisition, and base management
-
-### **🔒 Comprehensive Spoiler Protection**
-
-- **All character names** are hidden by default
-- **All class names and promotions** are protected
-- **Special weapon names** (Wind Edge, Wo Dao, Beastfoe, etc.)
-- **Rare item names** (Thani, Red Gem, Paragon Skill, etc.)
-- **Stat-boosting items** (Energy Drop, Speedwing, Talisman, etc.)
-- **Skill-teaching items** (Arms Scroll, Discipline Scroll, etc.)
-- **Special equipment** (Brave Sword, Silver Axe, Dracoshield, etc.)
-- **Boss names and locations** are concealed
-- **Conversation-specific items** are protected
+- All character names are hidden by default
+- All class names and promotions are protected
+- Special weapon names (Wind Edge, Wo Dao, Beastfoe, etc.)
+- Rare item names (Thani, Red Gem, Paragon Skill, etc.)
+- Stat-boosting items (Energy Drop, Speedwing, Talisman, etc.)
+- Skill-teaching items (Arms Scroll, Discipline Scroll, etc.)
+- Special equipment (Brave Sword, Silver Axe, Dracoshield, etc.)
+- Boss names and locations are concealed
+- Conversation-specific items are protected
 - Click any `???` to reveal when ready
 
-### **📊 Progress Tracking**
+### Progress Tracking
 
 - Visual completion statistics
 - Chapter-by-chapter progress
@@ -205,12 +185,3 @@ This checklist includes comprehensive coverage of:
 ## Storage
 
 Your checklists are saved in your browser's local storage. They will persist across browser sessions, but clearing your browser data will remove them. Use the Export/Import feature to back up your checklists.
-
-## Browser Compatibility
-
-This tool works best in modern browsers such as:
-
-- Chrome
-- Firefox
-- Edge
-- Safari

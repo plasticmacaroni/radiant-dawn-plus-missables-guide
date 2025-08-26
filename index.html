@@ -3,10 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Custom Checklist Tool</title>
+    <title>Fire Emblem: Radiant Dawn+ Checklist</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A customizable checklist tool to create and manage your own checklists.">
-    <meta name="author" content="Checklist Tool">
+    <meta name="description"
+        content="Comprehensive Fire Emblem: Radiant Dawn+ checklist with spoiler protection, item tracking, and character recruitment guides.">
+    <meta name="author" content="Gallade, Kalen, Windward">
     <link id="bootstrap" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"
         crossorigin="anonymous">
     <!-- icons -->
@@ -42,29 +43,29 @@
         </div>
     </nav>
 
-    <h1 class="text-center">Custom Checklist Tool</h1>
+    <h1 class="text-center">Fire Emblem: Radiant Dawn+</h1>
     <div class="container">
         <div class="btn btn-primary" type="button" data-toggle="collapse" data-target="#intro" aria-expanded="false"
             aria-controls="intro">About This Tool</div>
         <div id="intro" class="collapse">
             <p>
-                This is a customizable checklist tool that allows you to create and manage your own checklists.
-                You can create categories and add items to each category. Items can be checked off as you complete them.
+                This is a community-created checklist tool for Fire Emblem: Radiant Dawn+ from Gallade and Kalen with
+                edits thanks to Windward.
+                Includes item tracking, character recruitment guides, missable locations, and spoiler protection.
             </p>
             <p>
-                How to use this tool:
+                Features:
             <ul>
-                <li><i class="bi bi-check2"></i>Go to the "Create/Edit List" tab to create a new checklist or edit an
-                    existing one</li>
-                <li><i class="bi bi-check2"></i>Create categories and add items to each category</li>
-                <li><i class="bi bi-check2"></i>Return to the "Checklist" tab to view and check off items as you
-                    complete them</li>
-                <li><i class="bi bi-check2"></i>Use the profile selector at the top right to manage multiple checklists
-                </li>
+                <li><i class="bi bi-shield-check"></i>Coverage of Acts I-III with item and character information</li>
+                <li><i class="bi bi-eye-slash"></i>Click-to-reveal spoiler protection for character names, classes, and
+                    items</li>
+                <li><i class="bi bi-map"></i>Locations for hidden items and missables</li>
+                <li><i class="bi bi-people"></i>Recruitment guides for characters</li>
+                <li><i class="bi bi-trophy"></i>Progress tracking with completion statistics</li>
             </ul>
             </p>
             <p>
-                Item types you can use:
+                Item types:
             <ul>
                 <li><i class="bi bi-clipboard-check"></i> Task - Use ::task:: prefix</li>
                 <li><i class="bi bi-stopwatch text-danger"></i> Urgent Task - Use ::missable:: prefix</li>
@@ -93,15 +94,18 @@
                 <h3 id="Getting_Started"><a href="#" data-toggle="collapse" data-parent="#tabPlaythrough"
                         class="btn btn-primary btn-collapse btn-sm"></a><a href="#">Getting Started</a></h3>
                 <ul class="panel-collapse collapse in">
-                    <li data-id="playthrough_welcome_to_tool"><i class="bi bi-clipboard-check"></i>Welcome to the Custom
-                        Checklist Tool! Create your first checklist by going to the "Create/Edit List" tab.</li>
+                    <li data-id="playthrough_welcome_to_tool"><i class="bi bi-clipboard-check"></i>This is the Fire
+                        Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with
+                        spoiler protection.</li>
                 </ul>
             </div>
 
             <div class="tab-pane" id="tabCreate">
-                <h2>Create/Edit Your Checklist</h2>
+                <h2>Create/Edit Custom Checklists</h2>
                 <div class="alert alert-info">
-                    <p>Enter your checklist content below. Use the following format:</p>
+                    <p><strong>Note:</strong> The main Fire Emblem: Radiant Dawn+ checklist is automatically loaded in
+                        the Checklist tab. Use this tab to create additional checklists.</p>
+                    <p>When creating custom checklists, use the following format:</p>
                     <p><code># Category Name</code> - Creates a new category</p>
                     <p><code>- Item text</code> - Creates a new item (defaults to task if no prefix)</p>
                     <p>Use item prefixes like <code>::task::</code>, <code>::missable::</code>,
@@ -112,22 +116,14 @@
                     <p>You can add links using markdown format: <code>[Link text](https://example.com)</code></p>
                     <p>You can hide spoilers using double pipes: <code>||spoiler text||</code></p>
                     <p>Example:</p>
-                    <pre># Example Category
-- ::task:: Regular task item
-- ::missable:: Urgent task item
-- ::item_uncommon:: Special item
-- ::item_story:: Important note
-- ::task:: Task with [link to example](https://example.com)
+                    <pre># Prologue - Chapter Name
+- ::task:: Complete main objectives
+  - ::missable:: Recruit character before turn limit
+- ::item_uncommon:: ||Special Weapon|| (from enemy)
+- ::item_story:: ||Character Name|| (Level 10 ||Class Name||)
 - ::task:: Find the hidden ||secret item|| in the dungeon
 
-# Shopping List
-- ::task:: Buy groceries
-  - ::task:: Milk
-  - ::task:: Eggs
-  - ::missable:: Fresh bread (expires soon!)
-# Work Tasks
-- ::task:: Complete project report
-- ::missable:: Submit timesheet by Friday</pre>
+- ::task:: Visit [strategy guide](https://example.com) for more tips</pre>
                 </div>
                 <textarea id="checklist-content" style="width: 100%; height: 400px; font-family: monospace;"></textarea>
                 <div class="form-group" style="margin-top: 15px;">
@@ -143,44 +139,52 @@
             <div class="tab-pane" id="tabHelp">
                 <h2>Help</h2>
 
-                <h3>How do I create a checklist?</h3>
+                <h3>How do I use this checklist?</h3>
                 <p>
-                    Go to the "Create/Edit List" tab and enter your checklist content using the format described.
-                    Once you've entered your content, click the "Save Checklist" button to save it.
+                    The tool loads the Fire Emblem: Radiant Dawn+ checklist when you first visit.
+                    Character names, classes, and items are hidden behind spoiler protection (marked as ???).
+                    Click on any ??? box to reveal the hidden content.
                 </p>
 
-                <h3>How do I organize my checklist?</h3>
+                <h3>How do I navigate the checklist?</h3>
                 <p>
-                    Your checklist is organized into categories. Each category can contain multiple items, and items can
-                    have sub-items.
-                    Use the "# Category Name" format to create a new category, and use "- Item text" to create items.
-                    Use indentation (two spaces) to create sub-items.
-                </p>
-
-                <h3>Can I have different item types?</h3>
-                <p>
-                    Yes, you can use different prefixes to create different types of items:
+                    The checklist is organized by game chapters within each act. Use the table of contents to jump to
+                    specific chapters. Items are categorized as:
                 <ul>
-                    <li><code>::task::</code> - Regular task</li>
-                    <li><code>::missable::</code> - Urgent task</li>
-                    <li><code>::item_uncommon::</code> - Special item</li>
-                    <li><code>::item_story::</code> - Important note</li>
+                    <li><strong>Tasks</strong> (::task::) - General objectives and actions</li>
+                    <li><strong>Missables</strong> (::missable::) - Time-sensitive or one-time opportunities</li>
+                    <li><strong>Items</strong> (::item_uncommon::) - Equipment, weapons, and collectibles</li>
+                    <li><strong>Characters</strong> (::item_story::) - Character recruitment and story elements</li>
                 </ul>
                 </p>
 
-                <h3>Can I use multiple checklists?</h3>
+                <h3>What do the different icons mean?</h3>
                 <p>
-                    Yes, you can create and manage multiple checklists using the profile selector at the top right of
-                    the page.
-                    Click "Add" to create a new profile, or "Edit" to rename or delete an existing profile.
+                    The checklist uses specific icons to categorize different types of content:
+                <ul>
+                    <li><i class="bi bi-clipboard-check"></i> <strong>Tasks</strong> (::task::) - Objectives and actions
+                        to complete</li>
+                    <li><i class="bi bi-stopwatch text-danger"></i> <strong>Missables</strong> (::missable::) -
+                        Time-sensitive items and opportunities</li>
+                    <li><i class="bi bi-gem text-success"></i> <strong>Uncommon Items</strong> (::item_uncommon::) -
+                        Equipment, weapons, and collectibles</li>
+                    <li><i class="bi bi-book text-danger"></i> <strong>Story Elements</strong> (::item_story::) -
+                        Characters and important plot points</li>
+                </ul>
                 </p>
 
-                <h3>How does the checklist get saved?</h3>
+                <h3>Can I create custom checklists?</h3>
                 <p>
-                    Your checklist is saved in your browser's local storage. This means it's saved on your device and
-                    not on any server.
-                    If you clear your browser cache, your checklists may be lost. You can use the Export/Import feature
-                    to save your checklists to files.
+                    Yes, this tool includes the Fire Emblem: Radiant Dawn+ checklist and can also
+                    create custom checklists using the "Create/Edit List" tab and the profile selector.
+                    This allows you to track multiple playthroughs or create checklists for other content.
+                </p>
+
+                <h3>How does progress get saved?</h3>
+                <p>
+                    Your progress is automatically saved in your browser's local storage. This means your checked items
+                    and revealed spoilers are preserved between sessions. You can also use the Export/Import feature
+                    to backup your progress or share it with others.
                 </p>
 
                 <h3>How do I add links to my checklist?</h3>

@@ -47,17 +47,17 @@ async function generateTasks() {
       document.getElementById("checklist-content").value = content;
     } else {
       // If checklist.md fails to load, show a default getting started checklist
-      const defaultChecklist = "# Getting Started\n- ::task:: Welcome to the Custom Checklist Tool! Create your first checklist by going to the \"Create/Edit List\" tab.";
+      const defaultChecklist = "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
       processMarkdown(defaultChecklist);
       // Also populate the editor with a starter example
-      document.getElementById("checklist-content").value = "# Example Category\n- ::task:: Regular task item\n- ::missable:: Urgent task item\n- ::item_uncommon:: Special item\n- ::item_story:: Important note\n- ::task:: Task with [link to example](https://example.com)\n\n# Shopping List\n- ::task:: Buy groceries\n  - ::task:: Milk\n  - ::task:: Eggs\n  - ::missable:: Fresh bread (expires soon!)\n\n# Work Tasks\n- ::task:: Complete project report\n- ::missable:: Submit timesheet by Friday\n- ::task:: Check [company policies](https://example.com/policies)";
+      document.getElementById("checklist-content").value = "# Prologue - Chapter Name\n- ::task:: Complete main objectives\n  - ::missable:: Recruit character before turn limit\n- ::item_uncommon:: ||Special Weapon|| (from enemy)\n- ::item_story:: ||Character Name|| (Level 10 ||Class Name||)\n- ::task:: Find the hidden ||secret item|| in the dungeon\n- ::task:: Visit [strategy guide](https://example.com) for more tips";
     }
   } catch (error) {
     console.error('Error in generateTasks:', error);
     // Fallback to default checklist
-    const defaultChecklist = "# Getting Started\n- ::task:: Welcome to the Custom Checklist Tool! Create your first checklist by going to the \"Create/Edit List\" tab.";
+    const defaultChecklist = "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
     processMarkdown(defaultChecklist);
-    document.getElementById("checklist-content").value = "# Example Category\n- ::task:: Regular task item\n- ::missable:: Urgent task item\n- ::item_uncommon:: Special item\n- ::item_story:: Important note\n- ::task:: Task with [link to example](https://example.com)\n\n# Shopping List\n- ::task:: Buy groceries\n  - ::task:: Milk\n  - ::task:: Eggs\n  - ::missable:: Fresh bread (expires soon!)\n\n# Work Tasks\n- ::task:: Complete project report\n- ::missable:: Submit timesheet by Friday\n- ::task:: Check [company policies](https://example.com/policies)";
+    document.getElementById("checklist-content").value = "# Prologue - Chapter Name\n- ::task:: Complete main objectives\n  - ::missable:: Recruit character before turn limit\n- ::item_uncommon:: ||Special Weapon|| (from enemy)\n- ::item_story:: ||Character Name|| (Level 10 ||Class Name||)\n- ::task:: Find the hidden ||secret item|| in the dungeon\n- ::task:: Visit [strategy guide](https://example.com) for more tips";
   }
 }
 
@@ -494,37 +494,46 @@ function calculateTotals() {
 
 // Profile management functions
 
-async function getCurrentProfile() {
-  const profiles = $.jStorage.get(profilesKey, {});
-  const profileId = $.jStorage.get("current_profile", null);
+// Helper function to create a default profile
+async function createDefaultProfile(profiles) {
+  const { uniqueName, uniqueId } = generateUniqueProfileName("Default", profiles);
 
-  if (!profileId || !profiles[profileId]) {
-    // If no profiles exist, create a default one with timestamp
-    const { uniqueName, uniqueId } = generateUniqueProfileName("Default", profiles);
+  // Try to load checklist.md content for the default profile
+  let defaultContent = "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
 
-    // Try to load checklist.md content for the initial default profile
-    let defaultContent = "# Getting Started\n- ::task:: Welcome! This is your first checklist. Go to the \"Create/Edit List\" tab to customize it.";
-
-    try {
-      const checklistContent = await loadChecklistFromFile();
-      if (checklistContent) {
-        defaultContent = checklistContent;
-      }
-    } catch (error) {
-      console.log("Could not load checklist.md for initial profile, using default content");
+  try {
+    const checklistContent = await loadChecklistFromFile();
+    if (checklistContent) {
+      defaultContent = checklistContent;
     }
+  } catch (error) {
+    console.log("Could not load checklist.md for default profile, using fallback content");
+  }
 
-    profiles[uniqueId] = {
-      id: uniqueId,
-      name: uniqueName,
-      checklistData: {},
-      checklistContent: defaultContent
-    };
+  profiles[uniqueId] = {
+    id: uniqueId,
+    name: uniqueName,
+    checklistData: {},
+    checklistContent: defaultContent
+  };
 
-    $.jStorage.set(profilesKey, profiles);
-    $.jStorage.set("current_profile", uniqueId);
-    console.log("Created timestamped default profile:", uniqueId);
-    return profiles[uniqueId];
+  $.jStorage.set(profilesKey, profiles);
+  $.jStorage.set("current_profile", uniqueId);
+  console.log("Created default profile:", uniqueId);
+  return profiles[uniqueId];
+}
+
+async function getCurrentProfile() {
+  let profiles = $.jStorage.get(profilesKey, {});
+  let profileId = $.jStorage.get("current_profile", null);
+
+  // Check if we need to create a default profile
+  const needsDefaultProfile = !profileId || !profiles[profileId] || Object.keys(profiles).length === 0;
+
+  if (needsDefaultProfile) {
+    // If no valid profile exists or no profiles exist, create a default one
+    console.log("No valid profile found, creating default profile");
+    return await createDefaultProfile(profiles);
   }
 
   return profiles[profileId];
@@ -617,7 +626,7 @@ function initializeProfileFunctionality($) {
     const { uniqueName, uniqueId } = generateUniqueProfileName(profileName, profiles);
 
     // Try to load checklist.md content for new profiles
-    let defaultContent = "# Getting Started\n- ::task:: Welcome to the Custom Checklist Tool! Create your first checklist by going to the \"Create/Edit List\" tab.";
+    let defaultContent = "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
 
     try {
       const checklistContent = await loadChecklistFromFile();
@@ -721,19 +730,36 @@ function initializeProfileFunctionality($) {
         if (firstProfileId) {
           $.jStorage.set("current_profile", firstProfileId);
         } else {
-          // If no profiles left, create a default one with timestamp
+          // If no profiles left, create a default one
+          console.log("All profiles deleted, creating new default profile");
+          // Note: We can't use await here since this is not an async function,
+          // but createDefaultProfile will handle the async loading internally
           const { uniqueName, uniqueId } = generateUniqueProfileName("Default", profiles);
 
-          profiles[uniqueId] = {
-            id: uniqueId,
-            name: uniqueName,
-            checklistData: {},
-            checklistContent: "# Getting Started\n- ::task:: Welcome! This is your first checklist. Go to the \"Create/Edit List\" tab to customize it."
-          };
+          // Use the same default content as the helper function
+          let defaultContent = "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
 
-          $.jStorage.set(profilesKey, profiles);
-          $.jStorage.set("current_profile", uniqueId);
-          console.log("Created timestamped default profile after deletion:", uniqueId);
+          // Try to load checklist.md content
+          fetch('checklist.md')
+            .then(response => response.ok ? response.text() : Promise.reject())
+            .then(content => {
+              defaultContent = content;
+            })
+            .catch(error => {
+              console.log("Could not load checklist.md for default profile after deletion, using fallback content");
+            })
+            .finally(() => {
+              profiles[uniqueId] = {
+                id: uniqueId,
+                name: uniqueName,
+                checklistData: {},
+                checklistContent: defaultContent
+              };
+
+              $.jStorage.set(profilesKey, profiles);
+              $.jStorage.set("current_profile", uniqueId);
+              console.log("Created default profile after deletion:", uniqueId);
+            });
         }
 
         populateProfiles();

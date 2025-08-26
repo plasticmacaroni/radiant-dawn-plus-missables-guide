@@ -138,7 +138,7 @@
 
   .tab-content>.tab-pane,
   .pill-content>.pill-pane {
-    display: block;
+    display: none;
   }
 
   .tab-pane {
@@ -582,17 +582,8 @@ body.hide_story li:has(i.bi-book.text-danger) {
   }
 
   .container {
-    padding-left: 5px;
-    padding-right: 5px;
-    width: 100%;
-    max-width: none;
-  }
-
-  .navbar .container {
-    padding-left: 5px;
-    padding-right: 5px;
-    width: 100%;
-    max-width: none;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 
   .back-to-top {
@@ -604,17 +595,8 @@ body.hide_story li:has(i.bi-book.text-danger) {
 /* Extra small mobile screens */
 @media (max-width: 480px) {
   .container {
-    padding-left: 3px;
-    padding-right: 3px;
-    width: 100%;
-    max-width: none;
-  }
-
-  .navbar .container {
-    padding-left: 3px;
-    padding-right: 3px;
-    width: 100%;
-    max-width: none;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
   .btn-group-flex .btn {
@@ -760,9 +742,10 @@ body.hide_story li:has(i.bi-book.text-danger) {
 }
 
 .container {
-  padding-left: 15px;
-  /* Reduce desktop padding slightly */
-  padding-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 ul {
