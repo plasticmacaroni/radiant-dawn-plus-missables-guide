@@ -69,8 +69,8 @@
 
 - ::task:: Collect dropped items
   - ::item_uncommon:: 1 Vulnerary
+  - ::item_uncommon:: 1 ||Master Seal|| (from soldier)
 - ::task:: Steal items from enemies
-  - ::item_uncommon:: 1 ||Master Seal||
   - ::item_uncommon:: 1 ||Shine Barrier||
   - ::item_uncommon:: Vulneraries
 - ::task:: Find hidden items
@@ -105,6 +105,7 @@
   - ::item_uncommon:: 1 ||Paragon Skill||
 - ::task:: Steal items from enemies
   - ::item_uncommon:: 1 Steel Lance or 1 Javelin (from boss)
+  - ::item_uncommon:: 1 ||Fire|| tome (from Wind Mage)
 - ::task:: Find hidden items
   - ::missable:: 1 ||Master Seal|| (3 down from left of top ballista mage)
 - ::task:: Recruit new units
@@ -114,6 +115,7 @@
 
 - ::task:: Collect dropped items
   - ::item_uncommon:: 2 Door Keys
+  - ::item_uncommon:: 1 ||Levin Sword|| (from armored swordsman)
 - ::task:: Find hidden items
   - ::missable:: 1 Coin (right of top left guard)
   - ::missable:: 1 ||Master Seal|| (3 right of top middle door)
@@ -124,6 +126,10 @@
 
 # Chapter 8 - Glory Unwanted (Act I)
 
+- ::task:: Collect dropped items
+  - ::item_uncommon:: 1 ||Torch|| staff (from bishop)
+- ::task:: Steal items from enemies
+  - ::item_uncommon:: ||Quarterstaff|| (from bishop)
 - ::task:: Find hidden items
   - ::missable:: 1 Coin (far left, same line as bottom left prisoner)
   - ::missable:: 1 Coin (2 up, 4 right of bottom left prisoner)
@@ -140,6 +146,8 @@
 
 - ::task:: Collect dropped items
   - ::item_uncommon:: 1 Vulnerary
+- ::task:: Steal items from allies
+  - ::item_uncommon:: ||Statue Frag|| (from ||Black Knight||)
 - ::task:: Find hidden items
   - ::missable:: 1 ||Olivi Grass|| (3 right of bottom left)
   - ::missable:: 1 Coin (2 down from top left)
@@ -154,6 +162,8 @@
 
 - ::task:: Collect dropped items
   - ::item_uncommon:: 1 Chest Key
+  - ::item_uncommon:: 1 ||Wind Edge|| (from Myrmidon)
+  - ::item_uncommon:: 1 ||Meteor|| tome (from Fire Mage)
 - ::task:: Steal items from enemies
   - ::item_uncommon:: 2 ||Heal|| or 2 ||Physic|| staves
   - ::item_uncommon:: 1 ||Concoction||
@@ -199,6 +209,8 @@
   - ::item_story:: ||Brom|| (Level 2 ||Axe General||, automatic)
   - ::item_story:: ||Nephenee|| (Level 1 ||Halberdier||, automatic)
   - ::item_story:: ||Heather|| (Level 7 ||Rogue||, have ||Brom|| or ||Nephenee|| talk to her on turn 2)
+- ::task:: Steal items from allies
+  - ::item_uncommon:: 1 Herb (from ||Heather|| after recruitment)
 
 # Chapter 2 - Tides of Intrigue (Act II)
 
@@ -265,6 +277,89 @@
 # Prologue - The Great Advance (Act III)
 
 - ::item_story:: More content coming soon (chapter not fully detailed in walkthrough)
+
+# Chapter 2 - ??? (Act III)
+
+- ::task:: Collect dropped items
+  - ::item_uncommon:: 1 ||Elixir|| (from ||Istvan||)
+- ::task:: Steal items from enemies
+  - ::item_uncommon:: ||Red Gem|| (from Thunder Sage)
+- ::task:: Recruit new units
+  - ::item_story:: ||Ike|| (Level 20 ||Ranger||, automatic)
+  - ::item_story:: ||Titania|| (Level 15 ||Paladin||, automatic)
+  - ::item_story:: ||Soren|| (Level 15 ||Mage||, automatic)
+  - ::item_story:: ||Mist|| (Level 15 ||Cleric||, automatic)
+  - ::item_story:: ||Rolf|| (Level 10 ||Archer||, automatic)
+  - ::item_story:: ||Marcia|| (Level 15 ||Pegasus Knight||, automatic)
+  - ::item_story:: ||Boyd|| (Level 15 ||Warrior||, automatic)
+  - ::item_story:: ||Oscar|| (Level 15 ||Lance Knight||, automatic)
+  - ::item_story:: ||Shinon|| (Level 15 ||Sniper||, automatic)
+  - ::item_story:: ||Gatrie|| (Level 15 ||Berserker||, automatic)
+  - ::item_story:: ||Tanith|| (Level 15 ||Falcon Knight||, automatic)
+  - ::item_story:: ||Jill|| (Level 15 ||Wyvern Rider||, automatic)
+
+# Chapter 3 - ??? (Act III)
+
+- ::task:: Steal items from enemies
+  - ::item_uncommon:: ||Restore Staff|| (from Bishop)
+  - ::item_uncommon:: ||Bolting|| tome (from Thunder Sage)
+- ::task:: Recruit new units
+  - ::item_story:: ||Greil|| (Level 20 ||Hero||, automatic)
+
+# Chapter 4 - ??? (Act III)
+
+- ::task:: Steal items from enemies
+  - ::item_uncommon:: ||Quarterstaff|| (from Priest)
+
+# Chapter 5 - ??? (Act III)
+
+- ::task:: Collect dropped items
+  - ::item_uncommon:: 1 ||Energy Drop|| (from ||Lombroso||)
+
+# Chapter 8 - ??? (Act III)
+
+- ::task:: Steal items from enemies
+  - ::item_uncommon:: ||Fire|| tome (from Wind Mage)
+- ::task:: Collect dropped items
+  - ::item_uncommon:: 1 ||Thoron|| tome (from Thunder Sage)
+
+# Chapter 9 - ??? (Act III)
+
+- ::task:: Steal items from enemies
+  - ::item_uncommon:: ||Arms Scroll|| (from ||Roark||)
+
+# Chapter 11 - ??? (Act III)
+
+- ::task:: Steal items from enemies
+  - ::item_uncommon:: ||Seraph Robe|| (from Blade Paladin)
+  - ::item_uncommon:: ||Vulnerary|| (from ||Tibarn||)
+  - ::missable:: Note: Shine Barriers reduced - ||Wind Sage|| now carries ||Spirit Dust||, ||Fire Sage|| now carries ||Pass Scroll||
+
+# Prologue - ??? (Act IV)
+
+- ::task:: Steal items from enemies
+  - ::item_uncommon:: ||Corrosion Scroll|| (from Swordmaster reinforcement in fort)
+
+# Chapter 1 - ??? (Act IV)
+
+- ::task:: Steal items from enemies
+  - ::item_uncommon:: ||Arclight|| tome (from Bishop)
+  - ::item_uncommon:: ||Nullify Scroll|| (from Warrior in grass)
+
+# Chapter 3 - ??? (Act IV)
+
+- ::task:: Steal items from enemies
+  - ::item_uncommon:: ||Daunt Scroll|| (from Thunder Sage)
+
+# Chapter 5 - ??? (Act IV)
+
+- ::task:: Steal items from allies
+  - ::item_uncommon:: ||Concoction|| (from ||Volke||)
+
+# Endgame 1 - ??? (Act IV)
+
+- ::task:: Collect dropped items
+  - ::item_uncommon:: 1 ||Tomahawk|| (from Warrior in center)
 
 # General Missables and Notes
 
