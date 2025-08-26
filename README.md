@@ -1,6 +1,6 @@
-# Fire Emblem: Radiant Dawn Checklist Tool
+# Fire Emblem: Radiant Dawn Plus Spoiler-Free (ehhhh) Checklist
 
-A specialized checklist tool designed for Fire Emblem: Radiant Dawn, featuring comprehensive game content with built-in spoiler protection. Track items, characters, missables, and progress through all three acts of the game.
+A specialized checklist tool designed for Fire Emblem: Radiant Dawn+, featuring comprehensive game content with built-in spoiler protection. Track items, characters, missables, and progress.
 
 ## Features
 
@@ -209,3 +209,4 @@ This tool works best in modern browsers such as:
 - Firefox
 - Edge
 - Safari
+
