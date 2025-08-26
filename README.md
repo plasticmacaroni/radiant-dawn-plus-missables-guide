@@ -1,6 +1,6 @@
 # Fire Emblem: Radiant Dawn+ Checklist
 
-A community-created checklist tool for Fire Emblem: Radiant Dawn+ from Gallade and Kalen with edits thanks to Windward. Track items, characters, and missables without spoiilers.
+A community-created checklist tool for Fire Emblem: Radiant Dawn+ from Gallade and Kalen with edits thanks to Windward. Track items, characters, and missables without spoiilers. Thanks for Ask_B_007 on GameFAQs for the content so far. 
 
 ## How to Use
 
@@ -185,3 +185,4 @@ This checklist includes coverage of:
 ## Storage
 
 Your checklists are saved in your browser's local storage. They will persist across browser sessions, but clearing your browser data will remove them. Use the Export/Import feature to back up your checklists.
+
