@@ -181,12 +181,17 @@ This checklist includes comprehensive coverage of:
 - ✅ **Locations**: Chapter objectives and key areas
 - ✅ **Progression**: Level-ups, skill acquisition, and base management
 
-### **🔒 Spoiler Protection**
+### **🔒 Comprehensive Spoiler Protection**
 
-- All character names are hidden by default
-- Class names and promotions are protected
-- Key item names and locations are hidden
-- Boss names and important plot points are concealed
+- **All character names** are hidden by default
+- **All class names and promotions** are protected
+- **Special weapon names** (Wind Edge, Wo Dao, Beastfoe, etc.)
+- **Rare item names** (Thani, Red Gem, Paragon Skill, etc.)
+- **Stat-boosting items** (Energy Drop, Speedwing, Talisman, etc.)
+- **Skill-teaching items** (Arms Scroll, Discipline Scroll, etc.)
+- **Special equipment** (Brave Sword, Silver Axe, Dracoshield, etc.)
+- **Boss names and locations** are concealed
+- **Conversation-specific items** are protected
 - Click any `???` to reveal when ready
 
 ### **📊 Progress Tracking**
@@ -209,4 +214,3 @@ This tool works best in modern browsers such as:
 - Firefox
 - Edge
 - Safari
-

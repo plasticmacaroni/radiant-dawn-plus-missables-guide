@@ -582,13 +582,66 @@ body.hide_story li:has(i.bi-book.text-danger) {
   }
 
   .container {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100%;
+    max-width: none;
+  }
+
+  .navbar .container {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 100%;
+    max-width: none;
   }
 
   .back-to-top {
     bottom: 200px;
     /* Higher up on mobile to not interfere with the button stack */
+  }
+}
+
+/* Extra small mobile screens */
+@media (max-width: 480px) {
+  .container {
+    padding-left: 3px;
+    padding-right: 3px;
+    width: 100%;
+    max-width: none;
+  }
+
+  .navbar .container {
+    padding-left: 3px;
+    padding-right: 3px;
+    width: 100%;
+    max-width: none;
+  }
+
+  .btn-group-flex .btn {
+    margin: 2px 3px;
+    width: calc(100% - 6px);
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  /* Optimize spoilers for very small screens */
+  .spoiler-container {
+    padding: 1px 3px;
+    font-size: 0.75em;
+  }
+
+  .spoiler-container::before {
+    font-size: 0.65em;
+  }
+
+  .spoiler-content {
+    font-size: 0.75em;
+  }
+
+  /* Reduce margins for list items on very small screens */
+  li[data-id] {
+    margin: 2px 0;
+    padding: 6px 8px;
   }
 }
 
@@ -707,9 +760,9 @@ body.hide_story li:has(i.bi-book.text-danger) {
 }
 
 .container {
-  padding-left: 20px;
-  /* Increase padding */
-  padding-right: 20px;
+  padding-left: 15px;
+  /* Reduce desktop padding slightly */
+  padding-right: 15px;
 }
 
 ul {
@@ -800,24 +853,20 @@ h1.text-center {
 
 /* Spoiler Styles */
 .spoiler-container {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline;
   position: relative;
   cursor: pointer;
   border: 2px solid #666;
   border-radius: 4px;
-  padding: 1px 6px;
+  padding: 2px 6px;
   margin: 0 1px;
   background-color: #333;
-  min-height: 1.2em;
   text-align: center;
   transition: all 0.2s ease;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   vertical-align: baseline;
   font-size: 0.9em;
   white-space: nowrap;
-  overflow: hidden;
 }
 
 .spoiler-container:hover {
@@ -857,10 +906,8 @@ h1.text-center {
 /* Mobile responsiveness for spoilers */
 @media (max-width: 768px) {
   .spoiler-container {
-    padding: 1px 6px;
+    padding: 1px 4px;
     font-size: 0.8em;
-    height: 1.1em;
-    line-height: 1.1em;
   }
 
   .spoiler-container::before {
