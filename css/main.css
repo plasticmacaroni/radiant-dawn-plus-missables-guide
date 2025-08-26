@@ -1,0 +1,873 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+  --badge-color: #3498db;
+  --done-color: #32cd32;
+  --checkbox-bg-color: #1f6f8b;
+  --body-bg-color: #121212;
+  --body-font-color: #d0d0d0;
+  --highlight-bg-color: #ffd700;
+  --navbar-bg-color: #1f1f1f;
+  --navbar-link-color: #d0d0d0;
+  --active-link-bg-color: #3498db;
+  --btn-group-flex-bg-color: #202020;
+  --back-to-top-bg-color: #202020;
+  --achievement-related-stroke-color: #3498db;
+  --achievement-related-link-color: #3f9fd8;
+  --achievement-related-font-color: #d0d0d0;
+  --hover-color: #707070;
+  --btn-primary-color: #3498db;
+  --btn-hover-text-color: #ffffff;
+  --border-color: #444;
+  --surface-bg-color: #1e1e1e;
+  --input-bg-color: #2a2a2a;
+  --input-text-color: var(--body-font-color);
+  --input-placeholder-color: #888;
+  --modal-header-bg: var(--navbar-bg-color);
+  --modal-footer-bg: var(--navbar-bg-color);
+
+  /* New Variables */
+  --header-font: 'Poppins', sans-serif;
+  --body-font: 'Poppins', sans-serif;
+  /* Or keep your preferred body font */
+  --accent-blue-darker: #2980b9;
+  --surface-highlight-bg: rgba(255, 255, 255, 0.05);
+  --surface-hover-bg: rgba(255, 255, 255, 0.1);
+  --border-radius-medium: 6px;
+  --box-shadow-light: 0 2px 5px rgba(0, 0, 0, 0.2);
+  --box-shadow-medium: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Apply dark mode styles directly to modals */
+.modal .modal-content {
+  background-color: var(--surface-bg-color);
+  color: var(--body-font-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.modal .modal-header {
+  background-color: var(--surface-bg-color);
+  border-bottom: 1px solid var(--badge-color);
+  padding: 15px 20px;
+}
+
+.modal .modal-header .close {
+  color: var(--body-font-color);
+  opacity: 0.7;
+}
+
+.modal .modal-header .close:hover {
+  opacity: 1;
+}
+
+.modal .modal-footer {
+  background-color: var(--surface-bg-color);
+  border-top: 1px solid var(--border-color);
+  padding: 15px 20px;
+}
+
+/* Apply dark mode styles directly to specific textareas and inputs */
+#checklistInput,
+#markdown-instructions,
+#import-code-area,
+#profileModalNewName,
+#profileModalRenameId {
+  background-color: var(--input-bg-color);
+  color: var(--input-text-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Apply dark mode styles directly to placeholders */
+::placeholder {
+  color: var(--input-placeholder-color);
+  opacity: 1;
+  font-weight: normal;
+  margin-left: 0.2em;
+  vertical-align: middle;
+  font-size: 0.9em;
+  font-family: var(--body-font);
+}
+
+:-ms-input-placeholder {
+  color: var(--input-placeholder-color);
+}
+
+::-ms-input-placeholder {
+  color: var(--input-placeholder-color);
+}
+
+.in_progress,
+.done {
+  color: var(--main-color);
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 0.1em 0.4em;
+  font-weight: normal;
+  margin-left: 0.2em;
+  vertical-align: middle;
+  font-size: 0.9em;
+}
+
+.done {
+  color: var(--done-color);
+}
+
+@media print {
+  body {
+    color: var(--body-color);
+  }
+
+  .navbar,
+  #intro,
+  input[type="checkbox"],
+  .done,
+  .in_progress,
+  a {
+    display: none;
+  }
+
+  a {
+    color: var(--body-color);
+    text-decoration: underline;
+  }
+
+  a[href]:after {
+    content: none !important;
+  }
+
+  .tab-content>.tab-pane,
+  .pill-content>.pill-pane {
+    display: block;
+  }
+
+  .tab-pane {
+    page-break-after: always;
+  }
+}
+
+body {
+  background-color: var(--body-bg-color);
+  color: var(--body-font-color);
+  font-family: var(--body-font);
+  line-height: 1.6;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 22px;
+}
+
+ul li ul {
+  padding-top: 0;
+}
+
+h3 {
+  font-family: var(--header-font);
+  font-weight: 600;
+  color: var(--badge-color);
+  /* Use accent for category headers */
+  margin-top: 25px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.checkbox label,
+.radio label {
+  /* Remove legacy styles */
+}
+
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"],
+.radio input[type="radio"],
+.radio-inline input[type="radio"] {
+  /* Remove legacy styles */
+}
+
+.table_of_contents {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  background-color: var(--surface-bg-color);
+  border-radius: var(--border-radius-medium);
+  box-shadow: var(--box-shadow-light);
+}
+
+.table_of_contents li {
+  margin-bottom: 5px;
+}
+
+.table_of_contents a {
+  color: var(--achievement-related-link-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.table_of_contents a:hover {
+  color: var(--badge-color);
+}
+
+.toc-count {
+  color: var(--input-placeholder-color);
+}
+
+.highlight {
+  background-color: rgb(255, 246, 18);
+}
+
+.hiddenfile {
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+}
+
+select {
+  background-color: var(--btn-group-flex-bg-color);
+}
+
+.navbar {
+  /* Subtle Gradient Background */
+  background-color: var(--navbar-bg-color) !important;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.05)) !important;
+  border-color: var(--border-color);
+  /* Use variable */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  padding-top: 5px;
+  /* Add some top padding */
+  padding-bottom: 5px;
+  /* Add some bottom padding */
+}
+
+/* Optional: Style for a potential logo/brand */
+.navbar .navbar-brand {
+  color: var(--badge-color) !important;
+  /* Use accent color */
+  font-family: var(--header-font);
+  font-weight: 700;
+  font-size: 22px;
+  padding-left: 20px;
+  /* Adjust as needed */
+}
+
+.navbar a {
+  color: var(--navbar-link-color) !important;
+}
+
+nav .active a {
+  background-color: var(--active-link-bg-color) !important;
+}
+
+/* Add hover effect for inactive tabs */
+.navbar-nav>li:not(.active)>a:hover {
+  background-color: var(--surface-hover-bg) !important;
+}
+
+.btn:hover {
+  color: var(--btn-hover-text-color);
+  background-color: var(--hover-color);
+  border-color: var(--hover-color);
+  transform: translateY(-1px);
+  box-shadow: var(--box-shadow-medium);
+}
+
+.btn {
+  font-family: var(--body-font);
+  font-weight: 600;
+  border-radius: var(--border-radius-medium);
+  padding: 8px 15px;
+  transition: all 0.2s ease-in-out;
+  box-shadow: var(--box-shadow-light);
+  border: 1px solid transparent;
+  color: var(--body-font-color);
+  background-color: var(--surface-bg-color);
+  border-color: var(--border-color);
+}
+
+.btn-primary {
+  background-color: var(--btn-primary-color);
+  border-color: var(--btn-primary-color);
+  color: var(--btn-hover-text-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-blue-darker);
+  border-color: var(--accent-blue-darker);
+  color: var(--btn-hover-text-color);
+}
+
+.btn-secondary {
+  background-color: var(--surface-bg-color);
+  border-color: var(--border-color);
+  color: var(--body-font-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--hover-color);
+  border-color: var(--hover-color);
+  color: var(--btn-hover-text-color);
+}
+
+.btn:focus,
+.btn.active:focus {
+  outline: 2px solid var(--badge-color);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+.btn-group-flex {
+  z-index: 1000;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-decoration: none;
+  font-size: 12px;
+  padding: 12px 0;
+  background-color: rgba(30, 30, 30, 0.95);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.btn-group-flex .btn {
+  margin: 0 5px;
+  border-radius: var(--border-radius-medium);
+  flex-shrink: 0;
+  min-width: 100px;
+  padding: 6px 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  color: var(--body-font-color);
+}
+
+.btn-group-flex .glyphicon {
+  margin-right: 5px;
+}
+
+.fadingbutton.back-to-top {
+  border-top-right-radius: 0;
+  border-right: 0;
+  right: 0;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  text-decoration: none;
+  color: var(--back-to-top-font-color);
+  background-color: var(--back-to-top-bg-color);
+  font-size: 12px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: none;
+  z-index: 1000;
+}
+
+.achievement-related .checkbox span {
+  -webkit-text-stroke: 0.6pt var(--achievement-related-stroke-color);
+  color: white;
+}
+
+.achievement-related .checkbox a {
+  -webkit-text-stroke-width: 0pt;
+  color: var(--achievement-related-link-color);
+  text-decoration: none;
+}
+
+.achievement-related li:not(.achievement-related) span {
+  -webkit-text-stroke-width: 0pt;
+  color: var(--achievement-related-font-color);
+  text-decoration: none;
+}
+
+.achievement-related .item_content a {
+  text-shadow: none;
+}
+
+.back-to-top:hover {
+  background-color: var(--hover-color);
+}
+
+.togglehide:hover {
+  background-color: var(--hover-color);
+}
+
+.btn-collapse {
+  padding: 4px 10px 1px;
+  margin-right: 10px;
+  vertical-align: top;
+}
+
+.btn.filter-inactive .glyphicon-eye-close {
+  display: inline-block;
+}
+
+.btn.filter-active .glyphicon-eye-open {
+  display: inline-block;
+}
+
+.btn.filter-inactive .glyphicon-chevron-down {
+  display: inline-block;
+}
+
+.btn.filter-active .glyphicon-chevron-up {
+  display: inline-block;
+}
+
+.btn.active {
+  text-decoration: line-through;
+}
+
+/* Icon when the collapsible content is shown */
+.btn-collapse:after {
+  font-family: "Glyphicons Halflings";
+  content: "\e082";
+}
+
+/* Icon when the collapsible content is hidden */
+.btn-collapse.collapsed:after {
+  content: "\e081";
+}
+
+h1 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+body.hide_completed .completed {
+  display: none !important;
+}
+
+.hide_filtered {
+  display: none !important;
+}
+
+/* Style for list items with data-id (clickable items) */
+li[data-id] {
+  position: relative;
+  padding: 8px 10px;
+  margin: 4px 0;
+  border-radius: var(--border-radius-medium);
+  transition: background-color 0.2s;
+  border-left: 3px solid transparent;
+}
+
+li[data-id]:hover {
+  background-color: var(--surface-hover-bg);
+  border-left-color: var(--badge-color);
+}
+
+/* Completed items style */
+li.completed {
+  text-decoration: line-through;
+  opacity: 0.7;
+  margin-left: 5px;
+}
+
+/* Styling for icons */
+li[data-id] i.bi {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.bi {
+  margin-right: 8px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* Remove any other conflicting styles */
+
+/* Add styles for the toggling filters */
+.glyphicon-eye-close,
+.glyphicon-eye-open,
+.glyphicon-chevron-down,
+.glyphicon-chevron-up {
+  margin-right: 5px;
+}
+
+.btn-group-flex input[type="checkbox"] {
+  /* Hide the actual checkbox */
+  position: absolute;
+  opacity: 0;
+}
+
+/* Show/hide for eye icons */
+.btn-group-flex input[type="checkbox"]~.glyphicon-eye-open {
+  display: none;
+}
+
+.btn-group-flex input[type="checkbox"]~.glyphicon-eye-close {
+  display: inline-block;
+}
+
+.btn-group-flex input[type="checkbox"]:checked~.glyphicon-eye-open {
+  display: inline-block;
+}
+
+.btn-group-flex input[type="checkbox"]:checked~.glyphicon-eye-close {
+  display: none;
+}
+
+/* Show/hide for arrow icons */
+.btn-group-flex input[type="checkbox"]~.glyphicon-chevron-down {
+  display: inline-block;
+}
+
+.btn-group-flex input[type="checkbox"]~.glyphicon-chevron-up {
+  display: none;
+}
+
+.btn-group-flex input[type="checkbox"]:checked~.glyphicon-chevron-down {
+  display: none;
+}
+
+.btn-group-flex input[type="checkbox"]:checked~.glyphicon-chevron-up {
+  display: inline-block;
+}
+
+#bottom-spacer {
+  height: 100px !important;
+  /* Increased to accommodate the fixed buttons */
+}
+
+#toggleCollapseAll {
+  margin: 10px 0 15px 0;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: var(--btn-group-flex-bg-color);
+  color: var(--body-font-color);
+  font-size: 14px;
+}
+
+#toggleCollapseAll:hover {
+  background-color: var(--hover-color);
+}
+
+#toggleCollapseAll .glyphicon {
+  margin-right: 5px;
+  position: relative;
+  top: 2px;
+}
+
+body.hide_uncommon li:has(i.bi-gem.text-success) {
+  display: none !important;
+}
+
+body.hide_story li:has(i.bi-book.text-danger) {
+  display: none !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .btn-group-flex {
+    flex-direction: column;
+    padding: 5px 0;
+  }
+
+  .btn-group-flex .btn {
+    margin: 3px 5px;
+    width: calc(100% - 10px);
+  }
+
+  #toggleCollapseAll {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .back-to-top {
+    bottom: 200px;
+    /* Higher up on mobile to not interfere with the button stack */
+  }
+}
+
+#feedback-message {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 10px 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  display: none;
+  text-align: center;
+  min-width: 200px;
+  max-width: 80%;
+}
+
+.alert-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.alert-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Dialog customization */
+.modal-confirm {
+  color: var(--body-font-color);
+  background-color: var(--body-bg-color);
+  border-radius: 6px;
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+}
+
+.modal-confirm .modal-header {
+  border-bottom: 1px solid var(--border-color);
+  background: var(--accent-bg-color);
+  position: relative;
+}
+
+.modal-confirm .modal-footer {
+  border-top: 1px solid var(--border-color);
+  background: var(--accent-bg-color);
+}
+
+.modal-confirm .btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.modal-confirm .btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.modal-confirm .btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.modal-confirm .btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+/* Optional: Adjust modal spacing or feedback text */
+#shareModal .modal-body h5 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+#shareModal .modal-body hr {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+#share-url-disabled-reason,
+#import-feedback,
+#copy-feedback {
+  font-size: 0.9em;
+}
+
+/* Style the textarea within the Create/Edit tab */
+#tabCreate textarea {
+  /* background-color: var(--input-bg-color); */
+  /* color: var(--input-text-color); */
+  /* border: 1px solid var(--border-color); */
+}
+
+/* Style .alert.alert-info for dark mode */
+.alert.alert-info {
+  background-color: var(--surface-bg-color);
+  color: var(--body-font-color);
+  border: 1px solid var(--border-color);
+}
+
+/* Style code/pre tags within the dark alert */
+.alert.alert-info code {
+  background-color: var(--input-bg-color);
+  color: var(--input-text-color);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.alert.alert-info pre {
+  background-color: var(--input-bg-color);
+  color: var(--input-text-color);
+  border: 1px solid var(--border-color);
+  padding: 10px;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.container {
+  padding-left: 20px;
+  /* Increase padding */
+  padding-right: 20px;
+}
+
+ul {
+  margin-bottom: 0;
+}
+
+h1.text-center {
+  font-family: var(--header-font);
+  color: var(--badge-color);
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border-color);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+#intro.collapse {
+  background-color: var(--surface-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-medium);
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  box-shadow: var(--box-shadow-light);
+}
+
+#intro ul {
+  padding-left: 25px;
+  /* Indent list */
+  list-style-type: disc;
+  /* Use standard bullets for intro */
+}
+
+#intro li {
+  margin-bottom: 5px;
+}
+
+#intro code {
+  background-color: var(--input-bg-color);
+  color: var(--input-text-color);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.btn-group .btn-primary[data-toggle="collapse"][data-target="#intro"] {
+  background-color: var(--btn-primary-color);
+  border-color: var(--btn-primary-color);
+  color: var(--btn-hover-text-color);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-group .btn-primary[data-toggle="collapse"][data-target="#intro"]:hover {
+  background-color: var(--accent-blue-darker);
+  border-color: var(--accent-blue-darker);
+}
+
+/* Style the main textarea */
+#checklist-content {
+  background-color: var(--input-bg-color);
+  color: var(--input-text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-medium);
+  padding: 15px;
+  font-family: monospace;
+  line-height: 1.5;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#checklist-content:focus {
+  border-color: var(--badge-color);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2), 0 0 0 3px rgba(52, 152, 219, 0.3);
+  outline: none;
+}
+
+/* Apply Poppins to modal titles */
+.modal .modal-title {
+  font-family: var(--header-font);
+  font-weight: 600;
+}
+
+/* Add spacing to profile selector */
+.profile select,
+.profile button {
+  margin-left: 5px;
+}
+
+/* Spoiler Styles */
+.spoiler-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid #666;
+  border-radius: 4px;
+  padding: 1px 6px;
+  margin: 0 1px;
+  background-color: #333;
+  min-height: 1.2em;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  vertical-align: baseline;
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.spoiler-container:hover {
+  border-color: #888;
+  background-color: #444;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.spoiler-container::before {
+  content: "???";
+  color: #aaa;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.spoiler-content {
+  display: none;
+  color: var(--body-font-color);
+  font-weight: 600;
+  font-size: 0.9em;
+}
+
+.spoiler-container.revealed::before {
+  display: none;
+}
+
+.spoiler-container.revealed .spoiler-content {
+  display: inline;
+}
+
+.spoiler-container.revealed {
+  border-color: var(--badge-color);
+  background-color: var(--surface-bg-color);
+  box-shadow: 0 1px 4px rgba(52, 152, 219, 0.3);
+}
+
+/* Mobile responsiveness for spoilers */
+@media (max-width: 768px) {
+  .spoiler-container {
+    padding: 1px 6px;
+    font-size: 0.8em;
+    height: 1.1em;
+    line-height: 1.1em;
+  }
+
+  .spoiler-container::before {
+    font-size: 0.7em;
+  }
+
+  .spoiler-content {
+    font-size: 0.8em;
+  }
+}
