@@ -80,6 +80,8 @@ async function generateTasks() {
   const currentProfile = await getCurrentProfile();
   if (currentProfile && currentProfile.checklistContent) {
     processMarkdown(currentProfile.checklistContent);
+    // Update the page title based on the profile/template
+    await updatePageTitle(currentProfile);
     // Also populate the editor
     document.getElementById("checklist-content").value = currentProfile.checklistContent;
     return;
@@ -594,6 +596,45 @@ function saveCurrentProfile(profile) {
   const profiles = $.jStorage.get(profilesKey, {});
   profiles[profile.id] = profile;
   $.jStorage.set(profilesKey, profiles);
+}
+
+// Function to update the page title based on current profile/template
+async function updatePageTitle(profile) {
+  const $title = $('h1.text-center');
+
+  if (!profile || !profile.checklistContent) {
+    $title.text('Checklist Tool');
+    return;
+  }
+
+  // Load templates to find the matching template name
+  const templates = await loadTemplatesIndex();
+  const blankTemplate = templates.find(t => t.id === 'blank');
+
+  // Check if this profile was created from a template (not blank)
+  for (const template of templates) {
+    if (template.id !== 'blank' && template.filename) {
+      // Try to load the template content to compare
+      try {
+        const templateContent = await loadTemplate(template.filename);
+        // Compare the content (ignoring minor whitespace differences)
+        const normalizedProfileContent = profile.checklistContent.trim();
+        const normalizedTemplateContent = templateContent.trim();
+
+        if (normalizedProfileContent === normalizedTemplateContent) {
+          // This profile matches this template
+          $title.text(template.name + " Checklist");
+          return;
+        }
+      } catch (error) {
+        // Continue to next template if this one fails to load
+        console.warn(`Could not load template ${template.filename}:`, error);
+      }
+    }
+  }
+
+  // If no template match found, use the profile name (for custom profiles)
+  $title.text(profile.name + " Checklist" || 'Checklist Tool');
 }
 
 // Function to generate a unique profile ID and name
