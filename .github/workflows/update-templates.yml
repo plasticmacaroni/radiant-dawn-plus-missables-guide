@@ -5,9 +5,6 @@ on:
     branches: [main, master] # Support both common default branch names
     paths:
       - "checklists/*.md"
-    # Exclude automated commits to prevent infinite loops
-    paths-ignore:
-      - "checklists/index.json"
   pull_request:
     branches: [main, master]
     paths:
@@ -45,10 +42,24 @@ jobs:
       - name: Install dependencies
         run: npm ci # Use npm ci for production builds (faster, more reliable)
 
+      - name: Check for automated commits
+        id: check-automation
+        run: |
+          # Check if index.json was the only file changed (indicating automated commit)
+          if git diff --name-only HEAD~1 | grep -q '^checklists/index.json$' && [ $(git diff --name-only HEAD~1 | wc -l) -eq 1 ]; then
+            echo "Automated commit detected - skipping workflow"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "Manual changes detected - proceeding with workflow"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Update template index
+        if: steps.check-automation.outputs.skip == 'false'
         run: node scripts/update-templates.js
 
       - name: Commit and push changes
+        if: steps.check-automation.outputs.skip == 'false'
         run: |
           # Configure git with proper user info
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
