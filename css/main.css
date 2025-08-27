@@ -72,10 +72,23 @@
 #markdown-instructions,
 #import-code-area,
 #profileModalNewName,
-#profileModalRenameId {
+#profileModalRenameId,
+#profileModalName {
   background-color: var(--input-bg-color);
   color: var(--input-text-color);
   border: 1px solid var(--border-color);
+}
+
+/* Apply dark mode styles to select dropdowns in modals */
+.modal select.form-control {
+  background-color: var(--input-bg-color);
+  color: var(--input-text-color);
+  border: 1px solid var(--border-color);
+}
+
+.modal select.form-control option {
+  background-color: var(--input-bg-color);
+  color: var(--input-text-color);
 }
 
 /* Apply dark mode styles directly to placeholders */

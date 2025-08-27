@@ -13,17 +13,64 @@ function sanitize(s) {
 }
 
 // Function to load checklist.md content
-async function loadChecklistFromFile() {
+// Load templates index from checklists/index.json
+async function loadTemplatesIndex() {
   try {
-    const response = await fetch('checklist.md');
+    const response = await fetch('checklists/index.json');
     if (!response.ok) {
-      throw new Error('Failed to load checklist.md');
+      throw new Error('Failed to load checklists/index.json');
+    }
+    const data = await response.json();
+    return data.templates || [];
+  } catch (error) {
+    console.error('Error loading templates index:', error);
+    return [];
+  }
+}
+
+// Load a specific template by filename
+async function loadTemplate(filename) {
+  if (!filename) {
+    return "# Getting Started\n- ::task:: This is a blank checklist. Add your content here.";
+  }
+
+  try {
+    const response = await fetch(`checklists/${filename}`);
+    if (!response.ok) {
+      throw new Error(`Failed to load template: ${filename}`);
     }
     return await response.text();
   } catch (error) {
-    console.error('Error loading checklist.md:', error);
-    return null;
+    console.error(`Error loading template ${filename}:`, error);
+    return "# Getting Started\n- ::task:: Failed to load template. This is a blank checklist.";
   }
+}
+
+// Load checklist from checklists/radiant-dawn-plus.md (legacy support)
+async function loadChecklistFromFile() {
+  return await loadTemplate('radiant-dawn-plus.md');
+}
+
+// Populate template dropdown in profile modal
+async function populateTemplateDropdown() {
+  const templates = await loadTemplatesIndex();
+  const $dropdown = $("#profileModalTemplate");
+
+  // Clear existing options
+  $dropdown.empty();
+
+  // Add templates to dropdown
+  templates.forEach(template => {
+    const $option = $("<option>")
+      .val(template.id)
+      .text(template.name)
+      .attr("title", template.description);
+    $dropdown.append($option);
+  });
+
+  // Set default selection to radiant-dawn-plus if available, otherwise blank
+  const defaultTemplate = templates.find(t => t.id === 'radiant-dawn-plus') ? 'radiant-dawn-plus' : 'blank';
+  $dropdown.val(defaultTemplate);
 }
 
 async function generateTasks() {
@@ -520,6 +567,10 @@ async function createDefaultProfile(profiles) {
   $.jStorage.set(profilesKey, profiles);
   $.jStorage.set("current_profile", uniqueId);
   console.log("Created default profile:", uniqueId);
+
+  // Update the UI to show the new default profile
+  populateProfiles();
+
   return profiles[uniqueId];
 }
 
@@ -595,11 +646,15 @@ function initializeProfileFunctionality($) {
   });
 
   // Add profile button
-  $("#profileAdd").on("click", function () {
+  $("#profileAdd").on("click", async function () {
     $("#profileModalTitle").text("Add Profile");
     $("#profileModalName").val("");
     $("#profileModalAdd").show();
     $("#profileModalUpdate, #profileModalDelete").hide();
+
+    // Load and populate template dropdown
+    await populateTemplateDropdown();
+
     $("#profileModal").modal("show");
   });
 
@@ -618,30 +673,32 @@ function initializeProfileFunctionality($) {
 
   // Add profile action
   $("#profileModalAdd").on("click", async function () {
-    const profileName = $("#profileModalName").val().trim();
-    if (!profileName) return;
+    let profileName = $("#profileModalName").val().trim();
+    const selectedTemplateId = $("#profileModalTemplate").val();
+
+    // Load templates once
+    const templates = await loadTemplatesIndex();
+    const selectedTemplate = templates.find(t => t.id === selectedTemplateId);
+
+    // If no name provided, generate a default name based on the selected template
+    if (!profileName) {
+      profileName = selectedTemplate ? selectedTemplate.name : "Profile";
+    }
 
     const profiles = $.jStorage.get(profilesKey, {});
-
     const { uniqueName, uniqueId } = generateUniqueProfileName(profileName, profiles);
 
-    // Try to load checklist.md content for new profiles
-    let defaultContent = "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
+    let checklistContent = "# Getting Started\n- ::task:: This is a blank checklist. Add your content here.";
 
-    try {
-      const checklistContent = await loadChecklistFromFile();
-      if (checklistContent) {
-        defaultContent = checklistContent;
-      }
-    } catch (error) {
-      console.log("Could not load checklist.md for new profile, using default content");
+    if (selectedTemplate) {
+      checklistContent = await loadTemplate(selectedTemplate.filename);
     }
 
     profiles[uniqueId] = {
       id: uniqueId,
       name: uniqueName,
       checklistData: {},
-      checklistContent: defaultContent
+      checklistContent: checklistContent
     };
 
     $.jStorage.set(profilesKey, profiles);

@@ -1,0 +1,24 @@
+{
+  "templates": [
+    {
+      "id": "blank",
+      "name": "Default (Blank)",
+      "description": "Start with a blank checklist",
+      "filename": null
+    },
+    {
+      "id": "radiant-dawn-plus-with-edits",
+      "name": "Radiant Dawn Plus With Edits",
+      "description": "Checklist for Radiant Dawn Plus With Edits",
+      "filename": "radiant-dawn-plus-with-edits.md"
+    },
+    {
+      "id": "the-morrow-s-golden-country",
+      "name": "The Morrow's Golden Country",
+      "description": "Checklist for The Morrow's Golden Country",
+      "filename": "the-morrow's Golden Country.md"
+    }
+  ],
+  "lastUpdated": "2025-08-27T22:41:26.310Z",
+  "_generated": true
+}
