@@ -9,6 +9,7 @@ on:
     branches: [main, master]
     paths:
       - "checklists/*.md"
+  workflow_dispatch: # Allow manual triggering
 
 # Prevent infinite loops - don't trigger on automated commits
 concurrency:
