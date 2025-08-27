@@ -1,0 +1,76 @@
+name: Update Template Index
+
+on:
+  push:
+    branches: [main, master] # Support both common default branch names
+    paths:
+      - "checklists/*.md"
+    # Exclude automated commits to prevent infinite loops
+    paths-ignore:
+      - "checklists/index.json"
+  pull_request:
+    branches: [main, master]
+    paths:
+      - "checklists/*.md"
+
+# Prevent infinite loops - don't trigger on automated commits
+concurrency:
+  group: update-templates
+  cancel-in-progress: true
+
+# Required permissions for the workflow
+permissions:
+  contents: write # Required to commit and push changes
+  pull-requests: read # Required to read PR info
+
+jobs:
+  update-templates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Use built-in GITHUB_TOKEN instead of secrets.GITHUB_TOKEN
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Fetch full history for proper git operations
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Use latest LTS
+          cache: "npm" # Enable npm caching for faster builds
+
+      - name: Install dependencies
+        run: npm ci # Use npm ci for production builds (faster, more reliable)
+
+      - name: Update template index
+        run: node scripts/update-templates.js
+
+      - name: Commit and push changes
+        run: |
+          # Configure git with proper user info
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          # Stage the changed file
+          git add checklists/index.json
+
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit - index.json is up to date"
+          else
+            # Create commit with detailed message
+            git commit -m "chore: update template index [automated]
+
+            - Auto-detected new checklist templates
+            - Updated checklists/index.json with latest metadata
+            - Generated from: $(git diff --staged --name-only)
+
+            [skip ci]"
+
+            # Push changes back to the repository
+            git push
+            echo "✅ Successfully updated and pushed template index"
+          fi
