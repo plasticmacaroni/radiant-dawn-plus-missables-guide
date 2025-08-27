@@ -692,6 +692,8 @@ function initializeProfileFunctionality($) {
     $("#profileModalName").val("");
     $("#profileModalAdd").show();
     $("#profileModalUpdate, #profileModalDelete").hide();
+    // Show template selection for adding
+    $("#profileModalTemplate").closest('.control-group').show();
 
     // Load and populate template dropdown
     await populateTemplateDropdown();
@@ -706,6 +708,8 @@ function initializeProfileFunctionality($) {
       $("#profileModalName").val(currentProfile.name);
       $("#profileModalAdd").hide();
       $("#profileModalUpdate, #profileModalDelete").show();
+      // Hide template selection for editing (not needed)
+      $("#profileModalTemplate").closest('.control-group').hide();
       $("#profileModal").modal("show");
     }).catch(error => {
       console.error('Error getting current profile for edit:', error);
@@ -1149,12 +1153,29 @@ function showFeedback(message, type = "success") {
   }, 3000);
 }
 
+// Function to check if a hash looks like compressed checklist data
+function isCompressedChecklistData(hash) {
+  // Compressed data should be:
+  // 1. Reasonably long (compressed data is usually > 100 chars)
+  // 2. Contain only valid base64 characters (A-Z, a-z, 0-9, +, /, =)
+  // 3. Not contain spaces or special characters typical of section IDs
+  if (hash.length < 50) return false;
+  if (!/^[A-Za-z0-9+/=]+$/.test(hash)) return false;
+  if (hash.includes('_') || hash.includes('-') && hash.length < 200) return false;
+  return true;
+}
+
 // Function to process the URL hash for imported checklists
 function processUrlHash() {
   const hash = window.location.hash.substring(1); // Get current hash, remove leading '#'
 
   if (!hash) {
     // No hash, nothing to do
+    return;
+  }
+
+  // Skip processing if this doesn't look like compressed checklist data
+  if (!isCompressedChecklistData(hash)) {
     return;
   }
 
