@@ -42,7 +42,7 @@ async function loadTemplate(filename) {
     return await response.text();
   } catch (error) {
     console.error(`Error loading template ${filename}:`, error);
-    return "# Getting Started\n- ::task:: Failed to load template. This is a blank checklist.";
+    return "# Getting Started\n- ::task:: This is a blank checklist. You can click on this task to mark it as complete. \n- ::task:: Press the \"Add\" button on the profile section above to add a new one from a list of templates.\n- ::task:: Or you can press the Create/Edit List button to create your own.";
   }
 }
 

@@ -105,8 +105,8 @@
 # Chapter 10
 
 - ::item_story:: ||Sveltzalus|| (talk w/||Blair||) - Missable
-- ::task:: Kill Lazarus before Jonas dies for a recruitment later
-- ::task:: Cid survival changes nothing
+- ::task:: Kill ||Lazarus|| before ||Jonas|| dies for a recruitment later
+- ::task:: ||Cid|| surviving changes nothing, just so you know
 - ::task:: Support Conversations
   - ::item_story:: ||Stefan|| ↔ ||Desmond|| - C+ support
   - ::item_story:: ||Sam|| ↔ ||Josef|| - C+ support
@@ -117,7 +117,7 @@
 # Chapter 11
 
 - ::item_story:: ||Hilbert|| (talk w/||Blair||) - Missable
-- ::item_story:: ||Agnes|| (automatic if talked in interludes, otherwise wait on bricks near start w/non-Blair unit) - Missable
+- ::item_story:: ||Agnes|| (automatic if talked in interludes, otherwise ||wait on bricks near start w/non-Blair unit||) - Missable
 - ::task:: Support Conversations
   - ::item_story:: ||Blair|| ↔ ||Emile|| - C+ support
   - ::item_story:: ||Natasia|| ↔ ||Bechamel|| - C support
@@ -134,11 +134,11 @@
   - ::item_story:: ||Natasia|| ↔ ||Peggy|| - C+ support
   - ::item_story:: ||Stefan|| ↔ ||Josef|| - C+ support
   - ::item_story:: ||Sam|| ↔ ||Bechamel|| - C support
-- ::task:: Casual mode applies even during the dragon fight
+- ::task:: Casual mode applies even during the ||dragon fight||
 
 # Chapter 12x
 
-- ::item_story:: ||Addington|| (interact with cracked tile near tower, then pay 7776 gold) - Missable
+- ::item_story:: ||Addington|| (||interact with cracked tile near tower, then pay 7776 gold||) - Missable
 - ::item_uncommon:: ||Mazandyne|| (buy)
 - ::task:: Commit to hiring Liam for an event later
 
@@ -474,7 +474,7 @@
 - ::item_story:: ||Sonia|| (talk w/||Desmond|| or ||Mikey||) - Missable
 - ::item_story:: ||Tobias|| (talk w/||Leila||, ||Damien||, or ||Zacharias||) - Missable
 - ::task:: This map has bargains in the base
-- ::task:: Have Kenneth kill the main boss for something later
+- ::task:: Have ||Kenneth|| kill ||the main boss -- for something that will help later||
 - ::task:: Support Conversations
   - ::item_story:: ||Blair|| ↔ ||Avan|| - B+ support
   - ::item_story:: ||Arin|| ↔ ||Sam|| - B+ support
@@ -572,7 +572,7 @@
 
 - ::item_story:: ||Jonas|| (spare him in Ch.10) - Missable
 - ::task:: Kenneth payoff
-- ::task:: Strike down the main boss to get her weapon later
+- ::task:: Strike down the main boss to get ||her weapon|| later
 - ::task:: End the map early by defeating all bosses and all annihilators
 - ::task:: Support Conversations
   - ::item_story:: ||Arin|| ↔ ||Yuyu|| - B+ support
