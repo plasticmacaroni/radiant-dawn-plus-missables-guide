@@ -1,24 +1,30 @@
 {
-  "templates": [
-    {
-      "id": "blank",
-      "name": "Default (Blank)",
-      "description": "Start with a blank checklist",
-      "filename": null
-    },
-    {
-      "id": "radiant-dawn-plus-with-edits",
-      "name": "Radiant Dawn Plus With Edits",
-      "description": "Checklist for Radiant Dawn Plus With Edits",
-      "filename": "radiant-dawn-plus-with-edits.md"
-    },
-    {
-      "id": "the-morrow-s-golden-country",
-      "name": "The Morrow's Golden Country",
-      "description": "Checklist for The Morrow's Golden Country",
-      "filename": "the-morrow's Golden Country.md"
-    }
-  ],
-  "lastUpdated": "2025-08-27T23:04:20.244Z",
-  "_generated": true
+    "templates": [
+        {
+            "id": "blank",
+            "name": "Default (Blank)",
+            "description": "Start with a blank checklist",
+            "filename": null
+        },
+        {
+            "id": "fire-emblem-sacred-stones-reforged",
+            "name": "Fire Emblem Sacred Stones Reforged",
+            "description": "Checklist for Fire Emblem Sacred Stones Reforged",
+            "filename": "fire-emblem-sacred-stones-reforged.md"
+        },
+        {
+            "id": "radiant-dawn-plus-with-edits",
+            "name": "Radiant Dawn Plus With Edits",
+            "description": "Checklist for Radiant Dawn Plus With Edits",
+            "filename": "radiant-dawn-plus-with-edits.md"
+        },
+        {
+            "id": "the-morrow-s-golden-country",
+            "name": "The Morrow's Golden Country",
+            "description": "Checklist for The Morrow's Golden Country",
+            "filename": "the-morrow's Golden Country.md"
+        }
+    ],
+    "lastUpdated": "2025-08-27T23:58:18.231Z",
+    "_generated": true
 }

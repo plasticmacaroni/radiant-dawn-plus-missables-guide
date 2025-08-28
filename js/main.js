@@ -110,21 +110,435 @@ async function generateTasks() {
   }
 }
 
+// This function is replaced by processMarkdownWithBranches - keeping for reference but redirecting
 function processMarkdown(markdownString) {
+  // Get profile ID and process with branch support
+  getCurrentProfile().then(currentProfile => {
+    const profileId = currentProfile ? currentProfile.id : null;
+    processMarkdownWithBranches(markdownString, profileId);
+  }).catch(error => {
+    console.warn('Error getting current profile for markdown processing:', error);
+    processMarkdownWithBranches(markdownString, null);
+  });
+}
+
+// =========================================
+// BRANCH SYSTEM IMPLEMENTATION
+// =========================================
+
+// Branch state management - store choices per profile
+const branchChoicesKey = "branch_choices";
+
+function getBranchChoices(profileId) {
+  const allChoices = JSON.parse(localStorage.getItem(branchChoicesKey) || '{}');
+  return allChoices[profileId] || {};
+}
+
+function saveBranchChoice(profileId, branchName, option) {
+  const allChoices = JSON.parse(localStorage.getItem(branchChoicesKey) || '{}');
+  if (!allChoices[profileId]) {
+    allChoices[profileId] = {};
+  }
+  allChoices[profileId][branchName] = option;
+  localStorage.setItem(branchChoicesKey, JSON.stringify(allChoices));
+}
+
+function clearBranchChoice(profileId, branchName) {
+  const allChoices = JSON.parse(localStorage.getItem(branchChoicesKey) || '{}');
+  if (allChoices[profileId]) {
+    delete allChoices[profileId][branchName];
+    localStorage.setItem(branchChoicesKey, JSON.stringify(allChoices));
+  }
+}
+
+// Validate branch nesting structure
+function validateBranchNesting(markdownLines) {
+  const branchStack = [];
+  const errors = [];
+
+  for (let i = 0; i < markdownLines.length; i++) {
+    const line = markdownLines[i].trim();
+    const lineNumber = i + 1;
+
+    // Track branch_start markers
+    if (line.startsWith('::branch_start::')) {
+      const optionMatch = line.match(/^::branch_start::(.+)$/);
+      if (optionMatch) {
+        const optionValue = optionMatch[1];
+        branchStack.push({
+          option: optionValue,
+          startLine: lineNumber,
+          type: 'branch_start'
+        });
+      }
+    }
+    // Track branch_end markers
+    else if (line.startsWith('::branch_end::')) {
+      const optionMatch = line.match(/^::branch_end::(.+)$/);
+      if (optionMatch) {
+        const optionValue = optionMatch[1];
+
+        // Find the position of the matching branch_start in the stack
+        let matchIndex = -1;
+        for (let j = branchStack.length - 1; j >= 0; j--) {
+          if (branchStack[j].option === optionValue && branchStack[j].type === 'branch_start') {
+            matchIndex = j;
+            break;
+          }
+        }
+
+        if (matchIndex === -1) {
+          errors.push({
+            line: lineNumber,
+            message: `Branch end marker "::branch_end::${optionValue}" has no matching start marker`,
+            branch: optionValue
+          });
+        } else {
+          // Check if this end marker is trying to close out of order (improper nesting)
+          // All branches after the matching start should be properly closed first
+          for (let k = matchIndex + 1; k < branchStack.length; k++) {
+            const unclosedBranch = branchStack[k];
+            if (unclosedBranch.type === 'branch_start') {
+              errors.push({
+                line: lineNumber,
+                message: `Branch "::branch_end::${optionValue}" is trying to close before nested branch "${unclosedBranch.option}" (started at line ${unclosedBranch.startLine}) is closed. Improper nesting detected.`,
+                branch: optionValue
+              });
+              break; // Only report the first improper nesting
+            }
+          }
+
+          // Remove the matching start and everything after it (proper nesting behavior)
+          branchStack.splice(matchIndex);
+        }
+      }
+    }
+  }
+
+  // Check for unclosed branch_start markers
+  branchStack.forEach(unclosed => {
+    if (unclosed.type === 'branch_start') {
+      errors.push({
+        line: unclosed.startLine,
+        message: `Branch start marker "::branch_start::${unclosed.option}" is never closed`,
+        branch: unclosed.option
+      });
+    }
+  });
+
+  return errors;
+}
+
+// Parse branch markers and return structured data
+function parseBranches(markdownLines) {
+  // First validate the branch structure
+  const validationErrors = validateBranchNesting(markdownLines);
+  if (validationErrors.length > 0) {
+    // Show validation errors to user
+    validationErrors.forEach(error => {
+      showFeedback(
+        `Branch Error (Line ${error.line}): ${error.message}`,
+        'error'
+      );
+    });
+
+    // Log detailed errors for debugging
+    console.error('Branch validation errors:', validationErrors);
+  }
+
+  const branches = {};
+  const branchStack = [];
+  let currentBranch = null;
+  let branchLevel = 0;
+
+  // Parse branch markers from markdown
+
+  for (let i = 0; i < markdownLines.length; i++) {
+    const line = markdownLines[i].trim();
+
+    // Parse ::branch::branch_name::Option 1|Option 2|Option 3
+    // Also supports ::branch::branch_name::Option 1|Option 2::Custom Title
+    if (line.startsWith('::branch::')) {
+      const branchMatch = line.match(/^::branch::(\w+)::(.+)$/);
+      if (branchMatch) {
+        const branchName = branchMatch[1];
+        const remaining = branchMatch[2];
+
+        // Check if there's a custom title (double :: separator)
+        let optionsString, customTitle;
+        if (remaining.includes('::')) {
+          const parts = remaining.split('::');
+          optionsString = parts[0];
+          customTitle = parts[1];
+        } else {
+          optionsString = remaining;
+          customTitle = null;
+        }
+
+        const options = optionsString.split('|').map(opt => opt.trim());
+
+        branches[branchName] = {
+          lineNumber: i,
+          options: options,
+          customTitle: customTitle,
+          sections: {}
+        };
+
+        currentBranch = branchName;
+        branchLevel = 0;
+      }
+    }
+    // Parse ::branch_start::option_value
+    else if (line.startsWith('::branch_start::')) {
+      const optionMatch = line.match(/^::branch_start::(.+)$/);
+      if (optionMatch) {
+        const optionValue = optionMatch[1];
+
+        // Find the corresponding branch for this option
+        let targetBranch = currentBranch;
+        for (const [branchName, branchData] of Object.entries(branches)) {
+          if (branchData.options.includes(optionValue)) {
+            targetBranch = branchName;
+            break;
+          }
+        }
+
+        if (targetBranch && branches[targetBranch]) {
+          branchStack.push({ branch: targetBranch, option: optionValue, startLine: i });
+          branchLevel++;
+
+          // Initialize section if not exists
+          if (!branches[targetBranch].sections[optionValue]) {
+            branches[targetBranch].sections[optionValue] = { startLine: i, endLine: null, content: [] };
+          }
+        }
+      }
+    }
+    // Parse ::branch_end::option_value
+    else if (line.startsWith('::branch_end::')) {
+      const optionMatch = line.match(/^::branch_end::(.+)$/);
+      if (optionMatch && branchStack.length > 0) {
+        const optionValue = optionMatch[1];
+
+        // Find the matching branch section from the stack
+        let matchingIndex = -1;
+        for (let j = branchStack.length - 1; j >= 0; j--) {
+          if (branchStack[j].option === optionValue) {
+            matchingIndex = j;
+            break;
+          }
+        }
+
+        if (matchingIndex >= 0) {
+          const matchingBranch = branchStack[matchingIndex];
+          branches[matchingBranch.branch].sections[optionValue].endLine = i;
+
+          // Remove the matching section and all sections after it (for proper nesting)
+          branchStack.splice(matchingIndex);
+          branchLevel = branchStack.length;
+
+          if (branchLevel === 0) {
+            currentBranch = null;
+          }
+        }
+      }
+    }
+  }
+
+  // Additional validation: Check for branch declarations without any sections
+  for (const [branchName, branchData] of Object.entries(branches)) {
+    const hasAnySections = Object.keys(branchData.sections).length > 0;
+    if (!hasAnySections) {
+      showFeedback(
+        `Branch Warning: Branch "${branchName}" (Line ${branchData.lineNumber + 1}) has options but no corresponding ::branch_start:: sections`,
+        'error'
+      );
+    } else {
+      // Check if all declared options have sections
+      for (const option of branchData.options) {
+        if (!branchData.sections[option]) {
+          showFeedback(
+            `Branch Warning: Branch "${branchName}" declares option "${option}" but has no ::branch_start::${option} section`,
+            'error'
+          );
+        }
+      }
+    }
+  }
+
+  // Branches parsed successfully
+
+  return branches;
+}
+
+// Render branch selector UI
+function renderBranchSelector(branchName, branchData, selectedOption = null) {
+  const options = branchData.options;
+  const optionButtons = options.map(option => {
+    const isSelected = selectedOption === option;
+    let classes = 'branch-option chunky-button';
+
+    if (isSelected) {
+      classes += ' selected';
+    } else if (selectedOption) {
+      // If another option is selected, make this one small
+      classes += ' small';
+    }
+
+    // Escape HTML attributes to handle spaces and special chars
+    const escapedOption = option.replace(/"/g, '&quot;');
+    return `<button class="${classes}" data-branch="${branchName}" data-option="${escapedOption}">${option}</button>`;
+  }).join('\n');
+
+  // Use custom title if provided, otherwise generate dynamic title
+  let title = branchData.customTitle || generateBranchTitle(branchName, options);
+
+  return `<div class="branch-selector no-checklist-processing" data-branch="${branchName}" data-title="${title}">
+    <div class="branch-options">
+      ${optionButtons}
+    </div>
+  </div>`;
+}
+
+// Generate simple title from branch name
+function generateBranchTitle(branchName, options) {
+  // Just format the variable name nicely
+  return branchName
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, l => l.toUpperCase());
+}
+
+// Check if content should be shown based on branch selections
+function shouldShowContent(branches, lineNumber, profileId) {
+  // If no profileId, default to showing content
+  if (!profileId) {
+    return true;
+  }
+
+  const choices = getBranchChoices(profileId);
+
+  // Check if this line is within any branch section
+  // We need to check ALL containing branches (for nested branches)
+  for (const [branchName, branchData] of Object.entries(branches)) {
+    for (const [optionValue, section] of Object.entries(branchData.sections)) {
+      if (section.startLine !== null && section.endLine !== null &&
+        lineNumber > section.startLine && lineNumber < section.endLine) {
+        const selectedOption = choices[branchName];
+
+        // If no option is selected for this branch, HIDE all sections
+        if (!selectedOption) {
+          return false;
+        }
+
+        // If an option is selected, only show content for that specific option
+        if (selectedOption !== optionValue) {
+          return false;
+        }
+
+        // This branch allows the content, but we need to check if there are other containing branches
+        // Continue checking other branches that might also contain this line
+      }
+    }
+  }
+
+  // If we get here, either:
+  // 1. This line is not within any branch section (show it)
+  // 2. All containing branch sections have their selected options (show it)
+  return true;
+}
+
+// Process markdown with branch support
+function processMarkdownWithBranches(markdownString, profileId) {
+
   const lines = markdownString.split("\n");
+  const branches = parseBranches(lines);
   let htmlOutput = "";
 
   for (let i = 0; i < lines.length; i++) {
-    // Remove leading and trailing spaces from the line
-    let line = lines[i] ? lines[i].trim() : "";
+    const originalLine = lines[i];
+    let line = originalLine ? originalLine.trim() : "";
 
     // Skip empty lines
     if (line === "") {
       continue;
     }
 
+    // Handle branch selector markers - insert directly into checklist flow
+    if (line.startsWith('::branch::')) {
+      // First check if this branch selector should be visible based on containing branches
+      if (!shouldShowContent(branches, i, profileId)) {
+        continue;
+      }
+      const branchMatch = line.match(/^::branch::(\w+)::(.+)$/);
+      if (branchMatch) {
+        const branchName = branchMatch[1];
+        const branchData = branches[branchName];
+
+        if (branchData) {
+          // Close any open lists before inserting branch selector
+          if (htmlOutput.endsWith('</li>\n')) {
+            htmlOutput += '</ul>\n';
+          }
+
+          // Also close any unclosed lists by tracking depth
+          let openListDepth = (htmlOutput.match(/<ul class="panel-collapse collapse in">/g) || []).length;
+          let closedListDepth = (htmlOutput.match(/<\/ul>/g) || []).length;
+          let unclosedLists = openListDepth - closedListDepth;
+
+          while (unclosedLists > 0) {
+            htmlOutput += '</ul>\n';
+            unclosedLists--;
+          }
+
+          // Insert branch selector outside of any list structure
+          const choices = getBranchChoices(profileId);
+          const selectedOption = choices[branchName];
+          const branchSelectorHTML = renderBranchSelector(branchName, branchData, selectedOption);
+          htmlOutput += branchSelectorHTML + '\n';
+
+          // Check if we need to open a new list after the branch selector
+          // Look ahead to see if the next visible line is a list item
+          let needsNewList = false;
+          for (let j = i + 1; j < lines.length; j++) {
+            const nextLine = lines[j] ? lines[j].trim() : "";
+
+            // Skip empty lines and branch markers
+            if (nextLine === "" || nextLine.startsWith('::branch_start::') || nextLine.startsWith('::branch_end::')) {
+              continue;
+            }
+
+            // Check if this line should be shown
+            if (!shouldShowContent(branches, j, profileId)) {
+              continue;
+            }
+
+            // If it's a list item, we need to open a new list
+            if (nextLine.startsWith("- ") || /^(\t| {2})+\- /.test(lines[j])) {
+              needsNewList = true;
+            }
+            break; // Stop at first visible content line
+          }
+
+          if (needsNewList) {
+            htmlOutput += '<ul class="panel-collapse collapse in">\n';
+          }
+        }
+        continue; // Skip normal processing for branch markers
+      }
+    }
+
+    // Skip branch_start and branch_end markers (they're handled by shouldShowContent)
+    if (line.startsWith('::branch_start::') || line.startsWith('::branch_end::')) {
+      continue;
+    }
+
+    // Check if this line should be shown based on branch selections
+    if (!shouldShowContent(branches, i, profileId)) {
+      continue;
+    }
+
     // Calculate indentation level; 1 tab or 2 spaces equals 1 level
-    const level = lines[i].match(/^(?:\t| {2})*/)[0].length;
+    const level = originalLine.match(/^(?:\t| {2})*/)[0].length;
 
     // Check if the line starts with '# ' indicating a header
     if (line.startsWith("# ")) {
@@ -134,7 +548,7 @@ function processMarkdown(markdownString) {
       htmlOutput += '<ul class="panel-collapse collapse in">\n';
     }
     // Check if the line starts with '- ' indicating a list item (main or sub-bullet based on indentation)
-    else if (line.startsWith("- ") || /^(\t| {2})+\- /.test(lines[i])) {
+    else if ((line.startsWith("- ") || /^(\t| {2})+\- /.test(originalLine)) && !line.includes('branch-option') && !line.includes('branch-selector')) {
       // Extract the text after '- ' and trim any leading/trailing spaces
       let listItemText = line.substr(2).trim();
 
@@ -295,7 +709,7 @@ function processMarkdown(markdownString) {
 
       // If the bullet is a top-level bullet (i.e., not indented)
       if (level === 0) {
-        htmlOutput += `<li data-id="playthrough_${uuid}">${listItemText}\n`;
+        htmlOutput += `<li data-id="playthrough_${uuid}">${listItemText}</li>\n`;
       }
       // If the bullet is an indented sub-bullet
       else {
@@ -375,9 +789,115 @@ function processMarkdown(markdownString) {
   setUlIdAndSpanIdFromH3();
   addCheckboxes();
   addSpoilerHandlers();
+  addBranchHandlers(); // Add branch event handlers
 
   // Set a recurring timer to watch headers with all subtasks completed
   setInterval(watchEmptyHeaders, 250);
+}
+
+// This duplicate function has been removed - using the one above that redirects to processMarkdownWithBranches
+
+// Branch event handlers
+function addBranchHandlers() {
+  // Handle branch option clicks
+  $('.branch-option').off('click.branch').on('click.branch', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const $button = $(this);
+    const branchName = $button.data('branch');
+    const option = $button.data('option');
+
+    // Branch button clicked
+
+    // Get current profile asynchronously to ensure we have the right ID
+    getCurrentProfile().then(currentProfile => {
+      if (!currentProfile || !currentProfile.id) {
+        console.warn('No active profile found for branch selection');
+        showFeedback('Please select a profile first', 'error');
+        return;
+      }
+
+      const profileId = currentProfile.id;
+
+      // If already selected, unselect it
+      if ($button.hasClass('selected')) {
+        clearBranchChoice(profileId, branchName);
+        $button.removeClass('selected');
+        $button.siblings('.branch-option').removeClass('small');
+      } else {
+        // Update button states: unselect others, select this one, make others small
+        $button.siblings('.branch-option').removeClass('selected').addClass('small');
+        $button.removeClass('small').addClass('selected');
+
+        // Save the choice
+        saveBranchChoice(profileId, branchName, option);
+      }
+
+      // Refresh the checklist display
+      refreshChecklistDisplay();
+    }).catch(error => {
+      console.error('Error getting current profile for branch selection:', error);
+      showFeedback('Error accessing profile data', 'error');
+    });
+  });
+}
+
+// Get current profile helper
+function getCurrentProfile() {
+  const profiles = JSON.parse(localStorage.getItem(profilesKey) || '[]');
+  const currentProfileName = localStorage.getItem('currentProfile');
+  return profiles.find(p => p.name === currentProfileName);
+}
+
+// More robust function to get current profile ID using multiple methods
+function getCurrentProfileId() {
+  // Method 1: Try to get from current profile object
+  const currentProfile = getCurrentProfile();
+  if (currentProfile && currentProfile.id) {
+    return currentProfile.id;
+  }
+
+  // Method 2: Try to find profile from currentProfile name and get its ID
+  const profiles = JSON.parse(localStorage.getItem(profilesKey) || '[]');
+  const currentProfileName = localStorage.getItem('currentProfile');
+  if (currentProfileName) {
+    const profile = profiles.find(p => p.name === currentProfileName);
+    if (profile && profile.id) {
+      return profile.id;
+    }
+  }
+
+  // Method 3: Try to get from profile dropdown or other UI elements
+  const selectedProfileId = $('#profileSelect').val();
+  if (selectedProfileId) {
+    return selectedProfileId;
+  }
+
+  // Method 4: If there's only one profile, use it
+  if (profiles.length === 1 && profiles[0].id) {
+    return profiles[0].id;
+  }
+
+  // Method 5: Try to find the first profile with checklist content
+  const profileWithContent = profiles.find(p => p.checklistContent);
+  if (profileWithContent && profileWithContent.id) {
+    return profileWithContent.id;
+  }
+
+  return null; // No profile ID found
+}
+
+
+
+// Refresh checklist display
+function refreshChecklistDisplay() {
+  getCurrentProfile().then(currentProfile => {
+    if (currentProfile && currentProfile.checklistContent) {
+      processMarkdown(currentProfile.checklistContent);
+    }
+  }).catch(error => {
+    console.error('Error refreshing checklist display:', error);
+  });
 }
 
 // If hide completed is checked, hide the headers with no subtasks remaining
@@ -584,8 +1104,6 @@ async function getCurrentProfile() {
   const needsDefaultProfile = !profileId || !profiles[profileId] || Object.keys(profiles).length === 0;
 
   if (needsDefaultProfile) {
-    // If no valid profile exists or no profiles exist, create a default one
-    console.log("No valid profile found, creating default profile");
     return await createDefaultProfile(profiles);
   }
 

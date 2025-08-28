@@ -1,6 +1,6 @@
 # Fire Emblem: Radiant Dawn+ Checklist
 
-A community-created checklist tool for Fire Emblem: Radiant Dawn+ from Gallade and Kalen with edits thanks to Windward. Track items, characters, and missables without spoiilers. Thanks for Ask_B_007 on GameFAQs for the guide content so far. 
+A community-created checklist tool for Fire Emblem: Radiant Dawn+ from Gallade and Kalen with edits thanks to Windward. Track items, characters, and missables without spoiilers. Thanks for Ask_B_007 on GameFAQs for the guide content so far.
 
 ## How to Use
 
@@ -79,6 +79,142 @@ You can add links to your checklist items using markdown format:
 ```
 
 This will render as a clickable link that opens in a new tab.
+
+## Branch System
+
+The branch system allows you to create conditional checklist content based on user choices. This is perfect for games with multiple paths, character choices, or different difficulty modes.
+
+### Basic Branch Syntax
+
+```
+::branch::variable_name::Option 1|Option 2|Option 3
+
+::branch_start::option_value
+- Content specific to this option
+- More content for this choice
+::branch_end::option_value
+
+::branch_start::other_option
+- Different content for other choice
+::branch_end::other_option
+```
+
+### How It Works
+
+1. **Branch Declaration**: `::branch::variable_name::Option 1|Option 2` creates a selection UI
+2. **Branch Sections**: Content between `::branch_start::` and `::branch_end::` is conditional
+3. **Variable Names**: Use descriptive names that explain the choice (e.g., `character_choice`, `difficulty_mode`)
+4. **Option Values**: Simple identifiers for each choice (e.g., `recruit`, `skip`, `normal`, `hard`)
+
+### Variable Naming Conventions
+
+Use descriptive, consistent naming for branch variables:
+
+```
+✅ Good Examples:
+::branch::character_recruitment::Recruit|Skip
+::branch::difficulty_mode::Normal|Hard|Maniac
+::branch::story_path::Path A|Path B|Path C
+::branch::alignment_choice::Light|Dark|Neutral
+
+❌ Avoid:
+::branch::choice1::Yes|No
+::branch::option::A|B|C
+::branch::var1::Opt1|Opt2
+```
+
+### Nesting Branches
+
+Branches can be nested infinitely - selections made in one branch can affect what branches appear later:
+
+```
+::branch::main_path::Forest|Mountain|River
+
+::branch_start::forest
+- Forest path content
+::branch_start::forest
+
+::branch_start::mountain
+- Mountain path content
+::branch_end::mountain
+
+::branch_start::river
+- River path content
+::branch_end::river
+```
+
+### Branch Behavior
+
+- **Default State**: No content shown until user makes a selection
+- **Selection Persistence**: Choices are saved per profile and remembered
+- **Dynamic Updates**: Checklist updates immediately when options are selected
+- **Visual Feedback**: Selected option is highlighted, others appear smaller
+
+### Use Cases
+
+#### Game Routes (Fire Emblem Sacred Stones)
+
+```
+::branch::lord_selection::Ephraim Path|Eirika Path
+
+::branch_start::ephraim_path
+# Chapter 9 (Ephraim) - Fort Rigwald
+- ::task:: Ephraim-specific objectives
+::branch_end::ephraim_path
+
+::branch_start::eirika_path
+# Chapter 9 (Eirika) - Hamill Canyon
+- ::task:: Eirika-specific objectives
+::branch_end::eirika_path
+```
+
+#### Character Recruitment Choices
+
+```
+::branch::character_choice::Recruit|Ignore
+
+::branch_start::recruit
+- ::missable:: Talk to character within 5 turns
+- ::item_story:: Character joins party
+::branch_end::recruit
+
+::branch_start::ignore
+- Character becomes enemy or NPC
+::branch_end::ignore
+```
+
+#### Difficulty-Specific Content
+
+```
+::branch::difficulty::Normal|Hard|Maniac
+
+::branch_start::normal
+- Standard enemy difficulty
+- Normal item rewards
+::branch_end::normal
+
+::branch_start::hard
+- Increased enemy stats
+- Better item rewards
+- Additional challenges
+::branch_end::hard
+```
+
+### Best Practices
+
+1. **Clear Variable Names**: Use descriptive names that explain the choice
+2. **Consistent Option Values**: Keep option values simple and consistent
+3. **Logical Grouping**: Group related choices together
+4. **Progressive Disclosure**: Use branches to avoid overwhelming users with all options at once
+5. **Test Thoroughly**: Verify all branch combinations work as expected
+
+### Technical Notes
+
+- Branch selections are stored per profile in browser localStorage
+- Branch UI appears directly in the checklist flow, interrupting it at the branch point
+- Only one option per branch can be selected at a time
+- Nested branches work by evaluating outer branches first, then inner branches
+- Branch choices persist across browser sessions for each profile
 
 ## Example
 
@@ -185,5 +321,3 @@ This checklist includes coverage of:
 ## Storage
 
 Your checklists are saved in your browser's local storage. They will persist across browser sessions, but clearing your browser data will remove them. Use the Export/Import feature to back up your checklists.
-
-
