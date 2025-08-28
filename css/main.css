@@ -38,6 +38,45 @@
   --box-shadow-medium: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* Note Block Styles (replaces attribution) */
+.note-block {
+  background: linear-gradient(135deg, var(--surface-highlight-bg), var(--surface-bg-color));
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-medium);
+  padding: 15px;
+  margin: 10px 0;
+  box-shadow: var(--box-shadow-light);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.note-header {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--highlight-bg-color);
+}
+
+.note-content {
+  color: var(--body-font-color);
+}
+
+.note-content a {
+  color: var(--btn-primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.note-content a:hover {
+  color: var(--accent-blue-darker);
+  text-decoration: underline;
+}
+
+.note-content strong {
+  color: var(--highlight-bg-color);
+  font-weight: 600;
+}
+
 /* Apply dark mode styles directly to modals */
 .modal .modal-content {
   background-color: var(--surface-bg-color);

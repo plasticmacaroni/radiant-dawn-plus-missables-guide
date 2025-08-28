@@ -1,3 +1,7 @@
+::note:: Attribution Sources and Credits:
+[Fire Emblem Wars of Dragons](https://www.fireemblemwod.com/fe6/ENG_capopcionales.htm) - Complete chapter guide and missable items
+[The FEUniverse thread](https://feuniverse.us/t/fe6-project-ember-v1-85-as-of-8-16-2021-dorothy-edition/6414) - Community ROM hack with gameplay enhancements
+
 # Chapter 1 - Dawn of Destiny
 
 - ::task:: Visit the village in the middle of the map to gain ||5000G||
@@ -163,7 +167,7 @@
   - ::task:: Visit right village → Route B (Chapter 10B → 11B → 12)
   - ::task:: Don't visit right village → Route A (Chapter 10A → 11A → 12)
 
-::branch::western_isles_route::Route A -- don't visit right village|Route B visit right village
+::branch::western_isles_route::Route A -- don't visit right village|Route B -- visit right village
 
 ::branch_start::Route A -- don't visit right village
 
@@ -222,9 +226,10 @@
 - ::task:: Village destruction timing
 
   - ::missable:: ||Villages 5 and 8 (near mountain caves)|| destroyed on Turn 7 if not visited
-    ::branch_end::Route A -- don't visit right village
 
-::branch_start::Route B visit right village
+::branch_end::Route A -- don't visit right village
+
+::branch_start::Route B -- visit right village
 
 - ::task:: Chapter path: 10B → 11B → 12
 - ::missable:: Keep ||Elffin|| alive for Chapter 12x access
@@ -284,7 +289,7 @@
 
   - ::item_uncommon:: ||Vulnerary|| (from reinforcement ||Druid||)
 
-::branch_end::Route B visit right village
+::branch_end::Route B -- visit right village
 
 - ::item_story:: New units
 
@@ -435,29 +440,10 @@
 # Chapter 16 - Retaking the Capital
 
 - ::task:: Route Choice: Sacae vs Ilia
+
   - ::missable:: Your choice here determines Chapters 17-21 path
   - ::task:: Nomads stronger (||Sue||/||Sin|| > ||Shanna||/||Thea||) → Sacae Route
   - ::task:: Pegasus Knights stronger (||Shanna||/||Thea|| > ||Sue||/||Sin||) → Ilia Route
-
-::branch::sacae_ilia_route::Sacae Route (Nomads stronger)|Ilia Route (Pegasus Knights stronger)
-
-::branch_start::Sacae Route (Nomads stronger)
-
-- ::task:: Chapter path: 17A → 18A → 19A → 20A → 20Ax
-- ::task:: Chapter 20Ax requirements: Complete in 25 turns, recruit ||Dayan||, keep ||Sue||/||Sin|| alive
-- ::task:: ||Quest legendary item Miurgre|| obtained: Legendary bow from Chapter 20Ax
-- ::task:: ||Yoder|| brings ||quest legendary item Malte|| in Chapter 21 (legendary magic)
-
-::branch_end::Sacae Route (Nomads stronger)
-
-::branch_start::Ilia Route (Pegasus Knights stronger)
-
-- ::task:: Chapter path: 17B → 18B → 19B → 20B → 20Bx
-- ::task:: Chapter 20Bx requirements: Complete in 25 turns, recruit ||Juno|| and ||Zelot||, keep them alive
-- ::task:: ||Quest legendary item Malte|| obtained: Legendary magic from Chapter 20Bx
-- ::task:: ||Yoder|| brings ||quest legendary item Miurgre|| in Chapter 21 (legendary bow)
-
-::branch_end::Ilia Route (Pegasus Knights stronger)
 
 - ::task:: Chapter unlock requirements
 
@@ -568,7 +554,7 @@
 
 - ::task:: If your Nomads (Sue and Sin) have more experience than than you Pegasus Knights you'll go route A, and if your Pegasus Knights Shanna and Thea have more, you'll go route B
 
-::branch::western_isles_route::Sacae Route|Illia Route
+::branch::western_isles_route2::Sacae Route|Illia Route
 
 ::branch_start::Sacae Route
 
@@ -776,25 +762,26 @@
   - ::missable:: Talk to ||Galle|| with ||Melady|| in Chapter 21
   - ::missable:: ||Galle|| must survive Chapter 21 for later recruitment
 
-- ::task:: Chapter unlock requirements
+  - ::task:: Chapter unlock requirements
 
-  - ::missable:: Next chapter has special requirements to unlock
+    - ::missable:: Next chapter has special requirements to unlock
+
   - ::missable:: Must complete before ||turn 30|| to access ||Chapter 21x||
 
-- ::item_story:: New units
+  - ::item_story:: New units
 
-  - ::item_story:: ||Yoder|| (from start, ||Bishop||)
+    - ::item_story:: ||Yoder|| (from start, ||Bishop||)
 
-- ::task:: Treasure chests and rewards
+  - ::task:: Treasure chests and rewards
 
-  - ::item_uncommon:: ||Knight Crest|| (Chest 1)
+    - ::item_uncommon:: ||Knight Crest|| (Chest 1)
 
-- ::task:: Stealable items
+  - ::task:: Stealable items
 
-  - ::item_uncommon:: ||Knight Crest|| (from enemy)
-  - ::item_uncommon:: ||Vulnerary|| x3 (Normal), x5 (Hard) (from various enemies)
-  - ::item_uncommon:: ||Vulnerary|| x44 total (2 per reinforcement group, mostly ||Dragon Riders||)
-  - ::missable:: ||Galle's|| group has no stealable ||Vulneraries||
+    - ::item_uncommon:: ||Knight Crest|| (from enemy)
+    - ::item_uncommon:: ||Vulnerary|| x3 (Normal), x5 (Hard) (from various enemies)
+    - ::item_uncommon:: ||Vulnerary|| x44 total (2 per reinforcement group, mostly ||Dragon Riders||)
+    - ::missable:: ||Galle's|| group has no stealable ||Vulneraries||
 
   - ::task:: Secret Shop (requires Member Card)
 

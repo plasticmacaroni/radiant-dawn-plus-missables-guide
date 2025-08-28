@@ -85,6 +85,60 @@ Add external links using markdown format:
 
 Links open in a new tab when clicked.
 
+### Notes System
+
+Add informational blocks that appear above checklist content. Perfect for credits, sources, warnings, or general information.
+
+#### Basic Syntax
+
+```markdown
+::note:: Note Title
+Note content here
+Can span multiple lines
+[Links work too](https://example.com)
+**Bold text** is supported
+
+# Chapter 1 - Continue Checklist
+
+- ::task:: Regular checklist items continue below
+```
+
+#### How It Works
+
+1. **Note Declaration** (`::note::`): Creates a styled information block
+2. **Content**: Any text following the note marker until the next structural element
+3. **Markdown Support**: Links, bold text, and basic formatting
+4. **List Integration**: Notes can also be used within checklist items
+
+#### List Item Notes
+
+```markdown
+- ::note:: Important Warning
+  This is a critical note about the upcoming section
+- ::task:: Continue with regular tasks
+```
+
+#### Best Practices
+
+**✅ Use for:**
+
+- Attribution and source credits
+- Important warnings or tips
+- General information blocks
+- Strategy notes and reminders
+
+**❌ Avoid:**
+
+- Using notes for regular checklist items (use `::task::` instead)
+- Overusing notes (keep them concise and relevant)
+
+#### Technical Behavior
+
+- **Static Content**: Notes are non-interactive information blocks
+- **List Management**: Follows same insertion rules as branches
+- **Markdown Processing**: Supports links and basic formatting
+- **Branch Integration**: Respects branch visibility rules
+
 ### Branch System
 
 Create conditional content based on user choices. Perfect for multiple game paths, character decisions, or difficulty modes.
@@ -262,6 +316,10 @@ Error messages appear with specific line numbers and branch names to help fix is
 ### Custom Checklist Example
 
 ```
+::note:: Game Information
+This is a Fire Emblem: The Sacred Stones checklist.
+**Difficulty:** Hard Mode recommended for optimal experience.
+
 # Chapter 1 - Village Defense
 - ::task:: Complete main objectives
   - ::task:: Defeat all enemies
@@ -270,6 +328,9 @@ Error messages appear with specific line numbers and branch names to help fix is
 - ::missable:: Rescue villagers before they are defeated
 - ::item_story:: ||New Character|| joins after chapter
 - ::task:: Visit [strategy guide](https://example.com/strategy) for more tips
+- ::note:: Boss Strategy
+  The boss has high defense but low resistance.
+  Use magic or bows for best results.
 ```
 
 ## Schema for AI-Generated Checklists
@@ -286,10 +347,15 @@ Create a checklist using this format:
    - ::missable:: for urgent/time-sensitive tasks
    - ::item_uncommon:: for special items
    - ::item_story:: for important notes/characters
-5. Spoiler protection: Use ||text|| to hide sensitive content
-6. Links can be added using markdown format: [Link text](https://example.com)
+5. Notes can be added with "::note:: Note Title" for informational blocks
+6. Spoiler protection: Use ||text|| to hide sensitive content
+7. Links can be added using markdown format: [Link text](https://example.com)
 
 Example:
+::note:: Chapter Information
+This chapter contains missable content and time-sensitive objectives.
+**Important:** Save frequently!
+
 # Chapter Objectives
 - ::task:: Complete main story objectives
   - ::task:: Defeat all enemies

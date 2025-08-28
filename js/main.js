@@ -28,6 +28,26 @@ async function loadTemplatesIndex() {
   }
 }
 
+// Parse YAML frontmatter from markdown content
+function parseYamlFrontmatter(content) {
+  // Check if content starts with ---
+  if (!content.startsWith('---\n')) {
+    return { content, frontmatter: null };
+  }
+
+  // Find the end of frontmatter (second ---)
+  const endIndex = content.indexOf('\n---\n', 4);
+  if (endIndex === -1) {
+    return { content, frontmatter: null };
+  }
+
+  // Extract frontmatter and content
+  const frontmatterText = content.substring(4, endIndex);
+  const markdownContent = content.substring(endIndex + 5);
+
+  return { content: markdownContent, frontmatter: null }; // Simplified - no frontmatter processing needed for notes
+}
+
 // Load a specific template by filename
 async function loadTemplate(filename) {
   if (!filename) {
@@ -39,10 +59,14 @@ async function loadTemplate(filename) {
     if (!response.ok) {
       throw new Error(`Failed to load template: ${filename}`);
     }
-    return await response.text();
+
+    const rawContent = await response.text();
+    const { content } = parseYamlFrontmatter(rawContent);
+
+    return content;
   } catch (error) {
     console.error(`Error loading template ${filename}:`, error);
-    return "# Getting Started\n- ::task:: This is a blank checklist. You can click on this task to mark it as complete. \n- ::task:: Press the \"Add\" button on the profile section above to add a new one from a list of templates.\n- ::task:: Or you can press the Edit List button to create your own.";
+    return "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
   }
 }
 
@@ -68,8 +92,10 @@ async function populateTemplateDropdown() {
     $dropdown.append($option);
   });
 
-  // Set default selection to radiant-dawn-plus if available, otherwise blank
-  const defaultTemplate = templates.find(t => t.id === 'radiant-dawn-plus') ? 'radiant-dawn-plus' : 'blank';
+  // Set default selection to fire-emblem-project-ember if available, otherwise radiant-dawn-plus, otherwise blank
+  const defaultTemplate = templates.find(t => t.id === 'fire-emblem-project-ember') ?
+    'fire-emblem-project-ember' :
+    (templates.find(t => t.id === 'radiant-dawn-plus') ? 'radiant-dawn-plus' : 'blank');
   $dropdown.val(defaultTemplate);
 }
 
@@ -79,34 +105,36 @@ async function generateTasks() {
   // Try to load custom checklist from localStorage first
   const currentProfile = await getCurrentProfile();
   if (currentProfile && currentProfile.checklistContent) {
-    processMarkdown(currentProfile.checklistContent);
+    // Ensure checklistContent is a string
+    const content = typeof currentProfile.checklistContent === 'string' ? currentProfile.checklistContent : String(currentProfile.checklistContent || '');
+    processMarkdown(content);
     // Update the page title based on the profile/template
     await updatePageTitle(currentProfile);
     // Also populate the editor
-    document.getElementById("checklist-content").value = currentProfile.checklistContent;
+    document.getElementById("checklist-content").value = content;
     return;
   }
 
   // If no custom checklist exists, try to load from checklist.md
   try {
-    const content = await loadChecklistFromFile();
-    if (content) {
-      processMarkdown(content);
+    const templateData = await loadChecklistFromFile();
+    if (templateData) {
+      processMarkdown(templateData);
       // Also populate the editor with the loaded content
-      document.getElementById("checklist-content").value = content;
+      document.getElementById("checklist-content").value = templateData;
     } else {
       // If checklist.md fails to load, show a default getting started checklist
       const defaultChecklist = "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
       processMarkdown(defaultChecklist);
       // Also populate the editor with a starter example
-      document.getElementById("checklist-content").value = "# Prologue - Chapter Name\n- ::task:: Complete main objectives\n  - ::missable:: Recruit character before turn limit\n- ::item_uncommon:: ||Special Weapon|| (from enemy)\n- ::item_story:: ||Character Name|| (Level 10 ||Class Name||)\n- ::task:: Find the hidden ||secret item|| in the dungeon\n- ::task:: Visit [strategy guide](https://example.com) for more tips";
+      document.getElementById("checklist-content").value = "::note:: Getting Started Guide\nWelcome to your custom checklist! This is a note block.\n\n**Quick Tips:**\n- Check off items as you complete them\n- Use branches for multiple paths\n- Visit [help documentation](https://example.com) for more features\n\n# Prologue - Chapter Name\n- ::task:: Complete main objectives\n  - ::missable:: Recruit character before turn limit\n- ::item_uncommon:: ||Special Weapon|| (from enemy)\n- ::item_story:: ||Character Name|| (Level 10 ||Class Name||)\n- ::task:: Find the hidden ||secret item|| in the dungeon\n- ::task:: Visit [strategy guide](https://example.com) for more tips\n- ::note:: Chapter Strategy\n  This chapter requires careful positioning.\n  **Tip:** Save before attempting the boss!";
     }
   } catch (error) {
     console.error('Error in generateTasks:', error);
     // Fallback to default checklist
     const defaultChecklist = "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
     processMarkdown(defaultChecklist);
-    document.getElementById("checklist-content").value = "# Prologue - Chapter Name\n- ::task:: Complete main objectives\n  - ::missable:: Recruit character before turn limit\n- ::item_uncommon:: ||Special Weapon|| (from enemy)\n- ::item_story:: ||Character Name|| (Level 10 ||Class Name||)\n- ::task:: Find the hidden ||secret item|| in the dungeon\n- ::task:: Visit [strategy guide](https://example.com) for more tips";
+    document.getElementById("checklist-content").value = "::note:: Example Checklist\nThis is a sample checklist showing all features.\n\n# Prologue - Chapter Name\n- ::task:: Complete main objectives\n  - ::missable:: Recruit character before turn limit\n- ::item_uncommon:: ||Special Weapon|| (from enemy)\n- ::item_story:: ||Character Name|| (Level 10 ||Class Name||)\n- ::task:: Find the hidden ||secret item|| in the dungeon\n- ::task:: Visit [strategy guide](https://example.com) for more tips\n- ::note:: Strategy Note\n  Be careful in this area - enemies respawn!";
   }
 }
 
@@ -247,18 +275,41 @@ function parseBranches(markdownLines) {
   }
 
   const branches = {};
+  const notes = [];
   const branchStack = [];
   let currentBranch = null;
   let branchLevel = 0;
+  let currentNote = null;
 
   // Parse branch markers from markdown
 
   for (let i = 0; i < markdownLines.length; i++) {
     const line = markdownLines[i].trim();
 
+    // Parse ::note::Note Title (both standalone and in list items)
+    if (line.includes('::note::')) {
+      const noteMatch = line.match(/::note::(.+)$/);
+      if (noteMatch) {
+        const noteTitle = noteMatch[1].trim();
+        currentNote = {
+          lineNumber: i,
+          title: noteTitle,
+          content: []
+        };
+        notes.push(currentNote);
+      }
+    }
+    // Collect content for current note (any non-empty lines that aren't structural markers)
+    else if (currentNote && line !== "" && !line.startsWith('::') && !line.startsWith('# ') && !line.startsWith('- ')) {
+      currentNote.content.push(markdownLines[i]); // Keep original line with indentation
+    }
+    // Stop collecting note content when we hit another structural element
+    else if (currentNote && (line.includes('::note::') || line.startsWith('::branch::') || line.startsWith('# ') || line.startsWith('- '))) {
+      currentNote = null;
+    }
     // Parse ::branch::branch_name::Option 1|Option 2|Option 3
     // Also supports ::branch::branch_name::Option 1|Option 2::Custom Title
-    if (line.startsWith('::branch::')) {
+    else if (line.startsWith('::branch::')) {
       const branchMatch = line.match(/^::branch::([^:]+)::(.+)$/);
       if (branchMatch) {
         const branchName = branchMatch[1];
@@ -276,6 +327,14 @@ function parseBranches(markdownLines) {
         }
 
         const options = optionsString.split('|').map(opt => opt.trim());
+
+        // Check for duplicate branch names (this IS a problem)
+        if (branches[branchName]) {
+          console.warn(`Duplicate branch name detected: "${branchName}"`);
+          console.warn(`  First definition at line ${branches[branchName].lineNumber + 1}`);
+          console.warn(`  Second definition at line ${i + 1}`);
+          showFeedback(`Warning: Duplicate branch name "${branchName}" found at lines ${branches[branchName].lineNumber + 1} and ${i + 1}. This will cause conflicts in branch selection.`, "warning");
+        }
 
         branches[branchName] = {
           lineNumber: i,
@@ -366,9 +425,9 @@ function parseBranches(markdownLines) {
     }
   }
 
-  // Branches parsed successfully
+  // Branches and notes parsed successfully
 
-  return branches;
+  return { branches, notes };
 }
 
 // Render branch selector UI
@@ -406,6 +465,31 @@ function generateBranchTitle(branchName, options) {
   return branchName
     .replace(/_/g, ' ')
     .replace(/\b\w/g, l => l.toUpperCase());
+}
+
+// Render note block UI (similar to branch but static)
+function renderNoteBlock(title, content) {
+  const processedContent = content.map(line => {
+    // Basic markdown processing for notes
+    let processed = line;
+
+    // Convert markdown links
+    processed = processed.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+    // Convert bold text
+    processed = processed.replace(/(\*\*|__)(.*?)\1/g, '<strong>$2</strong>');
+
+    return processed;
+  }).join('<br>');
+
+  return `<div class="note-block" data-title="${title}">
+    <div class="note-header">
+      <strong>${title}</strong>
+    </div>
+    <div class="note-content">
+      ${processedContent}
+    </div>
+  </div>`;
 }
 
 // Check if content should be shown based on branch selections
@@ -451,7 +535,7 @@ function shouldShowContent(branches, lineNumber, profileId) {
 function processMarkdownWithBranches(markdownString, profileId) {
 
   const lines = markdownString.split("\n");
-  const branches = parseBranches(lines);
+  const { branches, notes } = parseBranches(lines);
   let htmlOutput = "";
 
   for (let i = 0; i < lines.length; i++) {
@@ -461,6 +545,54 @@ function processMarkdownWithBranches(markdownString, profileId) {
     // Skip empty lines
     if (line === "") {
       continue;
+    }
+
+    // Handle note markers - insert directly into checklist flow
+    if (line.includes('::note::')) {
+      // First check if this note should be visible based on containing branches
+      if (!shouldShowContent(branches, i, profileId)) {
+        continue;
+      }
+
+      // Find the note data
+      const note = notes.find(n => n.lineNumber === i);
+      if (note) {
+        // SIMPLE FIX: Always close current list before note, then handle next content
+        // Always close any current list context before inserting note
+        htmlOutput += '</ul>\n';
+
+        // Insert note block
+        const noteHTML = renderNoteBlock(note.title, note.content);
+        htmlOutput += noteHTML + '\n';
+
+        // Check if we need to open a new list for subsequent content
+        let needsNewList = false;
+        for (let j = i + 1; j < lines.length; j++) {
+          const nextLine = lines[j] ? lines[j].trim() : "";
+
+          // Skip empty lines and branch markers
+          if (nextLine === "" || nextLine.startsWith('::branch_start::') || nextLine.startsWith('::branch_end::') || nextLine.includes('::note::')) {
+            continue;
+          }
+
+          // Check if this line should be shown (branches control visibility)
+          if (!shouldShowContent(branches, j, profileId)) {
+            continue;
+          }
+
+          // If it's a list item (not a heading), we need to open a new list
+          if ((nextLine.startsWith("- ") || /^(\t| {2})+\- /.test(lines[j]))) {
+            needsNewList = true;
+          }
+          break; // Stop at first visible content line
+        }
+
+        // Open new list if needed for subsequent content
+        if (needsNewList) {
+          htmlOutput += '<ul class="panel-collapse collapse in">\n';
+        }
+      }
+      continue; // Skip normal processing for note markers
     }
 
     // Handle branch selector markers - insert directly into checklist flow
@@ -475,50 +607,40 @@ function processMarkdownWithBranches(markdownString, profileId) {
         const branchData = branches[branchName];
 
         if (branchData) {
-          // Close any open lists before inserting branch selector
-          if (htmlOutput.endsWith('</li>\n')) {
-            htmlOutput += '</ul>\n';
-          }
+          // SIMPLE FIX: Always close current list before branch, then handle next content
 
-          // Also close any unclosed lists by tracking depth
-          let openListDepth = (htmlOutput.match(/<ul class="panel-collapse collapse in">/g) || []).length;
-          let closedListDepth = (htmlOutput.match(/<\/ul>/g) || []).length;
-          let unclosedLists = openListDepth - closedListDepth;
+          // Always close any current list context before inserting branch
+          htmlOutput += '</ul>\n';
 
-          while (unclosedLists > 0) {
-            htmlOutput += '</ul>\n';
-            unclosedLists--;
-          }
-
-          // Insert branch selector outside of any list structure
+          // Insert branch selector (branches are always at top level)
           const choices = getBranchChoices(profileId);
           const selectedOption = choices[branchName];
           const branchSelectorHTML = renderBranchSelector(branchName, branchData, selectedOption);
           htmlOutput += branchSelectorHTML + '\n';
 
-          // Check if we need to open a new list after the branch selector
-          // Look ahead to see if the next visible line is a list item
+          // Check if we need to open a new list for subsequent content
           let needsNewList = false;
           for (let j = i + 1; j < lines.length; j++) {
             const nextLine = lines[j] ? lines[j].trim() : "";
 
             // Skip empty lines and branch markers
-            if (nextLine === "" || nextLine.startsWith('::branch_start::') || nextLine.startsWith('::branch_end::')) {
+            if (nextLine === "" || nextLine.startsWith('::branch_start::') || nextLine.startsWith('::branch_end::') || nextLine.includes('::note::')) {
               continue;
             }
 
-            // Check if this line should be shown
+            // Check if this line should be shown (branches control visibility)
             if (!shouldShowContent(branches, j, profileId)) {
               continue;
             }
 
-            // If it's a list item, we need to open a new list
-            if (nextLine.startsWith("- ") || /^(\t| {2})+\- /.test(lines[j])) {
+            // If it's a list item (not a heading), we need to open a new list
+            if ((nextLine.startsWith("- ") || /^(\t| {2})+\- /.test(lines[j]))) {
               needsNewList = true;
             }
             break; // Stop at first visible content line
           }
 
+          // Open new list if needed for subsequent content
           if (needsNewList) {
             htmlOutput += '<ul class="panel-collapse collapse in">\n';
           }
@@ -544,11 +666,21 @@ function processMarkdownWithBranches(markdownString, profileId) {
     if (line.startsWith("# ")) {
       const headerText = line.substr(2);
       const idText = sanitize(headerText);
+
+      // Debug header processing at line 170
+      if (i === 169) { // 0-indexed, line 170 is index 169
+        console.log('🔍 HEADER PROCESSING AT LINE 170:');
+        console.log('  Header text:', headerText);
+        console.log('  HTML before header:', htmlOutput.slice(-100));
+        console.log('  ➕ HEADER ADDING </ul> then <ul>');
+      }
+
       htmlOutput += `</ul><h3 id="${idText}"><a href="#" data-toggle="collapse" data-parent="#tabPlaythrough" class="btn btn-primary btn-collapse btn-sm"></a><a href="#">${headerText}</a></h3>\n`;
       htmlOutput += '<ul class="panel-collapse collapse in">\n';
     }
     // Check if the line starts with '- ' indicating a list item (main or sub-bullet based on indentation)
     else if ((line.startsWith("- ") || /^(\t| {2})+\- /.test(originalLine)) && !line.includes('branch-option') && !line.includes('branch-selector')) {
+
       // Extract the text after '- ' and trim any leading/trailing spaces
       let listItemText = line.substr(2).trim();
 
@@ -893,7 +1025,9 @@ function getCurrentProfileId() {
 function refreshChecklistDisplay() {
   getCurrentProfile().then(currentProfile => {
     if (currentProfile && currentProfile.checklistContent) {
-      processMarkdown(currentProfile.checklistContent);
+      // Ensure checklistContent is a string
+      const content = typeof currentProfile.checklistContent === 'string' ? currentProfile.checklistContent : String(currentProfile.checklistContent || '');
+      processMarkdown(content);
     }
   }).catch(error => {
     console.error('Error refreshing checklist display:', error);
@@ -1125,6 +1259,14 @@ async function updatePageTitle(profile) {
     return;
   }
 
+  // Safety check: ensure checklistContent is a string
+  if (typeof profile.checklistContent !== 'string') {
+    console.error('Profile checklistContent is not a string! Type:', typeof profile.checklistContent, 'Value:', profile.checklistContent);
+    console.error('Profile object:', profile);
+    $title.text('Checklist Tool');
+    return;
+  }
+
   // Load templates to find the matching template name
   const templates = await loadTemplatesIndex();
   const blankTemplate = templates.find(t => t.id === 'blank');
@@ -1136,7 +1278,10 @@ async function updatePageTitle(profile) {
       try {
         const templateContent = await loadTemplate(template.filename);
         // Compare the content (ignoring minor whitespace differences)
-        const normalizedProfileContent = profile.checklistContent.trim();
+        // Ensure both are strings before trimming
+        const profileContent = typeof profile.checklistContent === 'string' ? profile.checklistContent : String(profile.checklistContent || '');
+
+        const normalizedProfileContent = profileContent.trim();
         const normalizedTemplateContent = templateContent.trim();
 
         if (normalizedProfileContent === normalizedTemplateContent) {
