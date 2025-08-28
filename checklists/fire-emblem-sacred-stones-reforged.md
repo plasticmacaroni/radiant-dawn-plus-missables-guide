@@ -55,7 +55,7 @@
 
 # Chapter 5xx
 
-- ::missable:: Complete Chapter 5x in 10 turns or less to unlock Chapter 5xx
+- ::task:: ||Save Glen|| - Defeat ||Valter|| on Chapter 5xx rather than retreating, and if you choose ||Eirika's route|| on Chapter 9, (||a special skill for Cormag|| will be given later for doing this)
 - ::item_uncommon:: ||Elixir|| (Fighter @ 10,12)
 - ::item_uncommon:: ||Body Ring|| (Bram @ 17,1)
 - ::task:: 10 EXP (House @ 7,4)
@@ -312,6 +312,7 @@
 
 # Chapter 11 (Eirika) - Creeping Darkness
 
+- ::task:: Note ||Glen|| should survive the cutscene battle with ||Valter|| on Chapter 11 instead of dying, and will return on Chapter 16 as a green unit (||a special skill for Cormag|| will be given later for following this path)
 - ::task:: ||Forge|| usable this map - creates duplicate copy of enemy item into your inventory
 - ::missable:: Avoid forging certain ||Prf|| weapons from bosses that become unusable
 - ::item_uncommon:: ||Restore|| (Chest @ 3,8)
@@ -387,6 +388,7 @@
 
 # Chapter 16 (Eirika) - Beyond Escape
 
+- ::task:: If ||Glen|| is alive (and ||Cormag||) at the end of Chapter 16, ||Cormag|| will unlock a unique skill (||a special skill for Cormag|| will be given to him)
 - ::item_uncommon:: ||Fili Shield|| (||Valter|| @ 6,4) - Makes holder take regular damage from effective weapons
 - ::item_uncommon:: ||Elixir|| (||Mercenary|| @ 5,9)
 - ::item_uncommon:: ||Antitoxin|| (||Brigand|| @ 14,14)
@@ -472,13 +474,6 @@
 - ::item_uncommon:: ||Angelic Robe|| (Chest @ 21,18)
 
 ::branch_end::Eirika Path
-
-# ???
-
-- ::task:: Receive a special skill for the character ||Cormag||
-  - ::task:: ||Save Glen|| - Defeat ||Valter|| on Chapter 5xx rather than retreating, and choose ||Eirika's route|| on Chapter 9
-  - ::task:: ||Glen|| will survive the cutscene battle with ||Valter|| on Chapter 11 instead of dying, and will return on Chapter 16 as a green unit
-  - ::task:: He cannot be recruited -- if both him and ||Cormag|| are alive at the end of Chapter 16, ||Cormag|| will unlock a unique skill
 
 # Special Support Rewards
 
