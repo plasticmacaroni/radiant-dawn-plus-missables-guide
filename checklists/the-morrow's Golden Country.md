@@ -1,3 +1,8 @@
+::note:: Attribution
+The Morrow's Golden Country is developed by the community. Join the Discord server for updates and community discussion.
+
+[FEUniverse Thread](https://feuniverse.us/t/fe8-fire-emblem-the-morrows-golden-country-complete/16284) - Official project page with downloads and information.
+
 # Prologue
 
 - ::item_story:: ||Blair||, ||Arin||, ||Kenneth|| - Join automatically
