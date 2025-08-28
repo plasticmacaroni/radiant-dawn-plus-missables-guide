@@ -118,12 +118,17 @@
 - ::item_uncommon:: ||Master Seal|| (Village @ 4,12)
 - ::missable:: ||Angelic Robe|| (Keep the NPC's alive until end of chapter)
 
+# Between Chapters - Bethroen District
+
+- ::item_story:: ||Alice|| (5,000 gold) - Visit ||Bethroen District|| between chapters (Ephraim route only)
+
 # Chapter 11 (Ephraim) - Phantom Ship
 
 - ::task:: ||Forge|| usable this map - creates duplicate copy of enemy item into your inventory
 - ::missable:: Avoid forging certain ||Prf|| weapons from bosses that become unusable
 - ::item_uncommon:: ||Talisman|| (||Wight|| @ 14,12)
 - ::item_uncommon:: ||Master Seal|| (||Deathgoyle|| @ lower left corner around Turn 5 or 6)
+- ::item_story:: Recruit ||Scylla|| - Place ||Neimi|| between the upper two grates on the monster ship (center ship between the top barrel and the northernmost grate), and then keep ||Scylla|| alive until chapter ends
 
 # Chapter 12 (Ephraim) - Landing at Taizel
 
@@ -301,6 +306,10 @@
 - ::task:: 10 EXP (House @ 11,6)
 - ::task:: 10 EXP (House @ 13,8)
 
+# Between Chapters - Port Kiris District
+
+- ::item_story:: ||Lucan|| (5,000 gold) - Visit ||Port Kiris District|| between chapters (Eirika route only)
+
 # Chapter 11 (Eirika) - Creeping Darkness
 
 - ::task:: ||Forge|| usable this map - creates duplicate copy of enemy item into your inventory
@@ -330,7 +339,8 @@
 - ::item_uncommon:: ||Talisman|| (||Justiciar|| @ 20,4)
 - ::item_uncommon:: ||Master Seal|| (||Cormag|| @ 2,12) (Reinforcements Turn 3)
 - ::item_uncommon:: ||Blue Gem|| (||Pablo|| @ 1,7) (Reinforcements Turn 6)
-- ::item_story:: ||Groth|| (||Groth|| @ 8,3) (Reinforcement after killing ||Aias|| with ||Dozla||) (Recruitable)
+- ::item_story:: ||Groth|| (||Groth|| @ 8,3) Defeat ||Aias|| with ||Dozla|| on Hamill Canyon, and then speak to ||Groth|| with ||Dozla|| (both must survive combat with each other)
+
 - ::item_uncommon:: ||Dragonshield|| (||Groth|| @ 8,3) (Reinforcement after killing ||Aias|| with ||Dozla||)
 - ::task:: 5000G (Received after map completion)
 
@@ -462,23 +472,6 @@
 - ::item_uncommon:: ||Angelic Robe|| (Chest @ 21,18)
 
 ::branch_end::Eirika Path
-
-# Chapter 11 - Phantom Ship (Both Paths)
-
-- ::task:: Board the mysterious ship
-- ::item_uncommon:: ||Ocean Seal|| (Chest @ 12,5)
-- ::task:: Fight through the undead crew
-- ::item_story:: ||Scylla|| - Secret character recruitment available
-- ::missable:: Position ||Neimi|| correctly to recruit ||Scylla||
-- ::item_story:: ||Scylla|| joins your party
-
-# ???
-
-- ::item_story:: ||Groth|| - Defeat ||Aias|| with ||Dozla|| on Hamill Canyon. Speak to ||Groth|| with ||Dozla|| (both must survive combat with each other)
-
-# ???
-
-- ::item_story:: ||Scylla|| - Place ||Neimi|| between the upper two grates on the monster ship on Phantom Ship (exact tile in pins) -- keep ||Scylla|| alive until the chapter ends
 
 # ???
 
