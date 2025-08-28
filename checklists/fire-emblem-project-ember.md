@@ -566,7 +566,7 @@
 
 - ::item_story:: Gather 4 ||vulnerary|| that you can steal from enemies here
 
-- ::if your Nomads (Sue and Sin) have more experience than than you Pegasus Knights you'll go route A, and if your Pegasus Knights Shanna and Thea have more, you'll go route B
+- ::task:: If your Nomads (Sue and Sin) have more experience than than you Pegasus Knights you'll go route A, and if your Pegasus Knights Shanna and Thea have more, you'll go route B
 
 ::branch::western_isles_route::Sacae Route|Illia Route
 
