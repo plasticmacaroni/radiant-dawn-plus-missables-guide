@@ -259,7 +259,7 @@ function parseBranches(markdownLines) {
     // Parse ::branch::branch_name::Option 1|Option 2|Option 3
     // Also supports ::branch::branch_name::Option 1|Option 2::Custom Title
     if (line.startsWith('::branch::')) {
-      const branchMatch = line.match(/^::branch::(\w+)::(.+)$/);
+      const branchMatch = line.match(/^::branch::([^:]+)::(.+)$/);
       if (branchMatch) {
         const branchName = branchMatch[1];
         const remaining = branchMatch[2];
@@ -469,7 +469,7 @@ function processMarkdownWithBranches(markdownString, profileId) {
       if (!shouldShowContent(branches, i, profileId)) {
         continue;
       }
-      const branchMatch = line.match(/^::branch::(\w+)::(.+)$/);
+      const branchMatch = line.match(/^::branch::([^:]+)::(.+)$/);
       if (branchMatch) {
         const branchName = branchMatch[1];
         const branchData = branches[branchName];

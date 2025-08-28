@@ -42,9 +42,11 @@ A community-created checklist tool for Fire Emblem: Radiant Dawn+ from Gallade a
    - Add your own notes, reminders, or custom items
    - Use the export/import feature to backup your customizations
 
-## Checklist Format
+## Checklist Reference Guide
 
-Use the following format to create your checklist:
+This section contains all the formatting rules and features for creating checklists.
+
+### Basic Structure
 
 ```
 # Category Name
@@ -53,168 +55,185 @@ Use the following format to create your checklist:
 - Another item
 ```
 
-### Item Types
+### Content Types
 
-You can use prefixes to specify item types:
+#### Item Type Prefixes
 
-- `::task::` - Regular task
-- `::missable::` - Urgent/missable task
-- `::item_uncommon::` - Special item
-- `::item_story::` - Important note/character
+- `::task::` - Regular task (clipboard icon)
+- `::missable::` - Urgent/time-sensitive task (clock icon)
+- `::item_uncommon::` - Special item (gem icon)
+- `::item_story::` - Important note/character (book icon)
 
-### Spoiler Protection
+#### Spoiler Protection
 
 Hide sensitive content with double pipes:
 
-- `||hidden text||` - Creates a clickable spoiler box
-- Renders as `???` that reveals content when clicked
-- Perfect for hiding character names, locations, and important plot points
-
-### Adding Links
-
-You can add links to your checklist items using markdown format:
-
 ```
-- ::task:: Check the [character recruitment guide](https://example.com/characters)
+- ::task:: Recruit ||character name|| in the ||secret location||
 ```
 
-This will render as a clickable link that opens in a new tab.
+- Renders as `???` boxes that reveal content when clicked
+- Perfect for character names, locations, and plot points
 
-## Branch System
+#### Links
 
-The branch system allows you to create conditional checklist content based on user choices. This is perfect for games with multiple paths, character choices, or different difficulty modes.
-
-### Basic Branch Syntax
+Add external links using markdown format:
 
 ```
+- ::task:: Check the [strategy guide](https://example.com/guide)
+```
+
+Links open in a new tab when clicked.
+
+### Branch System
+
+Create conditional content based on user choices. Perfect for multiple game paths, character decisions, or difficulty modes.
+
+#### Basic Syntax
+
+```markdown
 ::branch::variable_name::Option 1|Option 2|Option 3
 
-::branch_start::option_value
-- Content specific to this option
+::branch_start::Option 1
+
+- Content only shown when Option 1 is selected
 - More content for this choice
-::branch_end::option_value
+  ::branch_end::Option 1
 
-::branch_start::other_option
-- Different content for other choice
-::branch_end::other_option
+::branch_start::Option 2
+
+- Different content for Option 2
+  ::branch_end::Option 2
 ```
 
-### How It Works
+#### How It Works
 
-1. **Branch Declaration**: `::branch::variable_name::Option 1|Option 2` creates a selection UI
-2. **Branch Sections**: Content between `::branch_start::` and `::branch_end::` is conditional
-3. **Variable Names**: Use descriptive names that explain the choice (e.g., `character_choice`, `difficulty_mode`)
-4. **Option Values**: Simple identifiers for each choice (e.g., `recruit`, `skip`, `normal`, `hard`)
+1. **Branch Declaration** (`::branch::`): Creates option buttons for user selection
+2. **Branch Sections** (`::branch_start::` / `::branch_end::`): Content shown only when that option is selected
+3. **Variable Names**: Use descriptive identifiers (e.g., `character_route`, `difficulty_mode`)
+4. **Option Values**: Must exactly match between declaration and section markers
 
-### Variable Naming Conventions
+#### Nesting Rules
 
-Use descriptive, consistent naming for branch variables:
+Branches can be infinitely nested. Inner branches only appear when their parent branch is selected:
 
+```markdown
+::branch::main_route::Forest Path|Mountain Path
+
+::branch_start::Forest Path
+
+- Forest-specific content
+
+  ::branch::forest_choice::Stealth|Combat
+
+  ::branch_start::Stealth
+
+  - Sneak through quietly
+    ::branch_end::Stealth
+
+  ::branch_start::Combat
+
+  - Fight your way through
+    ::branch_end::Combat
+
+::branch_end::Forest Path
+
+::branch_start::Mountain Path
+
+- Mountain-specific content
+  ::branch_end::Mountain Path
 ```
-✅ Good Examples:
+
+#### Validation and Error Handling
+
+The system automatically validates branch structure and shows error messages for:
+
+- **Unmatched markers**: `::branch_end::` without corresponding `::branch_start::`
+- **Unclosed sections**: `::branch_start::` that are never closed
+- **Improper nesting**: Branches trying to close before nested branches are complete
+- **Missing sections**: Branch declarations without any content sections
+- **Option mismatches**: Declared options that don't have corresponding sections
+
+Error messages appear with specific line numbers and branch names to help fix issues.
+
+#### Best Practices
+
+**✅ Good Variable Names:**
+
+```markdown
 ::branch::character_recruitment::Recruit|Skip
 ::branch::difficulty_mode::Normal|Hard|Maniac
-::branch::story_path::Path A|Path B|Path C
-::branch::alignment_choice::Light|Dark|Neutral
+::branch::story_path::Eirika Route|Ephraim Route
+::branch::alignment_choice::Light|Neutral|Dark
+```
 
-❌ Avoid:
+**❌ Avoid:**
+
+```markdown
 ::branch::choice1::Yes|No
 ::branch::option::A|B|C
 ::branch::var1::Opt1|Opt2
 ```
 
-### Nesting Branches
+**Structural Guidelines:**
 
-Branches can be nested infinitely - selections made in one branch can affect what branches appear later:
+1. Use descriptive variable names that explain the choice
+2. Keep option values simple but clear
+3. Ensure proper nesting - close inner branches before outer branches
+4. Test all branch combinations thoroughly
+5. Use branches to avoid overwhelming users with too many options at once
 
-```
-::branch::main_path::Forest|Mountain|River
+#### Technical Behavior
 
-::branch_start::forest
-- Forest path content
-::branch_start::forest
+- **Default State**: Content hidden until user makes selection
+- **Selection Persistence**: Choices saved per profile in browser localStorage
+- **Dynamic Updates**: Checklist refreshes immediately when options selected
+- **Visual Feedback**: Selected buttons highlighted blue, others appear smaller and grayed
+- **Profile Isolation**: Each profile maintains independent branch selections
 
-::branch_start::mountain
-- Mountain path content
-::branch_end::mountain
+### Complete Example
 
-::branch_start::river
-- River path content
-::branch_end::river
-```
+```markdown
+# Chapter 8 - Route Split
 
-### Branch Behavior
-
-- **Default State**: No content shown until user makes a selection
-- **Selection Persistence**: Choices are saved per profile and remembered
-- **Dynamic Updates**: Checklist updates immediately when options are selected
-- **Visual Feedback**: Selected option is highlighted, others appear smaller
-
-### Use Cases
-
-#### Game Routes (Fire Emblem Sacred Stones)
-
-```
 ::branch::lord_selection::Ephraim Path|Eirika Path
 
-::branch_start::ephraim_path
+::branch_start::Ephraim Path
+
 # Chapter 9 (Ephraim) - Fort Rigwald
-- ::task:: Ephraim-specific objectives
-::branch_end::ephraim_path
 
-::branch_start::eirika_path
+- ::task:: Capture the fortress
+- ::item_story:: ||Forde|| joins automatically
+
+  ::branch::strategy_choice::Direct Assault|Stealth Approach
+
+  ::branch_start::Direct Assault
+
+  - ::missable:: Complete within 15 turns for bonus
+  - ::item_uncommon:: ||Steel Lance|| (reward for speed)
+    ::branch_end::Direct Assault
+
+  ::branch_start::Stealth Approach
+
+  - ::task:: Avoid triggering reinforcements
+  - ::item_uncommon:: ||Sleep Staff|| (found in hidden room)
+    ::branch_end::Stealth Approach
+
+::branch_end::Ephraim Path
+
+::branch_start::Eirika Path
+
 # Chapter 9 (Eirika) - Hamill Canyon
-- ::task:: Eirika-specific objectives
-::branch_end::eirika_path
+
+- ::task:: Cross the canyon safely
+- ::item_story:: ||Kyle|| joins automatically
+- ::missable:: Save villagers from ||monster|| attacks
+  ::branch_end::Eirika Path
+
+# Chapter 10 (Both Routes Converge)
+
+- ::task:: Objectives continue for both paths
 ```
-
-#### Character Recruitment Choices
-
-```
-::branch::character_choice::Recruit|Ignore
-
-::branch_start::recruit
-- ::missable:: Talk to character within 5 turns
-- ::item_story:: Character joins party
-::branch_end::recruit
-
-::branch_start::ignore
-- Character becomes enemy or NPC
-::branch_end::ignore
-```
-
-#### Difficulty-Specific Content
-
-```
-::branch::difficulty::Normal|Hard|Maniac
-
-::branch_start::normal
-- Standard enemy difficulty
-- Normal item rewards
-::branch_end::normal
-
-::branch_start::hard
-- Increased enemy stats
-- Better item rewards
-- Additional challenges
-::branch_end::hard
-```
-
-### Best Practices
-
-1. **Clear Variable Names**: Use descriptive names that explain the choice
-2. **Consistent Option Values**: Keep option values simple and consistent
-3. **Logical Grouping**: Group related choices together
-4. **Progressive Disclosure**: Use branches to avoid overwhelming users with all options at once
-5. **Test Thoroughly**: Verify all branch combinations work as expected
-
-### Technical Notes
-
-- Branch selections are stored per profile in browser localStorage
-- Branch UI appears directly in the checklist flow, interrupting it at the branch point
-- Only one option per branch can be selected at a time
-- Nested branches work by evaluating outer branches first, then inner branches
-- Branch choices persist across browser sessions for each profile
 
 ## Example
 
