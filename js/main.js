@@ -42,7 +42,7 @@ async function loadTemplate(filename) {
     return await response.text();
   } catch (error) {
     console.error(`Error loading template ${filename}:`, error);
-    return "# Getting Started\n- ::task:: This is a blank checklist. You can click on this task to mark it as complete. \n- ::task:: Press the \"Add\" button on the profile section above to add a new one from a list of templates.\n- ::task:: Or you can press the Create/Edit List button to create your own.";
+    return "# Getting Started\n- ::task:: This is a blank checklist. You can click on this task to mark it as complete. \n- ::task:: Press the \"Add\" button on the profile section above to add a new one from a list of templates.\n- ::task:: Or you can press the Edit List button to create your own.";
   }
 }
 
@@ -1204,6 +1204,56 @@ function initializeProfileFunctionality($) {
     });
   });
 
+  // Share template button
+  $("#profileShareTemplate").on("click", async function () {
+    const currentProfile = await getCurrentProfile();
+    if (!currentProfile) {
+      showFeedback("No profile selected", "error");
+      return;
+    }
+
+    // Check if profile has stored templateId (only profiles created from templates have this)
+    const templateId = currentProfile.templateId;
+
+    if (!templateId) {
+      showFeedback("This profile wasn't created from a template and cannot be shared as a template link, but you can still use the Share Checklist button to share the entire checklist. Only profiles created from templates can be shared.", "error");
+      return;
+    }
+
+    // Verify the template still exists
+    const templates = await loadTemplatesIndex();
+    const templateExists = templates.some(t => t.id === templateId);
+
+    if (!templateExists) {
+      showFeedback("The template this profile was based on no longer exists.", "error");
+      return;
+    }
+
+    // Generate shareable URL
+    const baseUrl = window.location.origin + window.location.pathname;
+    const shareUrl = `${baseUrl}#template=${encodeURIComponent(templateId)}`;
+
+    // Copy to clipboard
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(shareUrl);
+      showFeedback("Template share link copied to clipboard!", "success");
+    } else {
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea");
+      textArea.value = shareUrl;
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showFeedback("Template share link copied to clipboard!", "success");
+      } catch (err) {
+        showFeedback("Copy failed, please manually copy: " + shareUrl, "error");
+      }
+      document.body.removeChild(textArea);
+    }
+  });
+
   // Add profile button
   $("#profileAdd").on("click", async function () {
     $("#profileModalTitle").text("Add Profile");
@@ -1261,7 +1311,8 @@ function initializeProfileFunctionality($) {
       id: uniqueId,
       name: uniqueName,
       checklistData: {},
-      checklistContent: checklistContent
+      checklistContent: checklistContent,
+      templateId: selectedTemplateId // Store template ID for sharing
     };
 
     $.jStorage.set(profilesKey, profiles);
@@ -1683,12 +1734,85 @@ function isCompressedChecklistData(hash) {
   return true;
 }
 
+// Function to handle template sharing via URL hash
+async function handleTemplateSharing(templateId) {
+  console.log("Processing template sharing for:", templateId);
+
+  // Load templates index
+  const templates = await loadTemplatesIndex();
+  const selectedTemplate = templates.find(t => t.id === templateId);
+
+  if (!selectedTemplate) {
+    console.error("Template not found:", templateId);
+    showFeedback("Template not found: " + templateId, "error");
+    return;
+  }
+
+  // Check if user already has a profile based on this template
+  const profiles = $.jStorage.get(profilesKey, {});
+  const existingProfileWithTemplate = Object.values(profiles).find(profile =>
+    profile.templateId === templateId
+  );
+
+  if (existingProfileWithTemplate) {
+    console.log("Found existing profile with this template, switching to it:", existingProfileWithTemplate.name);
+    // Switch to the existing profile
+    $("#profiles").val(existingProfileWithTemplate.id);
+    $("#profiles").trigger("change");
+    showFeedback("Switched to existing profile: " + existingProfileWithTemplate.name, "success");
+    return;
+  }
+
+  // No existing profile found, create a new one (equivalent to pressing Add button with this template)
+  console.log("No existing profile found, creating new profile from shared template:", selectedTemplate.name);
+
+  // Load the template content
+  const checklistContent = await loadTemplate(selectedTemplate.filename);
+
+  // Generate unique profile name and ID
+  const profilesObj = $.jStorage.get(profilesKey, {});
+  const { uniqueName, uniqueId } = generateUniqueProfileName(selectedTemplate.name, profilesObj);
+
+  // Create new profile
+  profilesObj[uniqueId] = {
+    id: uniqueId,
+    name: uniqueName,
+    checklistData: {},
+    checklistContent: checklistContent,
+    templateId: templateId // Store the template ID for future reference
+  };
+
+  // Save and set as current profile
+  $.jStorage.set(profilesKey, profilesObj);
+  $.jStorage.set("current_profile", uniqueId);
+
+  // Update UI and reload checklist
+  populateProfiles();
+  generateTasks().catch(error => {
+    console.error('Error creating new profile from template:', error);
+  });
+
+  showFeedback(`Created new profile: ${uniqueName}`, "success");
+}
+
 // Function to process the URL hash for imported checklists
 function processUrlHash() {
   const hash = window.location.hash.substring(1); // Get current hash, remove leading '#'
 
   if (!hash) {
     // No hash, nothing to do
+    return;
+  }
+
+  // Check for template parameter in URL hash
+  const urlParams = new URLSearchParams(hash);
+  const templateId = urlParams.get('template');
+
+  if (templateId) {
+    // Handle template sharing
+    handleTemplateSharing(templateId);
+    // Clean the URL hash after processing
+    cleanUrlHash();
     return;
   }
 

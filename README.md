@@ -38,7 +38,7 @@ A community-created checklist tool for Fire Emblem: Radiant Dawn+ from Gallade a
    - Each profile tracks its own progress independently
 
 6. **Customization**
-   - Go to "Create/Edit List" tab to modify the checklist
+   - Go to "Edit List" tab to modify the checklist
    - Add your own notes, reminders, or custom items
    - Use the export/import feature to backup your customizations
 
