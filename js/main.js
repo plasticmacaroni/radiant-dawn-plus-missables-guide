@@ -1815,6 +1815,9 @@ function createTableOfContents() {
   const $toc = $(".table_of_contents");
   $toc.empty();
 
+  // Collect all valid TOC items
+  const tocItems = [];
+
   $("h3[id]").each(function () {
     const $h3 = $(this);
     const id = $h3.attr("id");
@@ -1837,8 +1840,30 @@ function createTableOfContents() {
     const $count = $("<span>").addClass("toc-count").text(" (" + completed + "/" + total + ")");
 
     $li.append($a).append($count);
-    $toc.append($li);
+    tocItems.push($li);
   });
+
+  // Calculate optimal column distribution
+  const totalItems = tocItems.length;
+  const maxItemsPerColumn = 10;
+
+  // Calculate number of columns needed
+  const numColumns = Math.min(5, Math.ceil(totalItems / maxItemsPerColumn));
+  const itemsPerColumn = Math.ceil(totalItems / numColumns);
+
+  // Distribute items into columns
+  for (let col = 0; col < numColumns; col++) {
+    const $column = $("<div>").addClass("toc-column");
+    const startIndex = col * itemsPerColumn;
+    const endIndex = Math.min(startIndex + itemsPerColumn, totalItems);
+    const columnItems = tocItems.slice(startIndex, endIndex);
+
+    columnItems.forEach(function (item) {
+      $column.append(item);
+    });
+
+    $toc.append($column);
+  }
 }
 
 // Feedback function
