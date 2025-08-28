@@ -65,6 +65,10 @@ The Fire Emblem: Sacred Stones Reforged Discord server
 - ::item_uncommon:: ||Body Ring|| (Bram @ 17,1)
 - ::task:: ||10 EXP|| (House @ 7,4)
 
+# Between Chapters - District of Serafew
+
+- ::item_story:: ||Mina|| (Trainee) - Can be recruited after completing ||Chapter 5x|| or ||Chapter 5xx||, by revisiting the ||Chapter 5|| location from the world map
+
 # Chapter 6 - Victims of War
 
 - ::item_uncommon:: ||Elixir|| (Troubadour @ 10,0)
@@ -314,10 +318,6 @@ The Fire Emblem: Sacred Stones Reforged Discord server
 # Between Chapters - Port Kiris District
 
 - ::item_story:: ||Lucan|| (5,000 gold) - Visit ||Port Kiris District|| between chapters (Eirika route only)
-
-# Between Chapters - District of Serafew
-
-- ::item_story:: ||Mina|| (Trainee) - Can be recruited after completing ||Chapter 5x|| or ||Chapter 5xx||
 
 # Chapter 11 (Eirika) - Creeping Darkness
 
