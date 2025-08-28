@@ -163,28 +163,9 @@
   - ::task:: Visit right village → Route B (Chapter 10B → 11B → 12)
   - ::task:: Don't visit right village → Route A (Chapter 10A → 11A → 12)
 
-::branch::western_isles_route::Route A -- don't visit right village for the bad ending|Route B visit right village for the true ending
+::branch::western_isles_route::Route A -- don't visit right village|Route B visit right village
 
-::branch_start::Route A -- don't visit right village for the bad ending
-
-- ::task:: Chapter path: 10A → 11A → 12
-- ::task:: No additional requirements
-- ::task:: Chapter 12x will NOT be available
-
-::branch_end::Route A -- don't visit right village for the bad ending
-
-::branch_start::Route B visit right village for the true ending
-
-- ::task:: Chapter path: 10B → 11B → 12
-- ::missable:: Keep ||Elffin|| alive for Chapter 12x access
-- ::task:: Chapter 12x available if ||completed in ≤20 turns||
-
-::branch_end::Route B visit right village for the true ending
-
-- ::item_story:: New units
-
-  - ::item_story:: ||Fir|| (recruit by talking with ||Noah||, ||Myrmidon||)
-  - ::item_story:: ||Sin|| (recruit by talking with ||Sue||, ||Nomad||)
+::branch_start::Route A -- don't visit right village
 
 # Chapter 10A - The Resistance Forces
 
@@ -204,40 +185,6 @@
 
   - ::item_uncommon:: ||Vulnerary|| x3 (from various enemies)
   - ::item_uncommon:: ||Antitoxin|| x3 (from reinforcement ||Pirates|| on Turns 4, 7, 10)
-
-# Chapter 10B - Caught in the Middle
-
-- ::missable:: This is one of two possible routes, and leads to the good ending
-
-- ::item_story:: New units
-
-  - ::item_story:: ||Gonzalez|| (Turn 6, talk with ||Lilina||, ||Berserker||)
-  - ::item_story:: ||Klein|| (Turn 8, talk with ||Roy|| or ||Clarine||, ||Sniper||)
-  - ::item_story:: ||Thea|| (Turn 10, talk with ||Klein||, ||Pegasus Knight||)
-
-- ::task:: Treasure chests and rewards
-
-  - ::item_uncommon:: ||Barrier|| (Chest 1)
-  - ::item_uncommon:: ||Swordreaver|| (Chest 2)
-  - ::item_uncommon:: ||Dragonshield|| (Chest 3)
-  - ::item_uncommon:: ||Orion Bolt|| (Chest 4)
-  - ::item_uncommon:: ||Sleep|| (Chest 5)
-  - ::item_uncommon:: ||Door Key|| (Chest 6 - ||Swordreaver|| if entered with ||Ward|| or ||Lot||)
-  - ::item_uncommon:: ||Elixir|| (Chest 7 - ||Speedwings|| if entered with ||Ward|| or ||Lot||)
-
-- ::task:: Shopping opportunities
-
-  - ::task:: Armory items:
-    - ::task:: ||Slim Lance|| (450G), ||Iron Lance|| (360G), ||Steel Lance|| (480G), ||Javelin|| (400G)
-    - ::task:: ||Iron Axe|| (270G), ||Steel Axe|| (270G), ||Hand Axe|| (300G), ||Hammer|| (800G)
-    - ::task:: ||Iron Bow|| (540G), ||Steel Bow|| (720G)
-
-- ::task:: Special events
-
-  - ::task:: Houses 6 and 7 have variable rewards based on which character enters them
-  - ::task:: ||Klein's|| 4 green ||Archer|| allies become recruitable and give ||Orion Bolt|| if all survive
-  - ::task:: ||Thea's|| 4 green ||Pegasus Knight|| allies become recruitable and give ||Elysian Whip|| if all survive
-  - ::task:: Green units will kill themselves -- you have to babysit them
 
 # Chapter 11A - The Hero of the Western Isles
 
@@ -275,6 +222,47 @@
 - ::task:: Village destruction timing
 
   - ::missable:: ||Villages 5 and 8 (near mountain caves)|| destroyed on Turn 7 if not visited
+    ::branch_end::Route A -- don't visit right village
+
+::branch_start::Route B visit right village
+
+- ::task:: Chapter path: 10B → 11B → 12
+- ::missable:: Keep ||Elffin|| alive for Chapter 12x access
+- ::task:: Chapter 12x available if ||completed in ≤20 turns||
+
+# Chapter 10B - Caught in the Middle
+
+- ::missable:: This is one of two possible routes, and leads to the good ending
+
+- ::item_story:: New units
+
+  - ::item_story:: ||Gonzalez|| (Turn 6, talk with ||Lilina||, ||Berserker||)
+  - ::item_story:: ||Klein|| (Turn 8, talk with ||Roy|| or ||Clarine||, ||Sniper||)
+  - ::item_story:: ||Thea|| (Turn 10, talk with ||Klein||, ||Pegasus Knight||)
+
+- ::task:: Treasure chests and rewards
+
+  - ::item_uncommon:: ||Barrier|| (Chest 1)
+  - ::item_uncommon:: ||Swordreaver|| (Chest 2)
+  - ::item_uncommon:: ||Dragonshield|| (Chest 3)
+  - ::item_uncommon:: ||Orion Bolt|| (Chest 4)
+  - ::item_uncommon:: ||Sleep|| (Chest 5)
+  - ::item_uncommon:: ||Door Key|| (Chest 6 - ||Swordreaver|| if entered with ||Ward|| or ||Lot||)
+  - ::item_uncommon:: ||Elixir|| (Chest 7 - ||Speedwings|| if entered with ||Ward|| or ||Lot||)
+
+- ::task:: Shopping opportunities
+
+  - ::task:: Armory items:
+    - ::task:: ||Slim Lance|| (450G), ||Iron Lance|| (360G), ||Steel Lance|| (480G), ||Javelin|| (400G)
+    - ::task:: ||Iron Axe|| (270G), ||Steel Axe|| (270G), ||Hand Axe|| (300G), ||Hammer|| (800G)
+    - ::task:: ||Iron Bow|| (540G), ||Steel Bow|| (720G)
+
+- ::task:: Special events
+
+  - ::task:: Houses 6 and 7 have variable rewards based on which character enters them
+  - ::task:: ||Klein's|| 4 green ||Archer|| allies become recruitable and give ||Orion Bolt|| if all survive
+  - ::task:: ||Thea's|| 4 green ||Pegasus Knight|| allies become recruitable and give ||Elysian Whip|| if all survive
+  - ::task:: Green units will kill themselves -- you have to babysit them
 
 # Chapter 11B - Escape to Freedom
 
@@ -295,6 +283,13 @@
 - ::task:: Stealable items
 
   - ::item_uncommon:: ||Vulnerary|| (from reinforcement ||Druid||)
+
+::branch_end::Route B visit right village
+
+- ::item_story:: New units
+
+  - ::item_story:: ||Fir|| (recruit by talking with ||Noah||, ||Myrmidon||)
+  - ::item_story:: ||Sin|| (recruit by talking with ||Sue||, ||Nomad||)
 
 # Chapter 12 - The True Enemy
 
@@ -571,6 +566,12 @@
 
 - ::item_story:: Gather 4 ||vulnerary|| that you can steal from enemies here
 
+- ::if your Nomads (Sue and Sin) have more experience than than you Pegasus Knights you'll go route A, and if your Pegasus Knights Shanna and Thea have more, you'll go route B
+
+::branch::western_isles_route::Sacae Route|Illia Route
+
+::branch_start::Sacae Route
+
 # Chapter 17A - The Bishop's Teachings
 
 - ::task:: Optional chapter mechanics
@@ -600,32 +601,6 @@
   - ::task:: Also called "Sacae's route" or "A route" (naming varies online)
   - ::task:: Alternative naming: "Ilia" vs "Sacae" routes
 
-# Chapter 17B - The Path Through the Ocean
-
-- ::task:: Route selection mechanics
-
-  - ::missable:: This is one of two routes you can choose after Chapter 16x
-  - ::missable:: See routes and optional chapters guide for unlock conditions
-  - ::task:: Also called "Ilia's route" or "B route" (naming varies online)
-  - ::task:: Alternative naming: "Ilia" vs "Sacae" routes
-
-- ::item_story:: New units
-
-  - ::item_story:: ||Lowen|| (joins automatically, ||Paladin||)
-
-- ::task:: Treasure chests and rewards
-
-  - ::item_uncommon:: ||Tina Staff|| (from village) - Like ||Mend|| with more uses, heals 15 HP
-
-  - ::missable:: Village destroyed Turn 6 by enemy ||Thief||
-
-- ::task:: Stealable items
-
-  - ::item_uncommon:: ||Elixir|| x3 (from various enemies)
-  - ::item_uncommon:: ||Vulnerary|| x6 (from various enemies)
-  - ::item_uncommon:: ||Vulnerary|| x14 additional (from reinforcement ||Cavaliers|| and ||Pegasus||)
-  - ::missable:: Hard Mode: x32 total ||Vulneraries|| from all sources
-
 # Chapter 18A - The Law of Sacae
 
 - ::task:: Stealable items
@@ -633,26 +608,6 @@
   - ::item_uncommon:: ||Elixir|| x4 (from various enemies)
   - ::item_uncommon:: ||Vulnerary|| x3 (from various enemies)
   - ::item_uncommon:: ||Elixir|| (from ||Monke||)
-
-# Chapter 18B - The Frozen River
-
-- ::item_story:: New units
-
-  - ::task:: No new characters this chapter
-
-- ::task:: Treasure chests and rewards
-
-  - ::item_uncommon:: ||Secret Book|| (Chest 1) - Increases skill
-  - ::item_uncommon:: ||Guiding Ring|| (Chest 2) - Promotes magic users
-  - ::item_uncommon:: ||Goddess Icon|| (Chest 3) - Increases luck
-
-- ::task:: Village destruction timing
-
-  - ::missable:: Village 2 destroyed by Turn 9
-  - ::missable:: Village 1 destroyed by Turn 11
-  - ::task:: Village 3 easy to visit with any unit
-  - ::task:: Village 1 easy with flying character
-  - ::task:: Village 2 problematic - send strong characters or bait nearby enemies
 
 # Chapter 19A - Battle in Bulgar
 
@@ -667,24 +622,6 @@
 - ::task:: Stealable items
 
   - ::item_uncommon:: ||Elixir|| x2 (from various enemies)
-
-# Chapter 19B - Bitter Cold
-
-- ::item_story:: New units
-
-  - ::item_story:: ||Nimue|| (from start, ||Druid||)
-
-- ::task:: Treasure chests and rewards
-
-  - ::item_uncommon:: ||Aircalibur|| (Chest 1) - Wind magic
-  - ::item_uncommon:: ||Energy Ring|| (Chest 2) - Increases strength
-
-- ::task:: Stealable items
-
-  - ::item_uncommon:: ||Vulnerary|| x12 (from various enemies)
-  - ::item_uncommon:: ||Vulnerary|| +1 (from reinforcement ||Pegasus||)
-  - ::item_uncommon:: ||Elixir|| x4 (from various enemies)
-  - ::item_uncommon:: ||Knight Crest|| (from enemy)
 
 # Chapter 20A - The Silver Wolf
 
@@ -714,6 +651,81 @@
   - ::item_uncommon:: ||Orion Bolt|| (from unreachable enemy)
   - ::item_uncommon:: ||Lockpick|| (from reinforcement ||Thief||)
   - ::item_uncommon:: ||Lockpick|| + ||Vulnerary|| (from ||Cath||)
+
+# Chapter 20Ax - The Bow of the Winds (Mandatory for True Ending - Sacae Route Only - Mutually Exclusive with 20Bx)
+
+- ::task:: Stealable items
+
+  - ::item_uncommon:: ||Vulnerary|| x7 (from various enemies)
+  - ::item_uncommon:: ||Vulnerary|| x2 per reinforcement group (additional)
+
+::branch_end::Sacae Route
+
+::branch_start::Illia Route
+
+# Chapter 17B - The Path Through the Ocean
+
+- ::task:: Route selection mechanics
+
+  - ::missable:: This is one of two routes you can choose after Chapter 16x
+  - ::missable:: See routes and optional chapters guide for unlock conditions
+  - ::task:: Also called "Ilia's route" or "B route" (naming varies online)
+  - ::task:: Alternative naming: "Ilia" vs "Sacae" routes
+
+- ::item_story:: New units
+
+  - ::item_story:: ||Lowen|| (joins automatically, ||Paladin||)
+
+- ::task:: Treasure chests and rewards
+
+  - ::item_uncommon:: ||Tina Staff|| (from village) - Like ||Mend|| with more uses, heals 15 HP
+
+  - ::missable:: Village destroyed Turn 6 by enemy ||Thief||
+
+- ::task:: Stealable items
+
+  - ::item_uncommon:: ||Elixir|| x3 (from various enemies)
+  - ::item_uncommon:: ||Vulnerary|| x6 (from various enemies)
+  - ::item_uncommon:: ||Vulnerary|| x14 additional (from reinforcement ||Cavaliers|| and ||Pegasus||)
+  - ::missable:: Hard Mode: x32 total ||Vulneraries|| from all sources
+
+# Chapter 18B - The Frozen River
+
+- ::item_story:: New units
+
+  - ::task:: No new characters this chapter
+
+- ::task:: Treasure chests and rewards
+
+  - ::item_uncommon:: ||Secret Book|| (Chest 1) - Increases skill
+  - ::item_uncommon:: ||Guiding Ring|| (Chest 2) - Promotes magic users
+  - ::item_uncommon:: ||Goddess Icon|| (Chest 3) - Increases luck
+
+- ::task:: Village destruction timing
+
+  - ::missable:: Village 2 destroyed by Turn 9
+  - ::missable:: Village 1 destroyed by Turn 11
+  - ::task:: Village 3 easy to visit with any unit
+  - ::task:: Village 1 easy with flying character
+  - ::task:: Village 2 problematic - send strong characters or bait nearby enemies
+
+# Chapter 19B - Bitter Cold
+
+- ::item_story:: New units
+
+  - ::item_story:: ||Nimue|| (from start, ||Druid||)
+
+- ::task:: Treasure chests and rewards
+
+  - ::item_uncommon:: ||Aircalibur|| (Chest 1) - Wind magic
+  - ::item_uncommon:: ||Energy Ring|| (Chest 2) - Increases strength
+
+- ::task:: Stealable items
+
+  - ::item_uncommon:: ||Vulnerary|| x12 (from various enemies)
+  - ::item_uncommon:: ||Vulnerary|| +1 (from reinforcement ||Pegasus||)
+  - ::item_uncommon:: ||Elixir|| x4 (from various enemies)
+  - ::item_uncommon:: ||Knight Crest|| (from enemy)
 
 # Chapter 20B - The Liberation of Illia
 
@@ -747,13 +759,6 @@
   - ::item_uncommon:: ||Lockpick|| + ||Vulnerary|| (from ||Cath||)
   - ::item_uncommon:: ||Lockpick|| x2 (from reinforcement ||Thieves||)
 
-# Chapter 20Ax - The Bow of the Winds (Mandatory for True Ending - Sacae Route Only - Mutually Exclusive with 20Bx)
-
-- ::task:: Stealable items
-
-  - ::item_uncommon:: ||Vulnerary|| x7 (from various enemies)
-  - ::item_uncommon:: ||Vulnerary|| x2 per reinforcement group (additional)
-
 # Chapter 20Bx - The Spear of Ice (Mandatory for True Ending - Ilia Route Only - Mutually Exclusive with 20Ax)
 
 - ::item_story:: Legendary weapon reward
@@ -762,6 +767,7 @@
 
 - ::task:: Stealable items
   - ::item_uncommon:: ||Vulnerary|| x6 (from archers)
+    ::branch_end::Illia Route
 
 # Chapter 21 - The Sword of Seals
 
@@ -773,8 +779,7 @@
 - ::task:: Chapter unlock requirements
 
   - ::missable:: Next chapter has special requirements to unlock
-  - ::missable:: See routes and optional chapters guide for unlock conditions
-  - ::missable:: Must complete before Turn 30 to access ||Chapter 21x||
+  - ::missable:: Must complete before ||turn 30|| to access ||Chapter 21x||
 
 - ::item_story:: New units
 
@@ -798,79 +803,11 @@
     - ::task:: ||Boots|| (8000G)
     - ::task:: Advanced magic: ||Bolting|| (3000G), ||Purge|| (3500G), ||Eclipse|| (4000G)
 
-  - ::task:: Legendary weapon mechanics
-
-    - ::task:: ||Yoder|| brings route-dependent legendary weapon:
-      - ::task:: Ilia route: ||Malte|| (legendary magic)
-      - ::task:: Sacae route: ||Miurgre|| (legendary bow)
-    - ::task:: Use sparingly - save for most dangerous enemies
-    - ::task:: ||Miurgre|| recommended with best archer vs ||Wyvern Lords||
-
-  - ::task:: Special events
-
-    - ::task:: ||Saul|| → ||Yoder|| (talk)
-    - ::task:: ||Dorothy|| → ||Yoder|| (talk)
-    - ::task:: ||Zeiss|| → ||Galle|| (talk)
-    - ::task:: ||Melady|| → ||Galle|| (talk)
-    - ::task:: ||Murdock|| → ||Roy|| (battle)
-    - ::task:: ||Murdock|| → ||Melady|| (battle)
-    - ::task:: ||Murdock|| → ||Zeiss|| (battle)
-    - ::task:: Additional dialogue if past Turn 30 (bad - no ||21x|| access)
-
-  - ::task:: Roy promotion strategy
-
-    - ::task:: GET ||ROY|| TO LEVEL 20 before chapter end
-    - ::task:: Promotion occurs at chapter end (or ||21x|| end if accessed)
-    - ::task:: Higher level = stronger promoted stats
-
-  - ::task:: Alternative boss - Pereth (if no 21x access)
-
-    - ::item_story|| ||Pereth|| (Level 15 ||Druid||, "General of ||Bern|| defending underground of ||Temple of Seals||")
-    - ::task:: Boss stats (Normal): 36 HP, 20 Str, 14 Skl, 11 Spd, 13 Lck, 15 Def, 20 Res, 6 Con
-    - ::task:: Boss stats (Hard): 42 HP, 28 Str, 17 Skl, 15 Spd, 16 Lck, 16 Def, 23 Res
-    - ::item_uncommon:: ||Nosferatu|| (dropped by ||Pereth||)
-    - ::missable:: NOT RECOMMENDED to see this boss - restart if encountered
-
-  - ::task:: Chapter objectives
-
-    - ::task:: Complete before Turn 30 for ||Chapter 21x|| access
-    - ::task:: Recruit ||Yoder|| (automatic at start)
-    - ::task:: Level ||Roy|| to 20 before promotion
-    - ::task:: Handle massive reinforcement system effectively
-    - ::task:: Access secret shop for stat boosters
-    - ::task:: Defeat ||Murdock|| (avoid ||Pereth||)
-    - ::task:: Set up ||Galle|| recruitment for ||Chapter 23||
-
-  - ::task:: Critical warnings
-
-    - ::missable:: Turn 30 deadline for ||Chapter 21x|| access
-    - ::task:: ||Roy|| level 20 critical for promotion strength
-    - ::task:: Seeing ||Pereth|| means failed ||21x|| access - restart recommended
-    - ::task:: Almost all enemies are ||Dragon Riders|| - bring ||Aircalibur||
-    - ::task:: Don't deploy weak units - they become liabilities
-    - ::task:: Hard Mode enemy density near cap - use strategically
-
-  - ::task:: Long-term preparation
-
-    - ::task:: ||Boots|| top priority from secret shop
-    - ::task:: ||Aircalibur|| distribution for all mages
-    - ::task:: ||Silver|| weapons essential going forward
-    - ::task:: Stat boosters rare opportunity
-    - ::task:: ||Galle|| setup for future ||Chapter 23|| recruitment
-
-  - ::task:: Advanced tactics
-    - ::task:: Zone manipulation to control reinforcement triggers
-    - ::task:: Enemy cap exploitation in Hard Mode
-    - ::task:: Support pair evasion tanking for crowd control
-    - ::task:: Movement optimization for reinforcement avoidance
-    - ::task:: Resource conservation vs experience farming balance
+  - ::task:: ||Yoder|| will bring a true-ending required legendary weapon
+    - ::task:: Ilia route: ||Malte|| (legendary magic)
+    - ::task:: Sacae route: ||Miurgre|| (legendary bow)
 
 # Chapter 21x - The Silencing Darkness (Mandatory for True Ending)
-
-- ::task:: Unlock requirements
-
-  - ::missable:: To unlock this chapter for the true ending, complete Chapter 21 in 30 turns or less
-  - ::missable:: ||Zeiss|| and ||Melady|| need to be kept alive
 
 - ::task:: There are special treasure ||mechanics and traps|| on this chapter
 
