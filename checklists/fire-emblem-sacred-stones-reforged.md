@@ -49,7 +49,8 @@ The Fire Emblem: Sacred Stones Reforged Discord server
 
 # Chapter 5x - Unbroken Heart
 
-- ::missable:: Complete Chapter 5x ||in 10 turns or less|| to unlock ||a special follow-up chapter||
+- ::missable:: Complete Chapter 5x ||in 10 turns or less|| to unlock ||Chapter 5xx||
+- ::item_story:: If ||Forde|| or ||Kyle|| die, they will return alive in ||Chapter 9||
 - ::item_uncommon:: ||Draught|| (Fighter @ 1,1)
 - ::item_uncommon:: ||Chest Key|| (Mage @ 3,7)
 - ::item_uncommon:: ||Chest Key|| (Fighter @ 6,7)
@@ -313,6 +314,10 @@ The Fire Emblem: Sacred Stones Reforged Discord server
 # Between Chapters - Port Kiris District
 
 - ::item_story:: ||Lucan|| (5,000 gold) - Visit ||Port Kiris District|| between chapters (Eirika route only)
+
+# Between Chapters - District of Serafew
+
+- ::item_story:: ||Mina|| (Trainee) - Can be recruited after completing ||Chapter 5x|| or ||Chapter 5xx||
 
 # Chapter 11 (Eirika) - Creeping Darkness
 
