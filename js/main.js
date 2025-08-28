@@ -51,7 +51,7 @@ function parseYamlFrontmatter(content) {
 // Load a specific template by filename
 async function loadTemplate(filename) {
   if (!filename) {
-    return "# Getting Started\n- ::task:: This is a blank checklist. Add your content here.";
+    return "# Getting Started\n- ::task:: This is a blank checklist for tracking game missables and progress. Add your content here.";
   }
 
   try {
@@ -66,13 +66,8 @@ async function loadTemplate(filename) {
     return content;
   } catch (error) {
     console.error(`Error loading template ${filename}:`, error);
-    return "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
+    return "# Getting Started\n- ::task:: This is a community checklist for tracking game missables. Use the checklist tab to view game content with spoiler protection.";
   }
-}
-
-// Load checklist from checklists/radiant-dawn-plus.md (legacy support)
-async function loadChecklistFromFile() {
-  return await loadTemplate('radiant-dawn-plus.md');
 }
 
 // Populate template dropdown in profile modal
@@ -99,7 +94,7 @@ async function populateTemplateDropdown() {
   $dropdown.val(defaultTemplate);
 }
 
-async function generateTasks() {
+async function generateTasks() {git
   let markdownString = "";
 
   // Try to load custom checklist from localStorage first
@@ -124,17 +119,17 @@ async function generateTasks() {
       document.getElementById("checklist-content").value = templateData;
     } else {
       // If checklist.md fails to load, show a default getting started checklist
-      const defaultChecklist = "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
+      const defaultChecklist = "# Getting Started\n- ::task:: This is a community checklist for tracking game missables. Use the checklist tab to view game content with spoiler protection.";
       processMarkdown(defaultChecklist);
       // Also populate the editor with a starter example
-      document.getElementById("checklist-content").value = "::note:: Getting Started Guide\nWelcome to your custom checklist! This is a note block.\n\n**Quick Tips:**\n- Check off items as you complete them\n- Use branches for multiple paths\n- Visit [help documentation](https://example.com) for more features\n\n# Prologue - Chapter Name\n- ::task:: Complete main objectives\n  - ::missable:: Recruit character before turn limit\n- ::item_uncommon:: ||Special Weapon|| (from enemy)\n- ::item_story:: ||Character Name|| (Level 10 ||Class Name||)\n- ::task:: Find the hidden ||secret item|| in the dungeon\n- ::task:: Visit [strategy guide](https://example.com) for more tips\n- ::note:: Chapter Strategy\n  This chapter requires careful positioning.\n  **Tip:** Save before attempting the boss!";
+      document.getElementById("checklist-content").value = "::note:: Getting Started Guide\nWelcome to your custom checklist! This is a note block.\n\n**Quick Tips:**\n- Check off items as you complete them\n- Use branches for multiple paths\n- Visit [help documentation](https://example.com) for more features\n\n# Prologue - Tutorial\n- ::task:: Complete main objectives\n  - ::missable:: Complete side objective before time runs out\n- ::item_uncommon:: ||Special Item|| (from enemy drop)\n- ::item_story:: ||New Character|| (joins after completion)\n- ::task:: Find the hidden ||secret item|| in the area\n- ::task:: Visit [strategy guide](https://example.com) for more tips\n- ::note:: Level Strategy\n  This area requires careful positioning.\n  **Tip:** Save before attempting the boss!";
     }
   } catch (error) {
     console.error('Error in generateTasks:', error);
     // Fallback to default checklist
-    const defaultChecklist = "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
+    const defaultChecklist = "# Getting Started\n- ::task:: This is a community checklist for tracking game missables. Use the checklist tab to view game content with spoiler protection.";
     processMarkdown(defaultChecklist);
-    document.getElementById("checklist-content").value = "::note:: Example Checklist\nThis is a sample checklist showing all features.\n\n# Prologue - Chapter Name\n- ::task:: Complete main objectives\n  - ::missable:: Recruit character before turn limit\n- ::item_uncommon:: ||Special Weapon|| (from enemy)\n- ::item_story:: ||Character Name|| (Level 10 ||Class Name||)\n- ::task:: Find the hidden ||secret item|| in the dungeon\n- ::task:: Visit [strategy guide](https://example.com) for more tips\n- ::note:: Strategy Note\n  Be careful in this area - enemies respawn!";
+    document.getElementById("checklist-content").value = "::note:: Example Checklist\nThis is a sample checklist showing all features.\n\n# Prologue - Tutorial\n- ::task:: Complete main objectives\n  - ::missable:: Complete side objective before time runs out\n- ::item_uncommon:: ||Special Item|| (from enemy drop)\n- ::item_story:: ||New Character|| (joins after completion)\n- ::task:: Find the hidden ||secret item|| in the area\n- ::task:: Visit [strategy guide](https://example.com) for more tips\n- ::note:: Strategy Note\n  Be careful in this area - enemies respawn!";
   }
 }
 
@@ -1202,7 +1197,7 @@ async function createDefaultProfile(profiles) {
   const { uniqueName, uniqueId } = generateUniqueProfileName("Default", profiles);
 
   // Try to load checklist.md content for the default profile
-  let defaultContent = "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
+  let defaultContent = "# Getting Started\n- ::task:: This is a community checklist for tracking game missables. Use the checklist tab to view game content with spoiler protection.";
 
   try {
     const checklistContent = await loadChecklistFromFile();
@@ -1553,7 +1548,7 @@ function initializeProfileFunctionality($) {
           const { uniqueName, uniqueId } = generateUniqueProfileName("Default", profiles);
 
           // Use the same default content as the helper function
-          let defaultContent = "# Getting Started\n- ::task:: This is the Fire Emblem: Radiant Dawn+ Community Checklist. Use the checklist tab to view game content with spoiler protection.";
+          let defaultContent = "# Getting Started\n- ::task:: This is a community checklist for tracking game missables. Use the checklist tab to view game content with spoiler protection.";
 
           // Try to load checklist.md content
           fetch('checklist.md')

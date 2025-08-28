@@ -1,3 +1,6 @@
+::note:: Attribution
+A community-created checklist tool for Fire Emblem: Radiant Dawn+ from Gallade and Kalen with edits thanks to Windward. Thanks for Ask_B_007 on GameFAQs for the guide content.
+
 # Prologue - Under Gray Skies (Act I)
 
 - ::task:: Obtain starting units
