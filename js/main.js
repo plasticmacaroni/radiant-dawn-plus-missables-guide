@@ -1682,6 +1682,9 @@ function initializeProfileFunctionality($) {
     } else {
       $("body").removeClass("hide_completed");
     }
+    // First update the completion totals, then apply hiding logic
+    calculateTotals();
+    watchEmptyHeaders();
   });
 
   // Toggle Reveal All Spoilers
