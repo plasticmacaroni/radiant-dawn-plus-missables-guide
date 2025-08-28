@@ -447,7 +447,7 @@ function renderBranchSelector(branchName, branchData, selectedOption = null) {
   // Use custom title if provided, otherwise generate dynamic title
   let title = branchData.customTitle || generateBranchTitle(branchName, options);
 
-  return `<div class="branch-selector no-checklist-processing" data-branch="${branchName}" data-title="${title}">
+  return `<div id="branch-${branchName}" class="branch-selector no-checklist-processing" data-branch="${branchName}" data-title="${title}">
     <div class="branch-options">
       ${optionButtons}
     </div>
@@ -1818,29 +1818,82 @@ function createTableOfContents() {
   // Collect all valid TOC items
   const tocItems = [];
 
+  // Process all TOC elements in document order (chapters and branch choices)
+  const tocElements = [];
+
+  // Collect all h3 headings
   $("h3[id]").each(function () {
-    const $h3 = $(this);
-    const id = $h3.attr("id");
-    const text = $h3.find("a[href='#']").text();
+    tocElements.push({
+      element: $(this),
+      type: 'chapter',
+      index: tocElements.length
+    });
+  });
 
-    // Get item counts for the category
-    const $items = $h3.next("ul").find("li[data-id]").not("li[data-id] li[data-id]");
-    const total = $items.length;
+  // Collect all branch selectors
+  $(".branch-selector[data-branch]").each(function () {
+    tocElements.push({
+      element: $(this),
+      type: 'branch',
+      index: tocElements.length
+    });
+  });
 
-    // Skip empty categories or those with invalid/empty text
-    if (total === 0 || !text.trim()) {
-      return;
+  // Sort by document position
+  tocElements.sort(function (a, b) {
+    const posA = a.element.offset().top;
+    const posB = b.element.offset().top;
+    return posA - posB;
+  });
+
+  // Process elements in document order
+  tocElements.forEach(function (item) {
+    if (item.type === 'chapter') {
+      const $h3 = item.element;
+      const id = $h3.attr("id");
+      const text = $h3.find("a[href='#']").text();
+
+      // Get item counts for the category
+      const $items = $h3.next("ul").find("li[data-id]").not("li[data-id] li[data-id]");
+      const total = $items.length;
+
+      // Skip empty categories or those with invalid/empty text
+      if (total === 0 || !text.trim()) {
+        return;
+      }
+
+      const completed = $items.filter(".completed").length;
+
+      // Create TOC item with count
+      const $li = $("<li>");
+      const $a = $("<a>").attr("href", "#" + id).text(text);
+      const $count = $("<span>").addClass("toc-count").text(" (" + completed + "/" + total + ")");
+
+      $li.append($a).append($count);
+      tocItems.push($li);
+    } else if (item.type === 'branch') {
+      const $branch = item.element;
+      const branchName = $branch.attr("data-branch");
+      const title = $branch.attr("data-title");
+
+      // Skip if no title or branch name
+      if (!title || !branchName) {
+        return;
+      }
+
+      // Get item counts for the branch section (items that follow this branch)
+      const $items = $branch.next("ul").find("li[data-id]").not("li[data-id] li[data-id]");
+      const total = $items.length;
+      const completed = $items.filter(".completed").length;
+
+      // Create TOC item with count (only if there are items)
+      const $li = $("<li>");
+      const $a = $("<a>").attr("href", "#branch-" + branchName).text("Choice: " + title);
+      const $count = $("<span>").addClass("toc-count").text(" (" + completed + "/" + total + ")");
+
+      $li.append($a).append($count);
+      tocItems.push($li);
     }
-
-    const completed = $items.filter(".completed").length;
-
-    // Create TOC item with count
-    const $li = $("<li>");
-    const $a = $("<a>").attr("href", "#" + id).text(text);
-    const $count = $("<span>").addClass("toc-count").text(" (" + completed + "/" + total + ")");
-
-    $li.append($a).append($count);
-    tocItems.push($li);
   });
 
   // Calculate optimal column distribution
@@ -1854,14 +1907,17 @@ function createTableOfContents() {
   // Distribute items into columns
   for (let col = 0; col < numColumns; col++) {
     const $column = $("<div>").addClass("toc-column");
+    const $columnList = $("<ul>").css("margin", "0").css("padding", "0").css("list-style", "none");
+
     const startIndex = col * itemsPerColumn;
     const endIndex = Math.min(startIndex + itemsPerColumn, totalItems);
     const columnItems = tocItems.slice(startIndex, endIndex);
 
     columnItems.forEach(function (item) {
-      $column.append(item);
+      $columnList.append(item);
     });
 
+    $column.append($columnList);
     $toc.append($column);
   }
 }
