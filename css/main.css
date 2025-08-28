@@ -550,19 +550,19 @@ li[data-id] i.bi {
 
 /* Show/hide for eye icons */
 .btn-group-flex input[type="checkbox"]~.glyphicon-eye-open {
-  display: none;
+  display: inline-block;
 }
 
 .btn-group-flex input[type="checkbox"]~.glyphicon-eye-close {
-  display: inline-block;
+  display: none;
 }
 
 .btn-group-flex input[type="checkbox"]:checked~.glyphicon-eye-open {
-  display: inline-block;
+  display: none;
 }
 
 .btn-group-flex input[type="checkbox"]:checked~.glyphicon-eye-close {
-  display: none;
+  display: inline-block;
 }
 
 /* Show/hide for arrow icons */
@@ -606,14 +606,6 @@ li[data-id] i.bi {
   margin-right: 5px;
   position: relative;
   top: 2px;
-}
-
-body.hide_uncommon li:has(i.bi-gem.text-success) {
-  display: none !important;
-}
-
-body.hide_story li:has(i.bi-book.text-danger) {
-  display: none !important;
 }
 
 /* Mobile responsiveness */

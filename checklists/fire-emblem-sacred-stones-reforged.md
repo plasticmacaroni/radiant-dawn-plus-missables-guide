@@ -1,8 +1,12 @@
+::note:: Attribution
+The Fire Emblem: Sacred Stones Reforged Discord server
+[FEUniverse Thread](https://feuniverse.us/t/fe8-sacred-stones-reforged-v1-0-4/28486)
+
 # Chapter 1 - Escape!
 
-- ::task:: 10 EXP (House @ 10,4)
-- ::task:: 10 EXP (House @ 13,6)
-- ::task:: 5000G (End of Chapter)
+- ::task:: ||10 EXP|| (House @ 10,4)
+- ::task:: ||10 EXP|| (House @ 13,6)
+- ::task:: ||5000G|| (End of Chapter)
 
 # Chapter 2 - The Protected
 
@@ -58,7 +62,7 @@
 - ::task:: ||Save Glen|| - Defeat ||Valter|| on Chapter 5xx rather than retreating, and if you choose ||Eirika's route|| on Chapter 9, (||a special skill for Cormag|| will be given later for doing this)
 - ::item_uncommon:: ||Elixir|| (Fighter @ 10,12)
 - ::item_uncommon:: ||Body Ring|| (Bram @ 17,1)
-- ::task:: 10 EXP (House @ 7,4)
+- ::task:: ||10 EXP|| (House @ 7,4)
 
 # Chapter 6 - Victims of War
 
@@ -73,8 +77,8 @@
 - ::item_uncommon:: ||Master Seal|| (Murray @ 9,4)
 - ::item_uncommon:: ||Energy Ring|| (Fighter @ 17,6)
 - ::item_uncommon:: ||Talisman|| (Mage @ 11,13)
-- ::task:: 10 EXP (House @ 1,15)
-- ::task:: 10 EXP (House @ 17,21)
+- ::task:: ||10 EXP|| (House @ 1,15)
+- ::task:: ||10 EXP|| (House @ 17,21)
 
 # Chapter 8 - It's a Trap!
 
@@ -86,7 +90,7 @@
 - ::item_uncommon:: ||Hammer|| (Chest @ 2,3)
 - ::task:: 3000G (Chest @ 19,4)
 - ::item_uncommon:: ||Speedwing|| (Shaman @ 10,13) (Reinforcements)
-- ::task:: Route Split - 10000G (from cutscenes)
+- ::task:: You'll receive ||10000G|| during cutscenes
 
 ::branch::Lord Selection::Ephraim Path|Eirika Path
 
@@ -112,15 +116,15 @@
 - ::item_uncommon:: ||Goddess Icon|| (||Archer|| @ 7,3)
 - ::item_uncommon:: ||Red Gem|| (||Pirate|| @ 11,19)
 - ::item_uncommon:: ||Secret Book|| (||Fleet|| @ 0,3)
-- ::task:: 10 EXP (House @ 6,0)
-- ::task:: 10 EXP (House @ 5,1)
+- ::task:: ||10 EXP|| (House @ 6,0)
+- ::task:: ||10 EXP|| (House @ 5,1)
 - ::item_uncommon:: ||Torch|| (staff) (Village @ 9,2)
 - ::item_uncommon:: ||Master Seal|| (Village @ 4,12)
 - ::missable:: ||Angelic Robe|| (Keep the NPC's alive until end of chapter)
 
 # Between Chapters - Bethroen District
 
-- ::item_story:: ||Alice|| (5,000 gold) - Visit ||Bethroen District|| between chapters (Ephraim route only)
+- ::item_story:: ||Alice|| requires ||5,000 gold|| to recruit - visit ||Bethroen District|| between chapters
 
 # Chapter 11 (Ephraim) - Phantom Ship
 
@@ -139,7 +143,7 @@
 - ::item_uncommon:: ||Master Seal|| (||Mercenary|| @ 3,10)
 - ::item_uncommon:: ||Null Brace|| (||Light Sage|| @ 17,5)
 - ::item_story:: ||Ewan|| (Recruitment) (Village @ 5,5)
-- ::task:: 10 EXP (Inn @ 6,9)
+- ::task:: ||10 EXP|| (Inn @ 6,9)
 - ::item_uncommon:: ||Dragonshield|| (||Ewan|| @ 5,6) (When recruited)
 
 # Chapter 13 (Ephraim) - Fluorspar's Oath
@@ -168,7 +172,7 @@
 - ::item_uncommon:: ||Angelic Robe|| (Chest @ 3,1)
 - ::item_uncommon:: ||Short Spear|| (Chest @ 27,1)
 - ::item_uncommon:: ||Mystic Bow|| (Chest @ 13,18) - Unit swaps places with target after battle
-- ::task:: 10000G (Chest @ 14,18)
+- ::task:: ||10000G|| (Chest @ 14,18)
 - ::item_uncommon:: ||Rescue|| (Chest @ 15,18)
 - ::item_story:: ||Rennac|| (||Rennac|| @ 27,4) (Appears Turn 2) (Recruitable)
 - ::item_uncommon:: ||Member Card|| (||Rennac|| @ 27,4) (Appears Turn 2)
@@ -181,9 +185,9 @@
 - ::item_uncommon:: ||Master Seal|| (||Shaman|| @ 19,18)
 - ::item_uncommon:: ||Brave Sword|| (||Savant|| @ 20,6)
 - ::item_uncommon:: ||Talisman|| (||Savant|| @ 15,3)
-- ::task:: 10 EXP (House @ 17,6)
+- ::task:: ||10 EXP|| (House @ 17,6)
 - ::item_uncommon:: ||Goddess Icon|| (Village @ 1,14)
-- ::task:: 10 EXP (House @ 5,13)
+- ::task:: ||10 EXP|| (House @ 5,13)
 - ::item_uncommon:: ||Dragonshield|| (Found @ any coords of X 0-2/Y 0-2)
 - ::item_uncommon:: ||Silence|| (Found @ any coords of X 0/Y 4-7)
 - ::item_uncommon:: ||Secret Book|| (Found @ any coords of X 0-1/Y 9-11)
@@ -204,8 +208,8 @@
 - ::item_uncommon:: ||Dragonshield|| (||Hero|| @ 13,20)
 - ::item_uncommon:: ||Brave Bow|| (||Sniper|| @ 1,14)
 - ::item_uncommon:: ||Wyrmslayer|| (Village @ 4,20)
-- ::task:: 10 EXP (House @ 12,11)
-- ::task:: 10 EXP (House @ 15,9)
+- ::task:: ||10 EXP|| (House @ 12,11)
+- ::task:: ||10 EXP|| (House @ 15,9)
 
 # Chapter 17 (Ephraim) - Ruled By Madness
 
@@ -222,7 +226,7 @@
 - ::item_uncommon:: ||Recover|| (Chest @ 3,12)
 - ::item_uncommon:: ||Talisman|| (Chest @ 20,1)
 - ::item_uncommon:: ||Brave Lance|| (Chest @ 20,3)
-- ::task:: 5000G (Chest @ 20,5)
+- ::task:: ||5000G|| (Chest @ 20,5)
 - ::item_uncommon:: ||Red Gem|| (||Great Knight|| @ 0,27) (Reinforcements Turn 5)
 - ::item_uncommon:: ||Lockpick|| (||Thief|| @ 12,21) (Reinforcements Turn 6)
 
@@ -251,9 +255,9 @@
 - ::item_uncommon:: ||Speedwing|| (Chest @ 3,12)
 - ::item_uncommon:: ||Spear|| (Chest @ 4,11)
 - ::item_uncommon:: ||Longbow|| (Chest @ 27,14)
-- ::task:: 5000G (Chest @ 27,12)
+- ::task:: ||5000G|| (Chest @ 27,12)
 - ::item_uncommon:: ||Arcane Edge|| (Chest @ 27,10)
-- ::task:: 10000G (After map completion)
+- ::task:: ||10000G|| (After map completion)
 - ::missable:: ||Forge|| (After map completion if you keep 4+ NPC soldiers alive)
 - ::missable:: ||Memento|| (After map completion if ||L'Arachel|| is promoted, ||Dozla|| Lv 6+, ||Rennac|| Lv 6+ - they don't need to be deployed, just at those levels)
 
@@ -302,9 +306,9 @@
 - ::item_uncommon:: ||Vulnerary|| (||Marisa|| @ 17,29)
 - ::item_uncommon:: ||Red Gem|| (||Rebel|| @ 13,13)
 - ::item_uncommon:: ||Talisman|| (||Pegasus Knights|| @ 2,29) (Reinforcements appearing Turn 9)
-- ::task:: 10 EXP (House @ 10,7)
-- ::task:: 10 EXP (House @ 11,6)
-- ::task:: 10 EXP (House @ 13,8)
+- ::task:: ||10 EXP|| (House @ 10,7)
+- ::task:: ||10 EXP|| (House @ 11,6)
+- ::task:: ||10 EXP|| (House @ 13,8)
 
 # Between Chapters - Port Kiris District
 
@@ -343,7 +347,7 @@
 - ::item_story:: ||Groth|| (||Groth|| @ 8,3) Defeat ||Aias|| with ||Dozla|| on Hamill Canyon, and then speak to ||Groth|| with ||Dozla|| (both must survive combat with each other)
 
 - ::item_uncommon:: ||Dragonshield|| (||Groth|| @ 8,3) (Reinforcement after killing ||Aias|| with ||Dozla||)
-- ::task:: 5000G (Received after map completion)
+- ::task:: ||5000G|| (Received after map completion)
 
 # Chapter 14 (Eirika) - Queen of White Dunes
 
@@ -361,7 +365,7 @@
 - ::item_uncommon:: ||Door Key|| (||Knight|| @ 3,22)
 - ::item_uncommon:: ||Restore Staff|| (Chest @ 22,3)
 - ::item_uncommon:: ||Short Spear|| (Chest @ 22,5)
-- ::task:: 10000G (Chest @ 2,16)
+- ::task:: ||10000G|| (Chest @ 2,16)
 
 # Chapter 15 (Eirika) - Scorched Sand
 
@@ -371,9 +375,9 @@
 - ::item_uncommon:: ||Energy Ring|| (||Seraph Knight|| @ 2,2)
 - ::item_uncommon:: ||Brave Lance|| (||Paladin|| @ 16,20)
 - ::item_uncommon:: ||Master Seal|| (||Shaman|| @ 19,18)
-- ::task:: 10 EXP (House @ 17,6)
+- ::task:: ||10 EXP|| (House @ 17,6)
 - ::item_uncommon:: ||Goddess Icon|| (Village @ 1,14)
-- ::task:: 10 EXP (House @ 5,13)
+- ::task:: ||10 EXP|| (House @ 5,13)
 - ::item_uncommon:: ||Dragonshield|| (Found @ any coords of X 0-2/Y 0-2)
 - ::item_uncommon:: ||Silence|| (Found @ any coords of X 0/Y 4-7)
 - ::item_uncommon:: ||Secret Book|| (Found @ any coords of X 0-1/Y 9-11)
@@ -396,8 +400,8 @@
 - ::item_uncommon:: ||Dragonshield|| (||Hero|| @ 13,20)
 - ::item_uncommon:: ||Brave Bow|| (||Sniper|| @ 1,14)
 - ::item_uncommon:: ||Wyrmslayer|| (Village @ 4,20)
-- ::task:: 10 EXP (House @ 12,11)
-- ::task:: 10 EXP (House @ 15,9)
+- ::task:: ||10 EXP|| (House @ 12,11)
+- ::task:: ||10 EXP|| (House @ 15,9)
 
 # Chapter 17 (Eirika) - Ruled By Madness
 
@@ -413,7 +417,7 @@
 - ::item_uncommon:: ||Recover|| (Chest @ 3,12)
 - ::item_uncommon:: ||Talisman|| (Chest @ 20,1)
 - ::item_uncommon:: ||Brave Sword|| (Chest @ 20,3)
-- ::task:: 5000G (Chest @ 20,5)
+- ::task:: ||5000G|| (Chest @ 20,5)
 - ::item_uncommon:: ||Lockpick|| (||Thief|| @ 1,8) (Reinforcements Turn 6)
 - ::item_uncommon:: ||Elixir|| (||Great Knight|| @ 0,27) (Reinforcements Turn 6)
 - ::item_uncommon:: ||Lockpick|| (||Thief|| @ 21,13) (Reinforcements Turn 11)
@@ -444,10 +448,10 @@
 - ::item_uncommon:: ||Speedwing|| (Chest @ 3,12)
 - ::item_uncommon:: ||Spear|| (Chest @ 4,11)
 - ::item_uncommon:: ||Longbow|| (Chest @ 27,10)
-- ::task:: 5000G (Chest @ 27,12)
+- ::task:: ||5000G|| (Chest @ 27,12)
 - ::item_uncommon:: ||Bolting|| (Chest @ 27,14)
 - ::item_uncommon:: ||Runesword|| (||Swordmaster|| @ 16,23) - Not stealable, but rare item worth forging
-- ::task:: 10000G (After map completion)
+- ::task:: ||10000G|| (After map completion)
 - ::missable:: ||Forge|| (After map completion if you keep 4+ NPC soldiers alive)
 - ::missable:: ||Memento|| (After map completion if ||L'Arachel|| is promoted, ||Dozla|| Lv 6+, ||Rennac|| Lv 6+ - they don't need to be deployed, just at those levels)
 

@@ -1250,7 +1250,7 @@ async function updatePageTitle(profile) {
   const $title = $('h1.text-center');
 
   if (!profile || !profile.checklistContent) {
-    $title.text('Checklist Tool');
+    $title.text('Spoiler-Free Game Checklist Tool');
     return;
   }
 
@@ -1292,7 +1292,7 @@ async function updatePageTitle(profile) {
   }
 
   // If no template match found, use the profile name (for custom profiles)
-  $title.text(profile.name + " Checklist" || 'Checklist Tool');
+  $title.text(profile.name + " Checklist" || 'Spoiler-Free Game Checklist Tool');
 }
 
 // Function to generate a unique profile ID and name
@@ -1684,19 +1684,16 @@ function initializeProfileFunctionality($) {
     }
   });
 
-  // Toggle Hide Item Types
-  function setupItemTypeToggle(toggleId, classname) {
-    $(toggleId).on("change", function () {
-      if ($(this).is(":checked")) {
-        $("body").addClass("hide_" + classname);
-      } else {
-        $("body").removeClass("hide_" + classname);
-      }
-    });
-  }
-
-  setupItemTypeToggle("#toggleHideUncommon", "uncommon");
-  setupItemTypeToggle("#toggleHideStory", "story");
+  // Toggle Reveal All Spoilers
+  $("#toggleRevealSpoilers").on("change", function () {
+    if ($(this).is(":checked")) {
+      // Reveal all spoilers
+      $('.spoiler-container').addClass('revealed');
+    } else {
+      // Hide all spoilers
+      $('.spoiler-container').removeClass('revealed');
+    }
+  });
 
   // --- Share Modal Logic ---
   const MAX_URL_LENGTH = 2000; // Adjust as needed

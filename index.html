@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Checklist Tool</title>
+    <title>Spoiler-Free Game Checklist Tool</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Create a custom checklist!">
+    <meta name="description"
+        content="Community-powered checklist system for tracking game missables, items, and characters without spoilers. Supports multiple games with click-to-reveal protection.">
     <link id="bootstrap" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"
         crossorigin="anonymous">
     <!-- icons -->
@@ -42,23 +43,24 @@
         </div>
     </nav>
 
-    <h1 class="text-center">Checklist Tool</h1>
+    <h1 class="text-center">Spoiler-Free Game Checklist Tool</h1>
     <div class="container">
         <div class="btn btn-primary" type="button" data-toggle="collapse" data-target="#intro" aria-expanded="false"
             aria-controls="intro">About This Tool</div>
         <div id="intro" class="collapse">
             <p>
-                Use this custom checklist tool to create your own checklist!
+                A community-powered checklist system for tracking game missables, items, characters, and other content
+                without spoilers. Supports multiple games with community-contributed checklists.
             </p>
             <p>
                 Features:
             <ul>
-                <li><i class="bi bi-shield-check"></i>Coverage of Acts I-III with item and character information</li>
-                <li><i class="bi bi-eye-slash"></i>Click-to-reveal spoiler protection for character names, classes, and
-                    items</li>
+                <li><i class="bi bi-shield-check"></i>Community checklists for various games</li>
+                <li><i class="bi bi-eye-slash"></i>Click-to-reveal spoiler protection for sensitive content</li>
                 <li><i class="bi bi-map"></i>Locations for hidden items and missables</li>
-                <li><i class="bi bi-people"></i>Recruitment guides for characters</li>
+                <li><i class="bi bi-people"></i>Character recruitment and story progression tracking</li>
                 <li><i class="bi bi-trophy"></i>Progress tracking with completion statistics</li>
+                <li><i class="bi bi-plus-circle"></i>Community contribution - suggest updates via GitHub</li>
             </ul>
             </p>
             <p>
@@ -82,7 +84,7 @@
             </div>
 
             <div class="tab-pane active" id="tabPlaythrough">
-                <h2>Your Checklist <span id="playthrough_overall_total"></span></h2>
+                <h2>Game Checklist <span id="playthrough_overall_total"></span></h2>
                 <ul class="table_of_contents">
 
                 </ul>
@@ -214,20 +216,19 @@
             Hide Completed
         </label>
         <label class="btn btn-secondary">
-            <input type="checkbox" id="toggleHideUncommon">
+            <input type="checkbox" id="toggleRevealSpoilers">
             <span class="glyphicon glyphicon-eye-close"></span>
             <span class="glyphicon glyphicon-eye-open"></span>
-            Hide Special Items
+            Reveal All Spoilers
         </label>
-        <label class="btn btn-secondary">
-            <input type="checkbox" id="toggleHideStory">
-            <span class="glyphicon glyphicon-eye-close"></span>
-            <span class="glyphicon glyphicon-eye-open"></span>
-            Hide Important Notes
-        </label>
+
         <button class="btn btn-primary" id="share-checklist-btn" data-toggle="modal" data-target="#shareModal">
             <span class="glyphicon glyphicon-share-alt"></span> Share Checklist
         </button>
+        <a href="https://github.com/plasticmacaroni/spoiler-free-game-missables-guide/issues/new" target="_blank"
+            class="btn btn-info" type="button" id="suggestUpdate" title="Suggest an update or report an issue">
+            <span class="glyphicon glyphicon-plus"></span> Suggest Update
+        </a>
     </div>
 
     <div id="profileModal" class="modal fade">
