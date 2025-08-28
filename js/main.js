@@ -94,7 +94,7 @@ async function populateTemplateDropdown() {
   $dropdown.val(defaultTemplate);
 }
 
-async function generateTasks() {git
+async function generateTasks() {
   let markdownString = "";
 
   // Try to load custom checklist from localStorage first
