@@ -7,6 +7,12 @@
       "filename": null
     },
     {
+      "id": "fire-emblem-project-ember",
+      "name": "Fire Emblem Project Ember",
+      "description": "Checklist for Fire Emblem Project Ember",
+      "filename": "fire-emblem-project-ember.md"
+    },
+    {
       "id": "fire-emblem-sacred-stones-reforged",
       "name": "Fire Emblem Sacred Stones Reforged",
       "description": "Checklist for Fire Emblem Sacred Stones Reforged",
@@ -25,6 +31,6 @@
       "filename": "the-morrow's Golden Country.md"
     }
   ],
-  "lastUpdated": "2025-08-28T02:22:15.972Z",
+  "lastUpdated": "2025-08-28T06:28:06.574Z",
   "_generated": true
 }
