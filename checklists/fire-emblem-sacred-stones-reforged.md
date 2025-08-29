@@ -68,6 +68,7 @@ The Fire Emblem: Sacred Stones Reforged Discord server
 # Between Chapters - District of Serafew
 
 - ::item_story:: ||Mina|| (Trainee) - Can be recruited after completing ||Chapter 5x|| or ||Chapter 5xx||, by revisiting the ||Chapter 5|| location from the world map
+- ::item_story:: ||Zenald|| Can be recruited after completing ||Chapter 5x|| or ||Chapter 5xx||, by revisiting the ||Chapter 5|| location from the world map for ||3000G||
 
 # Chapter 6 - Victims of War
 
